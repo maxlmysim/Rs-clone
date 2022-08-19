@@ -1,13 +1,13 @@
-import { ViewAuthorization } from '../authorization/viewAuthorization';
+import { AuthorizationView } from '../authorization/authorizationView';
 
 export class App {
-  private viewAuthorization: ViewAuthorization;
+  private AuthorizationView: AuthorizationView;
 
   public constructor() {
-    this.viewAuthorization = new ViewAuthorization();
+    this.AuthorizationView = new AuthorizationView();
   }
 
   public async start(): Promise<void> {
-    this.viewAuthorization.init();
+    this.AuthorizationView.init();
   }
 }

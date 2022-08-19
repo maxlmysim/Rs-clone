@@ -21,12 +21,14 @@
     background: none;
     margin-bottom: 1rem;
     border-radius: 5px;
-    border: #ffffff solid 1px;
+    border: white solid 1px;
     height: 2.5rem;
     padding: 1.8rem 1.4rem;
+    color: white;
+    font-size: 1.4rem;
 
     &::placeholder {
-      color: #ffffff;
+      color: white;
     }
 
     &:last-child {
@@ -50,5 +52,12 @@
 
   .warning {
     border: red solid 1px;
+  }
+
+  .warning-message {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #763c3c;
+    align-self: start;
   }
 }
