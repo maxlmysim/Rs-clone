@@ -1,13 +1,10 @@
-import { AuthorizationView } from '../authorization/authorizationView';
-
 export class App {
-  private AuthorizationView: AuthorizationView;
-
+  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   public constructor() {
-    this.AuthorizationView = new AuthorizationView();
+    // there will be main page class
   }
 
   public async start(): Promise<void> {
-    this.AuthorizationView.init();
+    // main page .init()
   }
 }
