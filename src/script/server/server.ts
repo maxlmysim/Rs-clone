@@ -1,4 +1,6 @@
-import { Statistics, UserSettings, Word } from '../interface/server';
+import {
+  Statistics, UserSettings, Word, WordSettings,
+} from '../interface/server';
 
 let userSettings: UserSettings;
 
@@ -29,7 +31,7 @@ export class Server {
     this.urlStatistics = '/statistics';
     this.urlSettings = '/settings';
     this.urlSignIn = '/signin';
-    this.urlTokens = '/token';
+    this.urlTokens = '/tokens';
   }
 
   public async getAllWords(group = 0, page = 0): Promise<Word[]> {
@@ -37,8 +39,8 @@ export class Server {
     return result.json();
   }
 
-  public async getWord(): Promise<Word> {
-    const result = await fetch(`${this.port}${this.urlWords}/${userSettings?.userId}`);
+  public async getWord(idWord: string): Promise<Word> {
+    const result = await fetch(`${this.port}${this.urlWords}/${idWord}`);
     return result.json();
   }
 
@@ -52,6 +54,93 @@ export class Server {
 
   public async getUser(): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  public async getUserAllWords(): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlWords}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  public async getUserWord(idWord: string): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlWords}/${idWord}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  public async createUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlWords}/${idWord}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(wordSettings),
+    }).then((response) => {
+      if (response.ok) {
+        return response;
+      }
+      if (response.status === 417) {
+        console.log('Слово уже было записано');
+      }
+      return Promise.reject(response);
+    });
+  }
+
+  public async updateUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlWords}/${idWord}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(wordSettings),
+    });
+  }
+
+  public async deleteUserWord(idWord: string): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlWords}/${idWord}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  public async getUserAggregatedWord(idWord: string): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlWords}/${idWord}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  public async getUserAggregatedAllWords(): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlWords}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${userSettings?.token}`,
@@ -84,15 +173,28 @@ export class Server {
     });
   }
 
-  public async getUserToken(): Promise<Response> {
+  public async updateUserToken(): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlTokens}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${userSettings?.token}`,
+        Authorization: `Bearer ${userSettings?.refreshToken}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          this.saveUserInLocalStorage(response);
+          return response;
+        }
+        return Promise.reject(response);
+      });
+  }
+
+  private async saveUserInLocalStorage(userResponse: Response): Promise<void> {
+    const user = await userResponse.json();
+    userSettings = user;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   public async signInUser(user: object): Promise<Response> {
@@ -100,7 +202,14 @@ export class Server {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          this.saveUserInLocalStorage(response);
+          return response;
+        }
+        return Promise.reject(response);
+      });
   }
 
   public async getStatistics(): Promise<Response> {
