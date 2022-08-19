@@ -5,8 +5,6 @@ export enum CSSClass {
   authorizationInputEmail = 'authorization__input-email',
   authorizationInputPassword = 'authorization__input-password',
   authorizationButton = 'authorization__button',
-  authorizationSignInButton = 'authorization__sign-in-button',
-  authorizationRegisterButton = 'authorization__register-button',
   warning = 'warning',
   warningMessage = 'warning-message',
 }
