@@ -73,7 +73,7 @@ export class Server {
     return result.json();
   }
 
-  public async singInUser(user: object): Promise<Token> {
+  public async signInUser(user: object): Promise<Token> {
     const result = await fetch(`${this.port}${this.urlSingIn}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
