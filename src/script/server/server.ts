@@ -1,19 +1,26 @@
-import { Statistics, Word } from '../interface/server';
+import { Statistics, UserSettings, Word } from '../interface/server';
+
+let userSettings: UserSettings;
+
+const userFromLocalStorage = localStorage.getItem('user');
+if (userFromLocalStorage) {
+  userSettings = JSON.parse(userFromLocalStorage);
+}
 
 export class Server {
-  public port: string;
+  private port: string;
 
-  public urlWords: string;
+  private urlWords: string;
 
-  public urlUsers: string;
+  private urlUsers: string;
 
-  public urlStatistics: string;
+  private urlStatistics: string;
 
-  public urlSettings: string;
+  private urlSettings: string;
 
-  public urlSignIn: string;
+  private urlSignIn: string;
 
-  public urlTokens: string;
+  private urlTokens: string;
 
   public constructor() {
     this.port = 'https://learwords.herokuapp.com';
@@ -43,22 +50,22 @@ export class Server {
     });
   }
 
-  public async getUser(userId: string, token: string): Promise<Response> {
+  public async getUser(userId: string): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userId}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userSettings?.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     });
   }
 
-  public async updateUser(userId: string, token: string, user: object): Promise<Response> {
+  public async updateUser(userId: string, user: object): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userId}`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userSettings?.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -66,22 +73,22 @@ export class Server {
     });
   }
 
-  public async deleteUser(userId: string, token: string): Promise<Response> {
+  public async deleteUser(userId: string): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userSettings?.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     });
   }
 
-  public async getUserToken(userId: string, token: string): Promise<Response> {
+  public async getUserToken(userId: string): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userId}${this.urlTokens}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userSettings?.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -96,22 +103,22 @@ export class Server {
     });
   }
 
-  public async getStatistics(userId: string, token: string): Promise<Response> {
+  public async getStatistics(userId: string): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userId}${this.urlStatistics}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userSettings?.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     });
   }
 
-  public async updateStatistics(userId: string, token: string, statistics: Statistics): Promise<Response> {
+  public async updateStatistics(userId: string, statistics: Statistics): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userId}${this.urlStatistics}`, {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userSettings?.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },

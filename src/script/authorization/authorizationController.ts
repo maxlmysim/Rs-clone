@@ -24,10 +24,6 @@ export class AuthorizationController {
         })
         .then((data) => {
           localStorage.setItem('user', JSON.stringify(data));
-          localStorage.setItem('name', data.name);
-          localStorage.setItem('refreshToken', data.refreshToken);
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('userId', data.userId);
           // redirect main page
         })
         .catch((err) => {
