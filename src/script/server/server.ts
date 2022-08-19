@@ -1,29 +1,34 @@
-import {
-  Statistics, Token, User, Word,
-} from '../interface/server';
+import { Statistics, UserSettings, Word } from '../interface/server';
+
+let userSettings: UserSettings;
+
+const userFromLocalStorage = localStorage.getItem('user');
+if (userFromLocalStorage) {
+  userSettings = JSON.parse(userFromLocalStorage);
+}
 
 export class Server {
-  public port: string;
+  private port: string;
 
-  public urlWords: string;
+  private urlWords: string;
 
-  public urlUsers: string;
+  private urlUsers: string;
 
-  public urlStatistics: string;
+  private urlStatistics: string;
 
-  public urlSettings: string;
+  private urlSettings: string;
 
-  public urlSingIn: string;
+  private urlSignIn: string;
 
-  public urlTokens: string;
+  private urlTokens: string;
 
-  protected constructor() {
+  public constructor() {
     this.port = 'https://learwords.herokuapp.com';
     this.urlWords = '/words';
     this.urlUsers = '/users';
     this.urlStatistics = '/statistics';
     this.urlSettings = '/settings';
-    this.urlSingIn = '/singin';
+    this.urlSignIn = '/signin';
     this.urlTokens = '/token';
   }
 
@@ -32,68 +37,92 @@ export class Server {
     return result.json();
   }
 
-  public async getWord(userId: string): Promise<Word> {
-    const result = await fetch(`${this.port}${this.urlWords}/${userId}`);
+  public async getWord(): Promise<Word> {
+    const result = await fetch(`${this.port}${this.urlWords}/${userSettings?.userId}`);
     return result.json();
   }
 
-  public async createNewUser(user: object): Promise<void> {
-    const result = await fetch(`${this.port}${this.urlUsers}`, {
+  public async createNewUser(user: object): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     });
-    return result.json();
   }
 
-  public async getUser(userId: string): Promise<User> {
-    const result = await fetch(`${this.port}${this.urlUsers}/${userId}`);
-    return result.json();
+  public async getUser(): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
-  public async updateUser(userId: string, user: object): Promise<void> {
-    const result = await fetch(`${this.port}${this.urlUsers}/${userId}`, {
+  public async updateUser(user: object): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(user),
     });
-    return result.json();
   }
 
-  public async deleteUser(userId: string): Promise<void> {
-    const result = await fetch(`${this.port}${this.urlUsers}/${userId}`, {
+  public async deleteUser(): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     });
-    return result.json();
   }
 
-  public async getUserToken(userId: string): Promise<Token> {
-    const result = await fetch(`${this.port}${this.urlUsers}/${userId}${this.urlTokens}`);
-    return result.json();
+  public async getUserToken(): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlTokens}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
-  public async singInUser(user: object): Promise<Token> {
-    const result = await fetch(`${this.port}${this.urlSingIn}`, {
+  public async signInUser(user: object): Promise<Response> {
+    return fetch(`${this.port}${this.urlSignIn}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
     });
-
-    return result.json();
   }
 
-  public async getStatistics(userId: string): Promise<Statistics> {
-    const result = await fetch(`${this.port}${this.urlUsers}/${userId}${this.urlStatistics}`);
-    return result.json();
+  public async getStatistics(): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlStatistics}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
-  public async updateStatistics(userId: string, statistics: Statistics): Promise<Statistics> {
-    const result = await fetch(`${this.port}${this.urlUsers}/${userId}${this.urlStatistics}`, {
+  public async updateStatistics(statistics: Statistics): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userSettings?.userId}${this.urlStatistics}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        Authorization: `Bearer ${userSettings?.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(statistics),
     });
-    return result.json();
   }
 }
