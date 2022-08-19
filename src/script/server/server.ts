@@ -1,5 +1,5 @@
 import {
-  Statistics, UserSettings, Word, WordSettings,
+  Statistics, UserSettings, WordSettings,
 } from '../interface/server';
 
 let userSettings: UserSettings;
@@ -34,14 +34,21 @@ export class Server {
     this.urlTokens = '/tokens';
   }
 
-  public async getAllWords(group = 0, page = 0): Promise<Word[]> {
-    const result = await fetch(`${this.port}${this.urlWords}?group=${group}&page=${page}`);
-    return result.json();
+  private async checkResponse(response: Response): Promise<Response> {
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(response);
   }
 
-  public async getWord(idWord: string): Promise<Word> {
-    const result = await fetch(`${this.port}${this.urlWords}/${idWord}`);
-    return result.json();
+  public async getAllWords(group = 0, page = 0): Promise<Response> {
+    return fetch(`${this.port}${this.urlWords}?group=${group}&page=${page}`)
+      .then((response) => this.checkResponse(response));
+  }
+
+  public async getWord(idWord: string): Promise<Response> {
+    return fetch(`${this.port}${this.urlWords}/${idWord}`)
+      .then((response) => this.checkResponse(response));
   }
 
   public async createNewUser(user: object): Promise<Response> {
@@ -49,7 +56,8 @@ export class Server {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async getUser(): Promise<Response> {
@@ -60,7 +68,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async getUserAllWords(): Promise<Response> {
@@ -71,7 +80,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async getUserWord(idWord: string): Promise<Response> {
@@ -82,7 +92,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async createUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
@@ -114,7 +125,8 @@ export class Server {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(wordSettings),
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async deleteUserWord(idWord: string): Promise<Response> {
@@ -125,7 +137,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async getUserAggregatedWord(idWord: string): Promise<Response> {
@@ -136,7 +149,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async getUserAggregatedAllWords(): Promise<Response> {
@@ -147,7 +161,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async updateUser(user: object): Promise<Response> {
@@ -159,7 +174,8 @@ export class Server {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async deleteUser(): Promise<Response> {
@@ -170,7 +186,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async updateUserToken(): Promise<Response> {
@@ -220,7 +237,8 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 
   public async updateStatistics(statistics: Statistics): Promise<Response> {
@@ -232,6 +250,7 @@ export class Server {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(statistics),
-    });
+    })
+      .then((response) => this.checkResponse(response));
   }
 }
