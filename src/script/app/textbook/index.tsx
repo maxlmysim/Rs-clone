@@ -1,11 +1,25 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import Textbook from './Textbook';
+import { createTag } from '../../helper/helper';
+import { Card } from './components/Card';
 
-const rootContainer = createRoot(document.getElementById('root') as Element);
+const root = createTag('div', 'textbook', '');
+document.body.appendChild(root);
+const rootContainer = createRoot(root as Element);
+
+function Textbook(): React.ReactElement {
+  return (
+    <div className="textbook-wrapper">
+      <Card />
+      <Card />
+    </div>
+  );
+}
+
 function textbookRender(): void {
-  rootContainer.render(<Textbook />);
+  rootContainer.render(
+    <Textbook />,
+  );
 }
 
 export default textbookRender;
