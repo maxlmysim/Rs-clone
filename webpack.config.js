@@ -11,7 +11,7 @@ const isDevMode = process.env.NODE_ENV !== 'production';
 const filename = (ext) => (isDevMode ? `[name].${ext}` : `[name].[hash].${ext}`);
 const babelOptions = (presets) => {
   const opts = {
-    presets: ['@babel/preset-env'],
+    presets: ['@babel/preset-env', '@babel/preset-react'],
   };
 
   if (presets) {
