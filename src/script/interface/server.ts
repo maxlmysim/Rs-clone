@@ -33,3 +33,8 @@ export interface Statistics {
   'learnedWords': number,
   'optional': object
 }
+
+export interface WordSettings {
+  'difficulty'?: string;
+  'optional'?: object;
+}
