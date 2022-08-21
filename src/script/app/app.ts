@@ -12,6 +12,6 @@ export class App {
   }
 
   public async start(): Promise<void> {
-    this.view.renderPage();
+    this.controller.startPage(() => this.view.renderPage());
   }
 }
