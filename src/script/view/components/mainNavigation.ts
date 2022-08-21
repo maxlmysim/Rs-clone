@@ -9,7 +9,7 @@ export class Navigation {
     const dictionary = this.createItem(NamePages.dictionary, IdPages.dictionary, `./assets/svg/${IdPages.dictionary}.svg`);
     const games = this.createItem(NamePages.games, IdPages.games, `./assets/svg/${IdPages.games}.svg`);
     const statistics = this.createItem(NamePages.statistics, IdPages.statistics, `./assets/svg/${IdPages.statistics}.svg`);
-    const about = this.createItem(NamePages.aboutTeam, IdPages.aboutTeam, `./assets/svg/${IdPages.about}.svg`);
+    const about = this.createItem(NamePages.aboutTeam, IdPages.aboutTeam, `./assets/svg/${IdPages.aboutTeam}.svg`);
     const review = this.createItem(NamePages.review, IdPages.review, `./assets/svg/${IdPages.review}.svg`);
     wrapper.append(main, ebook, dictionary, games, statistics, about, review);
     return wrapper;

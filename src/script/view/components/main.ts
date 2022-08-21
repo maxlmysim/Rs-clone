@@ -6,7 +6,9 @@ export class Main {
   public create():HTMLElement {
     const main: HTMLElement = createTag('main', 'main', '');
     const wrapper: HTMLElement = createTag('div', 'main-wrapper', '');
-    wrapper.append(new Navigation().creat(), new MainPage().create());
+    const wrapperMain = createTag('div', 'main-container', '');
+    wrapperMain.append(new MainPage().create());
+    wrapper.append(new Navigation().creat(), wrapperMain);
     main.append(wrapper);
     return main;
   }

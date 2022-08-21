@@ -1,4 +1,5 @@
 import { createTag } from '../../helper/helper';
+import { IdPages } from '../../interface/typeApp';
 
 export class Header {
   public create():HTMLElement {
@@ -19,7 +20,8 @@ export class Header {
   }
 
   public autorization():HTMLElement {
-    const autorizationSVG: HTMLElement = createTag('div', 'header-svg', '');
+    const autorizationSVG = createTag('a', 'header-svg', '') as HTMLBaseElement;
+    autorizationSVG.href = `#${IdPages.login}`;
     autorizationSVG.innerHTML = '<img src = "./assets/svg/Login.svg" alt = "login">';
     const autorization: HTMLElement = createTag('div', 'header__autorization', '');
     autorization.append(autorizationSVG);
