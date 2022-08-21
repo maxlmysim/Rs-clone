@@ -21,7 +21,7 @@ export interface User {
   'password': 'string'
 }
 
-export interface Token {
+export interface UserSettings {
   'message': 'string',
   'token': 'string',
   'refreshToken': 'string',
@@ -32,4 +32,9 @@ export interface Token {
 export interface Statistics {
   'learnedWords': number,
   'optional': object
+}
+
+export interface WordSettings {
+  'difficulty'?: string;
+  'optional'?: object;
 }
