@@ -1,0 +1,20 @@
+// abstracts
+@import "./styles/abstracts/variables";
+@import "./styles/abstracts/mixins";
+@import "./styles/abstracts/placeholders";
+
+//base
+@import "./styles/base/reset";
+@import "./styles/base/base";
+@import "./styles/base/fonts";
+
+//components
+@import "./styles/components/buttons";
+
+//layout
+
+//pages
+
+//themes
+
+@import "./script/authorization/authorization";
