@@ -11,23 +11,29 @@ export class App {
   public constructor() {
     this.controller = new ControllerApp();
     this.view = new ViewApp();
-    this.changePageByHash();
   }
 
-  public async start(view = this.view.renderPage): Promise<void> {
-    this.controller.startPage(view);
-  }
+  // public async start(view = this.view.renderPage): Promise<void> {
+  //   this.controller.startPage(vie
+  // }
 
-  private changePageByHash():void {
-    window.location.hash = '#';
+  public start():void {
+    const { hash } = window.location;
+    if (!hash) {
+      this.controller.startPage(this.view.renderPage);
+    }
+
     window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1);
-
-      if (hash === IdPages.login) {
-        const auth = new AuthorizationView();
-        this.controller.openPage(auth.init());
-      } else if (hash === IdPages.main) {
-        // this.controller.openPage();
+      const newHash = window.location.hash.slice(1);
+      switch (newHash) {
+        case IdPages.login: {
+          const auth = new AuthorizationView();
+          this.controller.openPage(auth.init());
+          break;
+        }
+        default: {
+          this.controller.startPage(this.view.renderPage);
+        }
       }
     });
   }
