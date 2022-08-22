@@ -9,32 +9,32 @@ export class App {
   private controller: ControllerApp;
 
   public constructor() {
-    this.controller = new ControllerApp();
     this.view = new ViewApp();
+    this.controller = new ControllerApp();
   }
 
-  // public async start(view = this.view.renderPage): Promise<void> {
-  //   this.controller.startPage(vie
-  // }
+  public async start():Promise<void> {
+    this.startPageUseHash();
 
-  public start():void {
-    const { hash } = window.location;
-    if (!hash) {
-      this.controller.startPage(this.view.renderPage);
-    }
+    window.addEventListener('hashchange', this.startPageUseHash);
+  }
 
-    window.addEventListener('hashchange', () => {
-      const newHash = window.location.hash.slice(1);
-      switch (newHash) {
-        case IdPages.login: {
-          const auth = new AuthorizationView();
-          this.controller.openPage(auth.init());
-          break;
-        }
-        default: {
-          this.controller.startPage(this.view.renderPage);
-        }
+  private startPageUseHash():void {
+    const newHash = window.location.hash.slice(1);
+    switch (newHash) {
+      case IdPages.login: {
+        console.log(this);
+        const auth = new AuthorizationView();
+        this.controller.openPage(auth.init());
+        break;
       }
-    });
+      case IdPages.main: {
+        break;
+      }
+      default: {
+        console.log(this);
+        this.controller.startPage(this.view.renderPage);
+      }
+    }
   }
 }
