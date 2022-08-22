@@ -1,15 +1,15 @@
 import React from 'react';
 import { Word } from '../../../../interface/server';
-import { config } from '../config';
 
 interface CardProps {
   word: Word,
+  port: string
 }
 
-export function Card({ word }: CardProps): React.ReactElement {
+export function Card({ word, port }: CardProps): React.ReactElement {
   return (
     <div className="textbook-card">
-      <img src={`${config.serverUrl}${word.image}`} alt="cardcover" />
+      <img src={`${port}/${word.image}`} alt="cardcover" />
       <div className="card-content">
         <h5 className="card-content-header">{`${word.word} - ${word.transcription}`}</h5>
         <h6 className="card-content-translate">{word.wordTranslate}</h6>
