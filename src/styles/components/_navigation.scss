@@ -1,0 +1,16 @@
+    .nav-item{
+      display: flex;
+      align-items: center;
+      
+      .item__icon{
+        width: 4rem;
+        padding: 0.5rem;
+      }
+      .item__name{
+        flex: 1 1 auto;
+        margin: auto 0;
+      }
+      &:hover{
+        background-color: rgb(241, 241, 241);
+      }
+    }
