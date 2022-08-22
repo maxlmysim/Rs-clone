@@ -44,7 +44,7 @@ const plugins = () => {
 
   if (isDevMode) {
     opts.push(new ESLintPlugin({
-      extensions: ['js', 'ts', 'jsx'],
+      extensions: ['js', 'ts', 'tsx', 'jsx'],
     }));
   }
   return opts;
@@ -61,7 +61,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: ['.ts', '...'],
+    extensions: ['.ts', '.tsx', '...'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
@@ -112,10 +112,13 @@ module.exports = {
         },
       },
       {
-        test: /\.jsx$/,
+        test: /\.(ts|js)x$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+          }
         },
       },
     ],

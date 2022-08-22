@@ -5,7 +5,7 @@
   },
   "extends": [
     "airbnb",
-    "airbnb-typescript/base",
+    "airbnb-typescript",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
@@ -39,6 +39,7 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/no-duplicate-enum-values": "warn",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ]
   }
 }
