@@ -1,5 +1,6 @@
 import { ViewApp } from '../view/viewApp';
 import { ControllerApp } from '../controller/controller';
+import textbookRender from './textbook';
 
 export class App {
   private view: ViewApp;
@@ -13,5 +14,9 @@ export class App {
 
   public async start(): Promise<void> {
     this.controller.startPage(() => this.view.renderPage());
+    textbookRender();
+    // there will be start app
+    // Test React
+    // main page .init()
   }
 }

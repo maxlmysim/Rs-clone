@@ -16,6 +16,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 body {
   height: 100vh;
 }
@@ -23,4 +24,10 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+h1, h2, h3, h4, h5 {
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
