@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { createTag } from '../../helper/helper';
+import { createTag } from '../../../helper/helper';
 import { Card } from './components/Card';
 import { words } from './data/words';
 
@@ -10,7 +10,7 @@ const rootContainer = createRoot(rootTextbook as Element);
 function Textbook(): React.ReactElement {
   return (
     <div className="textbook-wrapper">
-      {words.map((w) => <Card word={w} />)}
+      {words.map((w) => <Card word={w} key={w.id} />)}
     </div>
   );
 }

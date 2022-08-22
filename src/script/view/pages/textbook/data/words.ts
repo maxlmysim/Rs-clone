@@ -1,4 +1,4 @@
-import { Word } from '../../../interface/server';
+import { Word } from '../../../../interface/server';
 
 export const words: Word[] = [
   {

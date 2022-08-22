@@ -1,5 +1,5 @@
 import React from 'react';
-import { Word } from '../../../interface/server';
+import { Word } from '../../../../interface/server';
 import { config } from '../config';
 
 interface CardProps {

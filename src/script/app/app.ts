@@ -2,7 +2,7 @@ import { ViewApp } from '../view/viewApp';
 import { ControllerApp } from '../controller/controller';
 import { AuthorizationView } from '../authorization/authorizationView';
 import { IdPages } from '../interface/typeApp';
-import textbookRender, { rootTextbook } from './textbook';
+import textbookRender, { rootTextbook } from '../view/pages/textbook';
 
 export class App {
   private view: ViewApp;
@@ -10,28 +10,36 @@ export class App {
   private controller: ControllerApp;
 
   public constructor() {
-    this.controller = new ControllerApp();
     this.view = new ViewApp();
-    this.changePageByHash();
+    this.controller = new ControllerApp();
   }
 
-  public async start(view = this.view.renderPage): Promise<void> {
-    this.controller.startPage(view);
+  public async start():Promise<void> {
+    this.startPageUseHash();
+
+    window.addEventListener('hashchange', this.startPageUseHash.bind(this));
   }
 
-  private changePageByHash():void {
-    window.location.hash = '#';
-    window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1);
-
-      if (hash === IdPages.login) {
+  private startPageUseHash():void {
+    const newHash = window.location.hash.slice(1);
+    switch (newHash) {
+      case IdPages.login: {
+        console.log(this);
         const auth = new AuthorizationView();
         this.controller.openPage(auth.init());
-      } else if (hash === IdPages.ebook) {
-        this.controller.openPage(rootTextbook, textbookRender);
-      } else if (hash === IdPages.main) {
-        // this.controller.openPage();
+        break;
       }
-    });
+      case IdPages.main: {
+        break;
+      }
+      case IdPages.ebook: {
+        this.controller.openPage(rootTextbook, textbookRender);
+        break;
+      }
+      default: {
+        console.log(this);
+        this.controller.startPage(this.view.renderPage);
+      }
+    }
   }
 }
