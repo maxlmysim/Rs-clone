@@ -33,6 +33,7 @@
       }
     ],
     "no-console": "off",
+    "linebreak-style": "off",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/ban-ts-comment": "off",

@@ -14,7 +14,11 @@
 //layout
 
 //pages
+@import "./styles/components/header";
+@import "./styles/components/navigation";
+@import "./styles/components/main";
+@import "./styles/components/footer";
+@import "script/view/pages/mainPages";
 
-//themes
 
 @import "./script/authorization/authorization";
