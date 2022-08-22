@@ -2,7 +2,7 @@ import { ViewApp } from '../view/viewApp';
 import { ControllerApp } from '../controller/controller';
 import { AuthorizationView } from '../authorization/authorizationView';
 import { IdPages } from '../interface/typeApp';
-import textbookRender, { rootTextbook } from '../view/pages/textbook';
+import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 
 export class App {
   private view: ViewApp;
