@@ -1,7 +1,8 @@
-import { AuthorizationText, CSSClass } from '../config/freeText';
+import { AuthorizationText, CSSClass } from '../interface/freeText';
 import { Server } from '../server/server';
 import { createTag } from '../helper/helper';
 import { AuthorizationView } from './authorizationView';
+import { IdPages } from '../interface/typeApp';
 
 export class AuthorizationController {
   private server: Server;
@@ -16,15 +17,8 @@ export class AuthorizationController {
         email: email.value,
         password: password.value,
       })
-        .then((data) => {
-          if (data.ok) {
-            return data.json();
-          }
-          return Promise.reject(data);
-        })
-        .then((data) => {
-          localStorage.setItem('user', JSON.stringify(data));
-          // redirect main page
+        .then((): void => {
+          window.location.hash = `#${IdPages.main}`;
         })
         .catch((err) => {
           if (err.status === 404) {
@@ -53,12 +47,9 @@ export class AuthorizationController {
           email: email.value,
           password: password.value,
         })
-          .then((data) => {
-            if (data.ok) {
-              const view = new AuthorizationView();
-              view.init(view.signInView());
-            }
-            return Promise.reject(data);
+          .then(() => {
+            const view = new AuthorizationView();
+            view.init(view.signInView());
           })
           .catch((err) => {
             if (err.status === 422) {
