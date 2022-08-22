@@ -1,6 +1,7 @@
 import { ViewApp } from '../view/viewApp';
 import { ControllerApp } from '../controller/controller';
 import { AuthorizationView } from '../authorization/authorizationView';
+import { IdPages } from '../interface/typeApp';
 
 export class App {
   private view: ViewApp;
@@ -21,10 +22,11 @@ export class App {
     window.location.hash = '#';
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
-      if (hash === 'login') {
+
+      if (hash === IdPages.login) {
         const auth = new AuthorizationView();
         this.controller.openPage(auth.init());
-      } else if (hash === 'main-page') {
+      } else if (hash === IdPages.main) {
         // this.controller.openPage();
       }
     });

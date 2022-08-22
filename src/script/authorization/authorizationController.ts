@@ -2,6 +2,7 @@ import { AuthorizationText, CSSClass } from '../interface/freeText';
 import { Server } from '../server/server';
 import { createTag } from '../helper/helper';
 import { AuthorizationView } from './authorizationView';
+import { IdPages } from '../interface/typeApp';
 
 export class AuthorizationController {
   private server: Server;
@@ -17,7 +18,7 @@ export class AuthorizationController {
         password: password.value,
       })
         .then((): void => {
-          window.location.hash = '#main-page';
+          window.location.hash = `#${IdPages.main}`;
         })
         .catch((err) => {
           if (err.status === 404) {
