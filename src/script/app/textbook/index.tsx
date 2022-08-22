@@ -4,14 +4,13 @@ import { createTag } from '../../helper/helper';
 import { Card } from './components/Card';
 import { words } from './data/words';
 
-const root = createTag('div', 'textbook', '');
-document.body.appendChild(root);
-const rootContainer = createRoot(root as Element);
+export const rootTextbook = createTag('div', 'textbook', '');
+const rootContainer = createRoot(rootTextbook as Element);
 
 function Textbook(): React.ReactElement {
   return (
     <div className="textbook-wrapper">
-      <Card word={words[0]} />
+      {words.map((w) => <Card word={w} />)}
     </div>
   );
 }

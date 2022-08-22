@@ -5,9 +5,10 @@ export class ControllerApp {
     callback();
   }
 
-  public openPage(view: HTMLElement):void {
+  public openPage(view: HTMLElement, render?: CallBack):void {
     const mainContent = document.querySelector('.main-container') as HTMLElement;
     mainContent.innerHTML = '';
     mainContent.append(view);
+    if (render) render();
   }
 }

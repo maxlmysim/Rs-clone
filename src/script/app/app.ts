@@ -2,6 +2,7 @@ import { ViewApp } from '../view/viewApp';
 import { ControllerApp } from '../controller/controller';
 import { AuthorizationView } from '../authorization/authorizationView';
 import { IdPages } from '../interface/typeApp';
+import textbookRender, { rootTextbook } from './textbook';
 
 export class App {
   private view: ViewApp;
@@ -26,6 +27,8 @@ export class App {
       if (hash === IdPages.login) {
         const auth = new AuthorizationView();
         this.controller.openPage(auth.init());
+      } else if (hash === IdPages.ebook) {
+        this.controller.openPage(rootTextbook, textbookRender);
       } else if (hash === IdPages.main) {
         // this.controller.openPage();
       }
