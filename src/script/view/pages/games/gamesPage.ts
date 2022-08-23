@@ -1,5 +1,5 @@
 import { createTag } from '../../../helper/helper';
-import { CSSClass } from '../../../interface/freeText';
+import { AudioGameText, CSSClass } from '../../../interface/freeText';
 import { AudioGame } from './audioGame/audioGame';
 
 export class GamesPage {
@@ -13,7 +13,7 @@ export class GamesPage {
     const wrapper = createTag('div', CSSClass.gamesPage);
     const audioGame = this.createIcoGame(
       wrapper,
-      'Аудиовызов',
+      AudioGameText.name,
       'url(./assets/img/games/savanna_background.svg)',
       this.audioGame.init(),
     );

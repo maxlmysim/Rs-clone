@@ -17,10 +17,9 @@ export const createTag: CreateTag = (tag: string, className: string | string[], 
   return elem;
 };
 
-type CreateInput = (type: string,
-  className: string | string[],
-  value: string,
-  placeholder?: string) => HTMLInputElement;
+type CreateInput = (
+  type: string, className: string | string[],
+  value?: string, placeholder?: string) => HTMLInputElement;
 
 export const createInput: CreateInput = (
   type: string,
@@ -48,3 +47,43 @@ export const createInput: CreateInput = (
 
   return elem;
 };
+
+interface Option {
+  value: string;
+  text: string;
+  selected?: boolean;
+}
+
+type CreateSelect = (name: string, id: string, className: string, options: Option[]) => HTMLSelectElement;
+
+export const createSelect: CreateSelect = (
+  name: string,
+  id: string,
+  className: string,
+  options: Option[],
+): HTMLSelectElement => {
+  const select = createTag('select', className) as HTMLSelectElement;
+  select.name = name;
+  select.id = id;
+  const listOptions = options.map((option) => {
+    const opt = createTag('option', '') as HTMLOptionElement;
+    opt.value = option.value;
+    opt.innerText = option.text;
+    opt.selected = !!option.selected;
+    return opt;
+  });
+  select.append(...listOptions);
+  return select;
+};
+
+export function createOptionListDifficulty(num: number, selected: number): Option[] {
+  const list = [];
+  for (let i = 1; i <= num; i += 1) {
+    list.push({
+      value: `${i}`,
+      text: `${i}`,
+      selected: i === selected,
+    });
+  }
+  return list;
+}
