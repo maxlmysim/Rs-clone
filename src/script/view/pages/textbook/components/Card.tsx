@@ -26,7 +26,7 @@ export function WordCard({ word, port }: CardProps): React.ReactElement {
         backgroundRepeat: 'no-repeat',
       }}
       />
-      <CardContent sx={{ width: 1 }}>
+      <CardContent sx={{ width: 1, fontSize: 24 }}>
         <Typography gutterBottom variant="h5" component="div">
           {`${word.word} - ${word.transcription}`}
         </Typography>
