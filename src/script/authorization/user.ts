@@ -13,3 +13,14 @@ if (userFromLocalStorage) {
   const userSettings = JSON.parse(userFromLocalStorage);
   Object.assign(userInfo, userSettings);
 }
+
+export function logoutUser(): void {
+  Object.assign(userInfo, {
+    login: false,
+    token: '',
+    refreshToken: '',
+    name: '',
+    userId: '',
+  });
+  localStorage.removeItem('userInfo');
+}

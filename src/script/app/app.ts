@@ -30,12 +30,10 @@ export class App {
   private async startApp(): Promise<void> {
     await this.server.getUser().then(() => {
       userInfo.login = true;
-    });
+    }).catch(() => {});
 
     this.controller.startPage(this.view.renderPage);
     this.startPageUseHash();
-
-    console.log(userInfo);
   }
 
   private startPageUseHash():void {

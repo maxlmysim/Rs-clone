@@ -1,5 +1,6 @@
 import { createTag } from '../../helper/helper';
 import { IdPages } from '../../interface/typeApp';
+import { logoutUser, userInfo } from '../../authorization/user';
 
 export class Header {
   public create():HTMLElement {
@@ -20,10 +21,15 @@ export class Header {
   }
 
   public autorization():HTMLElement {
-    const autorizationSVG = createTag('a', 'header-svg', '') as HTMLBaseElement;
-    autorizationSVG.href = `#${IdPages.login}`;
-    autorizationSVG.innerHTML = '<img src = "./assets/svg/Login.svg" alt = "login">';
     const autorization: HTMLElement = createTag('div', 'header__autorization', '');
+    const autorizationSVG = createTag('a', 'header-svg') as HTMLBaseElement;
+    if (!userInfo.login) {
+      autorizationSVG.innerHTML = '<img src = "./assets/svg/Login.svg" alt = "login">';
+      autorizationSVG.href = `#${IdPages.login}`;
+    } else {
+      autorizationSVG.innerHTML = '<img src = "./assets/svg/logout.svg" alt = "logOut">';
+      autorization.onclick = (): void => logoutUser();
+    }
     autorization.append(autorizationSVG);
     return autorization;
   }
