@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createTag } from '../../../helper/helper';
 import { Server } from '../../../server/server';
-import { Card } from './components/Card';
+import { WordCard } from './components/Card';
 import { Word } from '../../../interface/server';
 
 export const rootTextbook = createTag('div', 'textbook', '');
@@ -15,7 +15,7 @@ function Textbook(): React.ReactElement {
 
   return (
     <div className="textbook-wrapper">
-      {words.map((w) => <Card word={w} port={server.port} key={w.id} />)}
+      {words.map((w) => <WordCard word={w} port={server.port} key={w.id} />)}
     </div>
   );
 }
