@@ -6,6 +6,7 @@ import { MainPage } from '../view/pages/mainPage';
 import { Server } from '../server/server';
 import { userInfo } from '../authorization/user';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
+import { GamesPage } from '../view/pages/games/gamesPage';
 
 export class App {
   private view: ViewApp;
@@ -53,6 +54,12 @@ export class App {
         this.controller.openPage(rootTextbook, textbookRender);
         break;
       }
+      case IdPages.games: {
+        const gamesPage = new GamesPage();
+        this.controller.openPage(gamesPage.init());
+        break;
+      }
+
       default: {
         this.controller.openPage(this.mainPage.create());
       }

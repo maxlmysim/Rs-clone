@@ -7,6 +7,10 @@ export enum CSSClass {
   authorizationButton = 'authorization__button',
   warning = 'warning',
   warningMessage = 'warning-message',
+  gamesPage = 'games-page',
+  gamesPageGame = 'games-page__game',
+  gameAudio = 'game-audio',
+  gamesPageGameName = 'games-page__game-name',
 }
 
 export enum AuthorizationText {
