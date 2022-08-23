@@ -41,6 +41,7 @@
     "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/no-duplicate-enum-values": "warn",
     "class-methods-use-this": "off",
-    "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ]
+    "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
+    "react/no-danger": "off"
   }
 }

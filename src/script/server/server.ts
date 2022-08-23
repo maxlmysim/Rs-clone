@@ -1,5 +1,5 @@
 import {
-  Statistics, UserSettings, WordSettings,
+  Statistics, UserSettings, Word, WordSettings,
 } from '../interface/server';
 
 let userSettings: UserSettings;
@@ -10,7 +10,7 @@ if (userFromLocalStorage) {
 }
 
 export class Server {
-  private port: string;
+  public port: string;
 
   private urlWords: string;
 
@@ -41,9 +41,9 @@ export class Server {
     return Promise.reject(response);
   }
 
-  public async getAllWords(group = 0, page = 0): Promise<Response> {
+  public async getAllWords(group = 0, page = 0): Promise<Word[]> {
     return fetch(`${this.port}${this.urlWords}?group=${group}&page=${page}`)
-      .then((response) => this.checkResponse(response));
+      .then((response) => response.json());
   }
 
   public async getWord(idWord: string): Promise<Response> {
