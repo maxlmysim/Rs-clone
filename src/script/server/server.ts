@@ -1,5 +1,5 @@
 import {
-  Statistics, UserSettings, Word, WordSettings,
+  Statistics, Word, WordSettings,
 } from '../interface/server';
 import { userInfo } from '../authorization/user';
 
@@ -79,7 +79,7 @@ export class Server {
   }
 
   public async getUserWord(idWord: string): Promise<Response> {
-    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
+    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${idWord}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -91,7 +91,7 @@ export class Server {
   }
 
   public async createUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
-    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
+    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${idWord}`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -111,7 +111,7 @@ export class Server {
   }
 
   public async updateUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
-    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
+    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${idWord}`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -124,7 +124,7 @@ export class Server {
   }
 
   public async deleteUserWord(idWord: string): Promise<Response> {
-    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
+    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${idWord}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -136,7 +136,7 @@ export class Server {
   }
 
   public async getUserAggregatedWord(idWord: string): Promise<Response> {
-    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
+    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${idWord}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
