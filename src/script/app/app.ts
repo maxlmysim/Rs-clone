@@ -5,6 +5,7 @@ import { IdPages } from '../interface/typeApp';
 import { MainPage } from '../view/pages/mainPage';
 import { Server } from '../server/server';
 import { userInfo } from '../authorization/user';
+import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 
 export class App {
   private view: ViewApp;
@@ -46,6 +47,10 @@ export class App {
       }
       case IdPages.main: {
         this.controller.openPage(this.mainPage.create());
+        break;
+      }
+       case IdPages.ebook: {
+        this.controller.openPage(rootTextbook, textbookRender);
         break;
       }
       default: {

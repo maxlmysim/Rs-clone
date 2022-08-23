@@ -1,10 +1,10 @@
 import {
-  Statistics, WordSettings,
+  Statistics, UserSettings, Word, WordSettings,
 } from '../interface/server';
 import { userInfo } from '../authorization/user';
 
 export class Server {
-  private port: string;
+  public port: string;
 
   private urlWords: string;
 
@@ -35,13 +35,13 @@ export class Server {
     return Promise.reject(response);
   }
 
-  public async getAllWords(group = 0, page = 0): Promise<Response> {
+  public async getAllWords(group = 0, page = 0): Promise<Word[]> {
     return fetch(`${this.port}${this.urlWords}?group=${group}&page=${page}`)
-      .then((response) => this.checkResponse(response));
+      .then((response) => response.json());
   }
 
-  public async getWord(userIdWord: string): Promise<Response> {
-    return fetch(`${this.port}${this.urlWords}/${userIdWord}`)
+  public async getWord(idWord: string): Promise<Response> {
+    return fetch(`${this.port}${this.urlWords}/${idWord}`)
       .then((response) => this.checkResponse(response));
   }
 
@@ -78,7 +78,7 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async getUserWord(userIdWord: string): Promise<Response> {
+  public async getUserWord(idWord: string): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
       method: 'GET',
       headers: {
@@ -90,7 +90,7 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async createUserWord(userIdWord: string, wordSettings: WordSettings): Promise<Response> {
+  public async createUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
       method: 'POST',
       headers: {
@@ -110,7 +110,7 @@ export class Server {
     });
   }
 
-  public async updateUserWord(userIdWord: string, wordSettings: WordSettings): Promise<Response> {
+  public async updateUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
       method: 'PUT',
       headers: {
@@ -123,7 +123,7 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async deleteUserWord(userIdWord: string): Promise<Response> {
+  public async deleteUserWord(idWord: string): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
       method: 'DELETE',
       headers: {
@@ -135,7 +135,7 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async getUserAggregatedWord(userIdWord: string): Promise<Response> {
+  public async getUserAggregatedWord(idWord: string): Promise<Response> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${userIdWord}`, {
       method: 'GET',
       headers: {
