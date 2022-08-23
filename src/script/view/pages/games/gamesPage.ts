@@ -14,7 +14,7 @@ export class GamesPage {
     const audioGame = this.createIcoGame(
       wrapper,
       AudioGameText.name,
-      'url(./assets/img/games/savanna_background.svg)',
+      'url(./assets/img/games/audioGame_background.svg)',
       this.audioGame.init(),
     );
     wrapper.append(audioGame);
