@@ -1,3 +1,5 @@
+import { Word } from '../interface/server';
+
 type CreateTag = (tag: string, className: string | string[], value?: string) => HTMLElement;
 export const createTag: CreateTag = (tag: string, className: string | string[], value?: string) => {
   const elem = document.createElement(tag);
@@ -86,4 +88,13 @@ export function createOptionListDifficulty(num: number, selected: number): Optio
     });
   }
   return list;
+}
+
+export function shuffleWordList(array: Word[]): void {
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
+
+    // eslint-disable-next-line no-param-reassign
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }

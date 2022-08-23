@@ -1,12 +1,12 @@
 import { createTag } from '../../../helper/helper';
 import { AudioGameText, CSSClass } from '../../../interface/freeText';
-import { AudioGame } from './audioGame/audioGame';
+import { ViewAudioGame } from './audioGame/viewAudioGame';
 
 export class GamesPage {
-  private audioGame: AudioGame;
+  private audioGame: ViewAudioGame;
 
   public constructor() {
-    this.audioGame = new AudioGame();
+    this.audioGame = new ViewAudioGame();
   }
 
   public init():HTMLElement {

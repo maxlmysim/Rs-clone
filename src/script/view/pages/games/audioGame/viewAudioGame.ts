@@ -1,18 +1,21 @@
-import { createOptionListDifficulty, createSelect, createTag } from '../../../../helper/helper';
+import {
+  createOptionListDifficulty, createSelect, createTag,
+} from '../../../../helper/helper';
 import { AudioGameText, CSSClass } from '../../../../interface/freeText';
-import { ControllerApp } from '../../../../controller/controller';
+import { Word } from '../../../../interface/server';
+import { Server } from '../../../../server/server';
+import { ControllerAudioGame } from './controllerAudioGame';
+import { modelAudioGame } from './modelAudioGame';
 
-export class AudioGame {
-  private difficulty: number;
+export class ViewAudioGame {
+  private controller: ControllerAudioGame;
 
-  private currentNumWord: number;
-
-  private controller: ControllerApp;
+  private server: Server;
 
   public constructor(difficulty = 2) {
-    this.controller = new ControllerApp();
-    this.difficulty = difficulty;
-    this.currentNumWord = 0;
+    modelAudioGame.difficulty = difficulty;
+    this.server = new Server();
+    this.controller = new ControllerAudioGame(this);
   }
 
   public init():HTMLElement {
@@ -44,18 +47,17 @@ export class AudioGame {
   private createBlockWithStartButtons(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameAudioBlockButtons);
     const startGameButton = createTag('button', CSSClass.gameAudioBlockButtonsStart, AudioGameText.startButton);
-    startGameButton.onclick = (): void => this.controller.openPage(this.initGame());
+    startGameButton.onclick = (): Promise<void> => this.controller.loadWordsAndStartGame();
 
     const selectedDifficultyButton = createSelect(
       'difficulty',
       'selectDifficult',
       CSSClass.gameAudioBlockButtonsSelect,
-      createOptionListDifficulty(6, this.difficulty),
+      createOptionListDifficulty(6, modelAudioGame.difficulty),
     );
 
-    selectedDifficultyButton.addEventListener('change', () => {
-      this.difficulty = +selectedDifficultyButton.value;
-    });
+    selectedDifficultyButton
+      .addEventListener('change', () => this.controller.changeDifficulty(+selectedDifficultyButton.value));
 
     const fieldset = createTag('fieldset', CSSClass.gameAudioBlockButtonsFieldset) as HTMLFieldSetElement;
     const legendFieldset = createTag('legend', '', 'Сложность') as HTMLLegendElement;
@@ -68,10 +70,21 @@ export class AudioGame {
     return wrapper;
   }
 
-  private initGame(): HTMLElement {
+  public createPageWithWord(word: Word): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameAudio);
     wrapper.style.backgroundImage = 'url(./assets/img/games/audioGame_background.svg)';
+    const blockHeader = createTag('div', CSSClass.gameAudioHeader);
+    console.log(word);
+    const voice = createTag('img', CSSClass.gameAudioButtonVoice) as HTMLImageElement;
+    voice.src = './assets/svg/voice.svg';
+    voice.alt = 'voice';
+    voice.onclick = (): Promise<void> => this.controller.playVoice();
+    blockHeader.append(voice);
 
+    const answerContainer = createTag('div', CSSClass.gameAudioAnswers);
+    const button = createTag('button', CSSClass.gameAudioButton, 'не знаю');
+
+    wrapper.append(blockHeader, answerContainer, button);
     return wrapper;
   }
 }
