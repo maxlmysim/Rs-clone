@@ -22,7 +22,7 @@ export interface User {
 }
 
 export interface UserSettings {
-  'message': string,
+  'login': boolean,
   'token': string,
   'refreshToken': string,
   'userId': string,

@@ -3,6 +3,8 @@ import { ControllerApp } from '../controller/controller';
 import { AuthorizationView } from '../authorization/authorizationView';
 import { IdPages } from '../interface/typeApp';
 import { MainPage } from '../view/pages/mainPage';
+import { Server } from '../server/server';
+import { userInfo } from '../authorization/user';
 
 export class App {
   private view: ViewApp;
@@ -11,20 +13,29 @@ export class App {
 
   private mainPage : MainPage;
 
+  private server: Server;
+
   public constructor() {
     this.view = new ViewApp();
     this.controller = new ControllerApp();
     this.mainPage = new MainPage();
+    this.server = new Server();
   }
 
   public async start():Promise<void> {
-    await window.addEventListener('load', this.createMainPage.bind(this));
+    await window.addEventListener('load', this.startApp.bind(this));
     await window.addEventListener('hashchange', this.startPageUseHash.bind(this));
   }
 
-  private createMainPage(): void {
+  private async startApp(): Promise<void> {
+    await this.server.getUser().then(() => {
+      userInfo.login = true;
+    });
+
     this.controller.startPage(this.view.renderPage);
     this.startPageUseHash();
+
+    console.log(userInfo);
   }
 
   private startPageUseHash():void {
