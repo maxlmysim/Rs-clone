@@ -24,7 +24,6 @@ export class App {
     const newHash = window.location.hash.slice(1);
     switch (newHash) {
       case IdPages.login: {
-        console.log(this);
         const auth = new AuthorizationView();
         this.controller.openPage(auth.init());
         break;
@@ -37,7 +36,6 @@ export class App {
         break;
       }
       default: {
-        console.log(this);
         this.controller.startPage(this.view.renderPage);
       }
     }
