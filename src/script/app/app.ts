@@ -49,7 +49,7 @@ export class App {
         this.controller.openPage(this.mainPage.create());
         break;
       }
-       case IdPages.ebook: {
+      case IdPages.ebook: {
         this.controller.openPage(rootTextbook, textbookRender);
         break;
       }
