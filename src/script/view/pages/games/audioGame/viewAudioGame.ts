@@ -1,5 +1,5 @@
 import {
-  createOptionListDifficulty, createSelect, createTag, getRandomItemFromArray, shuffleWordList,
+  createOptionListDifficulty, createSelect, createTag, getRandomItemFromArray,
 } from '../../../../helper/helper';
 import { AudioGameText, CSSClass } from '../../../../interface/freeText';
 import { Server } from '../../../../server/server';
@@ -86,6 +86,7 @@ export class ViewAudioGame {
 
     const wrapperButton = createTag('div', CSSClass.gameAudioWrapperButton);
     const button = createTag('button', CSSClass.gameAudioButton, 'не знаю');
+    button.onclick = ():void => this.controller.wrongAnswer();
     wrapperButton.append(button);
 
     gamePage.append(blockHeader, this.createBlockWithAnswer(), wrapperButton);
@@ -111,33 +112,28 @@ export class ViewAudioGame {
     const wrapper = createTag('div', CSSClass.gameAudioAnswers);
     const answer: HTMLElement[] = [];
 
-    for (let i = 0; i < 4; i += 1) {
-      const word = getRandomItemFromArray(this.model.listWords, this.model.listWords[this.model.currentNumWord]);
-      const wordWrong = createTag('span', CSSClass.gameAudioAnswer, word.wordTranslate);
-      wordWrong.onclick = ():void => this.controller.wrongAnswer();
-      answer.push(wordWrong);
+    const numRightAnswer = Math.floor(Math.random() * 5);
+    for (let i = 0; i < 5; i += 1) {
+      let wordInfo = getRandomItemFromArray(this.model.listWords, this.model.listWords[this.model.currentNumWord]);
+
+      if (i === numRightAnswer) {
+        wordInfo = this.model.listWords[this.model.currentNumWord];
+      }
+      const word = createTag('span', '', wordInfo.wordTranslate);
+      const contain = createTag('div', CSSClass.gameAudioAnswer);
+      const num = createTag('span', CSSClass.gameAudioAnswerNum, `${i + 1}`);
+
+      if (i === numRightAnswer) {
+        contain.onclick = ():void => this.controller.rightAnswer();
+      } else {
+        contain.onclick = ():void => this.controller.wrongAnswer();
+      }
+
+      contain.append(num, word);
+      answer.push(contain);
     }
-
-    const rightWord = createTag(
-      'span',
-      CSSClass.gameAudioAnswer,
-      this.model.listWords[this.model.currentNumWord].wordTranslate,
-    );
-    rightWord.onclick = ():void => this.controller.rightAnswer();
-    answer.push(rightWord);
-
-    shuffleWordList(answer);
-
-    answer.forEach((item, index) => {
-      // eslint-disable-next-line no-param-reassign
-      item.innerHTML = `${index + 1} ${item.innerText}`;
-    });
 
     wrapper.append(...answer);
     return wrapper;
   }
-
-  // public createPageWithRightAnswer(): HTMLElement {
-  //
-  // }
 }

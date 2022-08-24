@@ -4,5 +4,7 @@ export interface ModelAudioGame {
   'currentNumWord': number,
   'quantityWords': number,
   'difficulty': number,
-  'listWords': Word[]
+  'listWords': Word[],
+  'rightAnswer': HTMLElement,
+  'wrongAnswer': HTMLElement[]
 }

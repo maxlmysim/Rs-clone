@@ -160,7 +160,14 @@
     }
 
     .game-audio__answer {
+      display: flex;
+      gap: .8rem;
+      padding: 1rem;
       cursor: pointer;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, .2);
+      }
     }
 
     .game-audio__wrapper-button {

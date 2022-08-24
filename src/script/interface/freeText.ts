@@ -13,6 +13,7 @@ export enum CSSClass {
   gameAudioGame = 'game-audio__game',
   gameAudioPreview = 'game-audio__preview',
   gameAudioAnswer = 'game-audio__answer',
+  gameAudioAnswerNum = 'game-audio__answer_num',
   gameAudioAnswers = 'game-audio__answers',
   gameAudioHeader = 'game-audio__header',
   gameAudioButton = 'game-audio__button',
