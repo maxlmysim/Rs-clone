@@ -14,9 +14,12 @@
 .menu-button-wrapper {
   display: inline-flex;
   width: inherit;
+  height: 100%;
 }
 .textbook-buttons-group {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  align-content: center;
+  height: 4rem;
 }

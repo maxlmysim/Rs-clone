@@ -2,6 +2,8 @@ import React from 'react';
 import {
   Button, Menu, MenuItem, Fade,
 } from '@mui/material';
+// import LabelOutlinedIcon from '@mui/icons-material/LabelOutlined';
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 
 export default function MenuButton(): React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,6 +27,7 @@ export default function MenuButton(): React.ReactElement {
         color="success"
         className="textbook-menu-button"
       >
+        <ImportContactsOutlinedIcon sx={{ fontSize: '2rem', marginRight: '0.5rem' }} />
         Раздел 1
       </Button>
       <Menu
@@ -35,9 +38,18 @@ export default function MenuButton(): React.ReactElement {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Раздел 1</MenuItem>
-        <MenuItem onClick={handleClose}>Раздел 2</MenuItem>
-        <MenuItem onClick={handleClose}>Раздел 3</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ImportContactsOutlinedIcon sx={{ fontSize: '2rem', marginRight: '0.5rem' }} />
+          Раздел 1
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ImportContactsOutlinedIcon sx={{ fontSize: '2rem', marginRight: '0.5rem' }} />
+          Раздел 2
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ImportContactsOutlinedIcon sx={{ fontSize: '2rem', marginRight: '0.5rem' }} />
+          Раздел 3
+        </MenuItem>
       </Menu>
     </div>
   );
