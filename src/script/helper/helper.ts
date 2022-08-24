@@ -90,11 +90,20 @@ export function createOptionListDifficulty(num: number, selected: number): Optio
   return list;
 }
 
-export function shuffleWordList(array: Word[]): void {
+export function shuffleWordList(array: Word[] | HTMLElement[]): void {
   for (let i = array.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
 
     // eslint-disable-next-line no-param-reassign
     [array[i], array[j]] = [array[j], array[i]];
   }
+}
+
+export function getRandomItemFromArray(array: Word[], exclude?: Word): Word {
+  if (array.length === 1) return array[0];
+  const item = array[Math.floor(Math.random() * array.length)];
+  if (item === exclude) {
+    return getRandomItemFromArray(array, exclude);
+  }
+  return item;
 }

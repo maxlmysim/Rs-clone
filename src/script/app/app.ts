@@ -7,6 +7,7 @@ import { Server } from '../server/server';
 import { userInfo } from '../authorization/user';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 import { GamesPage } from '../view/pages/games/gamesPage';
+import { ViewAudioGame } from '../view/pages/games/audioGame/viewAudioGame';
 
 export class App {
   private view: ViewApp;
@@ -57,6 +58,11 @@ export class App {
       case IdPages.games: {
         const gamesPage = new GamesPage();
         this.controller.openPage(gamesPage.init());
+        break;
+      }
+      case IdPages.gameAudio: {
+        const game = new ViewAudioGame();
+        this.controller.openPage(game.init());
         break;
       }
 

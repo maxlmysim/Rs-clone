@@ -10,11 +10,14 @@ export enum CSSClass {
   gamesPage = 'games-page',
   gamesPageGame = 'games-page__game',
   gameAudio = 'game-audio',
+  gameAudioGame = 'game-audio__game',
+  gameAudioPreview = 'game-audio__preview',
   gameAudioAnswer = 'game-audio__answer',
   gameAudioAnswers = 'game-audio__answers',
   gameAudioHeader = 'game-audio__header',
   gameAudioButton = 'game-audio__button',
   gameAudioButtonVoice = 'game-audio__button-voice',
+  gameAudioButtonVoiceImg = 'game-audio__button-voice__img',
   gameAudioBlockButtons = 'game-audio__block-buttons',
   gameAudioBlockButtonsStart = 'game-audio__block-buttons__start',
   gameAudioBlockButtonsSelect = 'game-audio__block-buttons__select',
@@ -25,6 +28,7 @@ export enum CSSClass {
   gameAudioDescriptionBlock = 'game-audio__description-block',
   gameAudioDescriptionControl = 'game-audio__description-control',
   gamesPageGameName = 'games-page__game-name',
+  gameAudioWrapperButton = 'game-audio__wrapper-button',
 }
 
 export enum AuthorizationText {
@@ -43,5 +47,4 @@ export enum AudioGameText {
   descriptionControlReplayingVoice = 'Используйте пробел для повторного звучания слова',
   descriptionControlHint = 'Используйте клавишу Enter для подсказки или для перехода к следующему слову',
   startButton = 'Начать',
-
 }

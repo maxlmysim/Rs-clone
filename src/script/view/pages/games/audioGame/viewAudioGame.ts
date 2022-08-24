@@ -1,29 +1,34 @@
 import {
-  createOptionListDifficulty, createSelect, createTag,
+  createOptionListDifficulty, createSelect, createTag, getRandomItemFromArray, shuffleWordList,
 } from '../../../../helper/helper';
 import { AudioGameText, CSSClass } from '../../../../interface/freeText';
-import { Word } from '../../../../interface/server';
 import { Server } from '../../../../server/server';
 import { ControllerAudioGame } from './controllerAudioGame';
 import { modelAudioGame } from './modelAudioGame';
+import { ModelAudioGame } from '../../../../interface/audioGame';
 
 export class ViewAudioGame {
   private controller: ControllerAudioGame;
 
   private server: Server;
 
-  public constructor(difficulty = 2) {
-    modelAudioGame.difficulty = difficulty;
+  private model: ModelAudioGame;
+
+  public constructor() {
+    this.model = modelAudioGame;
     this.server = new Server();
     this.controller = new ControllerAudioGame(this);
   }
 
   public init():HTMLElement {
     const wrapper = createTag('div', CSSClass.gameAudio);
+    const preview = createTag('div', CSSClass.gameAudioPreview);
+
     wrapper.style.backgroundImage = 'url(./assets/img/games/audioGame_background.svg)';
     const title = createTag('h3', CSSClass.gameAudioTitle, AudioGameText.name);
 
-    wrapper.append(title, this.createDescriptionGame());
+    preview.append(title, this.createDescriptionGame());
+    wrapper.append(preview);
     return wrapper;
   }
 
@@ -53,7 +58,7 @@ export class ViewAudioGame {
       'difficulty',
       'selectDifficult',
       CSSClass.gameAudioBlockButtonsSelect,
-      createOptionListDifficulty(6, modelAudioGame.difficulty),
+      createOptionListDifficulty(6, this.model.difficulty),
     );
 
     selectedDifficultyButton
@@ -70,21 +75,69 @@ export class ViewAudioGame {
     return wrapper;
   }
 
-  public createPageWithWord(word: Word): HTMLElement {
+  public createPageWithWord(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameAudio);
+    const gamePage = createTag('div', CSSClass.gameAudioGame);
+
     wrapper.style.backgroundImage = 'url(./assets/img/games/audioGame_background.svg)';
     const blockHeader = createTag('div', CSSClass.gameAudioHeader);
-    console.log(word);
-    const voice = createTag('img', CSSClass.gameAudioButtonVoice) as HTMLImageElement;
-    voice.src = './assets/svg/voice.svg';
-    voice.alt = 'voice';
-    voice.onclick = (): Promise<void> => this.controller.playVoice();
-    blockHeader.append(voice);
 
-    const answerContainer = createTag('div', CSSClass.gameAudioAnswers);
+    blockHeader.append(this.createVoiceButtonAndStartPlay());
+
+    const wrapperButton = createTag('div', CSSClass.gameAudioWrapperButton);
     const button = createTag('button', CSSClass.gameAudioButton, 'не знаю');
+    wrapperButton.append(button);
 
-    wrapper.append(blockHeader, answerContainer, button);
+    gamePage.append(blockHeader, this.createBlockWithAnswer(), wrapperButton);
+    wrapper.append(gamePage);
     return wrapper;
   }
+
+  private createVoiceButtonAndStartPlay(): HTMLElement {
+    const wrapper = createTag('div', CSSClass.gameAudioButtonVoice);
+    const voiceImg = createTag('img', CSSClass.gameAudioButtonVoiceImg) as HTMLImageElement;
+    voiceImg.src = './assets/svg/voice.svg';
+    voiceImg.alt = 'voice';
+
+    const voice = this.controller.getVoice();
+    voice.play();
+    voiceImg.onclick = (): Promise<void> => voice.play();
+
+    wrapper.append(voiceImg);
+    return wrapper;
+  }
+
+  private createBlockWithAnswer(): HTMLElement {
+    const wrapper = createTag('div', CSSClass.gameAudioAnswers);
+    const answer: HTMLElement[] = [];
+
+    for (let i = 0; i < 4; i += 1) {
+      const word = getRandomItemFromArray(this.model.listWords, this.model.listWords[this.model.currentNumWord]);
+      const wordWrong = createTag('span', CSSClass.gameAudioAnswer, word.wordTranslate);
+      wordWrong.onclick = ():void => this.controller.wrongAnswer();
+      answer.push(wordWrong);
+    }
+
+    const rightWord = createTag(
+      'span',
+      CSSClass.gameAudioAnswer,
+      this.model.listWords[this.model.currentNumWord].wordTranslate,
+    );
+    rightWord.onclick = ():void => this.controller.rightAnswer();
+    answer.push(rightWord);
+
+    shuffleWordList(answer);
+
+    answer.forEach((item, index) => {
+      // eslint-disable-next-line no-param-reassign
+      item.innerHTML = `${index + 1} ${item.innerText}`;
+    });
+
+    wrapper.append(...answer);
+    return wrapper;
+  }
+
+  // public createPageWithRightAnswer(): HTMLElement {
+  //
+  // }
 }
