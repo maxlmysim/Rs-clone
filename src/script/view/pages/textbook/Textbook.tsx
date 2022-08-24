@@ -3,8 +3,10 @@ import { createRoot } from 'react-dom/client';
 import { ThemeProvider } from '@mui/material';
 import { createTag } from '../../../helper/helper';
 import { Server } from '../../../server/server';
-import { WordCard } from './components/Card';
-import MenuButton from './components/MenuButton';
+import { WordCard } from './components/cards/Card';
+// import MenuButton from './components/buttons/MenuButton';
+// import PageButtonsGroup from './components/buttons/PageButtonsGroup';
+import TextbookButtonsGroup from './components/buttons/TextbookButtonsGroup';
 import { Word } from '../../../interface/server';
 import { theme } from './components/theme';
 
@@ -19,7 +21,9 @@ function Textbook(): React.ReactElement {
   return (
     <ThemeProvider theme={theme}>
       <div className="textbook-wrapper">
-        <MenuButton />
+        {/* <MenuButton />
+        <PageButtonsGroup /> */}
+        <TextbookButtonsGroup />
         {words.map((w) => <WordCard word={w} port={server.port} key={w.id} />)}
       </div>
     </ThemeProvider>

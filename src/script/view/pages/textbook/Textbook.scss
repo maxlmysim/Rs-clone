@@ -8,3 +8,15 @@
   margin: 0 auto;
   font-size: 1.6rem;
 }
+.textbook-menu-button {
+  display: inline-flex;
+}
+.menu-button-wrapper {
+  display: inline-flex;
+  width: inherit;
+}
+.textbook-buttons-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}

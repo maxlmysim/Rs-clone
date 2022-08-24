@@ -16,13 +16,14 @@ export default function MenuButton(): React.ReactElement {
   };
 
   return (
-    <div>
+    <div className="menu-button-wrapper">
       <Button
         aria-controls="fade-menu"
         aria-haspopup="true"
         onClick={handleClick}
         variant="contained"
         color="success"
+        className="textbook-menu-button"
       >
         Раздел 1
       </Button>

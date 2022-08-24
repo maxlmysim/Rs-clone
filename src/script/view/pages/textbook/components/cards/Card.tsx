@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 // import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Word } from '../../../../interface/server';
+import { Word } from '../../../../../interface/server';
 
 interface CardProps {
   word: Word,
