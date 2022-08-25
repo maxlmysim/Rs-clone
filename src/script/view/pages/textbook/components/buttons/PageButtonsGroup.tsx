@@ -4,6 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import { ArrowIosIconStyle, InsertDriveFileOutlinedIconStyle } from '../theme';
 
 export default function PageButtonsGroup(): React.ReactElement {
   return (
@@ -14,14 +15,14 @@ export default function PageButtonsGroup(): React.ReactElement {
       aria-label="outlined primary button group"
     >
       <Button>
-        <ArrowBackIosNewIcon sx={{ fontSize: 'small' }} />
+        <ArrowBackIosNewIcon sx={ArrowIosIconStyle} />
       </Button>
       <Button>
-        <InsertDriveFileOutlinedIcon sx={{ fontSize: '1.8rem', marginLeft: '-0.3rem', marginRight: '0.5rem' }} />
+        <InsertDriveFileOutlinedIcon sx={InsertDriveFileOutlinedIconStyle} />
         Страница 1
       </Button>
       <Button>
-        <ArrowForwardIosIcon sx={{ fontSize: 'small' }} />
+        <ArrowForwardIosIcon sx={ArrowIosIconStyle} />
       </Button>
     </ButtonGroup>
   );

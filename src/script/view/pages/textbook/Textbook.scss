@@ -11,7 +11,7 @@
 .textbook-menu-button {
   display: inline-flex;
 }
-.menu-button-wrapper {
+.textbook-menu-button-wrapper {
   display: inline-flex;
   width: inherit;
   height: 100%;
@@ -22,4 +22,8 @@
   gap: 1.5rem;
   align-content: center;
   height: 4rem;
+}
+
+.textbook-card-delimeter {
+  height: 1.5rem;
 }
