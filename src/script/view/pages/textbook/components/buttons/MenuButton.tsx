@@ -5,8 +5,9 @@ import {
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import { CSSClass } from '../../../../../interface/freeText';
 import { ImportContactsOutlinedIconStyle } from '../theme';
+import { MenuItemLength, TColors } from '../../../../../interface/textbook';
 
-export default function MenuButton(): React.ReactElement {
+export default function MenuButton({ itemsLength }: MenuItemLength): React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -25,10 +26,11 @@ export default function MenuButton(): React.ReactElement {
         aria-haspopup="true"
         onClick={handleClick}
         variant="contained"
-        color="success"
+        color="inherit"
         className={CSSClass.textbookMenuButton}
+        sx={{ backgroundColor: '#c5e1a5' }}
       >
-        <ImportContactsOutlinedIcon sx={ImportContactsOutlinedIconStyle} />
+        <ImportContactsOutlinedIcon sx={ImportContactsOutlinedIconStyle(0)} />
         Раздел 1
       </Button>
       <Menu
@@ -39,18 +41,17 @@ export default function MenuButton(): React.ReactElement {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>
-          <ImportContactsOutlinedIcon sx={ImportContactsOutlinedIconStyle} />
-          Раздел 1
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ImportContactsOutlinedIcon sx={ImportContactsOutlinedIconStyle} />
-          Раздел 2
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ImportContactsOutlinedIcon sx={ImportContactsOutlinedIconStyle} />
-          Раздел 3
-        </MenuItem>
+        {
+          [...new Array(itemsLength)].map((v, i) => (
+            <MenuItem key={`menu-${i + 1}`} onClick={handleClose}>
+              <ImportContactsOutlinedIcon sx={ImportContactsOutlinedIconStyle(i as TColors)} />
+              Раздел
+              {' '}
+              {i + 1}
+            </MenuItem>
+          ))
+        }
+
       </Menu>
     </div>
   );

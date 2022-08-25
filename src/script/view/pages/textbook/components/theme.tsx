@@ -1,11 +1,20 @@
 import { createTheme, SxProps, Theme } from '@mui/material';
-import { CardProps } from '../../../../interface/textbook';
+import { CardProps, TColors } from '../../../../interface/textbook';
 
 export const theme = createTheme({
   typography: {
     fontSize: 22,
   },
 });
+
+export const colors = {
+  0: '#ffee58',
+  1: '#26a69a',
+  2: '#ffa726',
+  3: '#9ccc65',
+  4: '#5c6bc0',
+  5: '#ef5350',
+};
 
 export const textbookCardStyle: SxProps<Theme> = {
   minWidth: 275,
@@ -26,10 +35,11 @@ export const textbookCardContentStyle: SxProps<Theme> = {
   width: 1,
 };
 
-export const ImportContactsOutlinedIconStyle: SxProps<Theme> = {
+export const ImportContactsOutlinedIconStyle = (num: TColors): SxProps<Theme> => ({
+  color: colors[num],
   fontSize: '2rem',
   marginRight: '0.5rem',
-};
+});
 
 export const ArrowIosIconStyle: SxProps<Theme> = {
   fontSize: 'small',

@@ -8,10 +8,12 @@ import TextbookButtonsGroup from './components/buttons/TextbookButtonsGroup';
 import { Word } from '../../../interface/server';
 import { theme } from './components/theme';
 import { CSSClass } from '../../../interface/freeText';
+import { TextbookController } from './controller/textbookController';
 
 export const rootTextbook = createTag('div', CSSClass.textbook, '');
 const rootContainer = createRoot(rootTextbook as Element);
 const server = new Server();
+const controller = new TextbookController();
 
 function Textbook(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
@@ -20,7 +22,7 @@ function Textbook(): React.ReactElement {
   return (
     <ThemeProvider theme={theme}>
       <div className={CSSClass.textbookWrapper}>
-        <TextbookButtonsGroup />
+        <TextbookButtonsGroup itemsLength={controller.groupsNum} />
         {words.map((w) => <WordCard word={w} port={server.port} key={w.id} />)}
       </div>
     </ThemeProvider>
