@@ -9,13 +9,19 @@ import { MenuItemLength, TColors } from '../../../../../interface/textbook';
 
 export default function MenuButton({ itemsLength }: MenuItemLength): React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [buttonText, setButtonText] = React.useState<string>('Раздел 1');
   const open = Boolean(anchorEl);
+  const colorNumber = (Number(buttonText.match(/[1-6]/g)) - 1);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (): void => {
+  const handleClose = (event: React.MouseEvent<HTMLElement>): void => {
+    if (event.currentTarget.className.includes('MuiMenuItem-root')) {
+      console.log(event.currentTarget.className);
+      setButtonText(event.currentTarget.innerText);
+    }
     setAnchorEl(null);
   };
 
@@ -30,8 +36,10 @@ export default function MenuButton({ itemsLength }: MenuItemLength): React.React
         className={CSSClass.textbookMenuButton}
         sx={{ backgroundColor: '#c5e1a5' }}
       >
-        <ImportContactsOutlinedIcon sx={ImportContactsOutlinedIconStyle(0)} />
-        Раздел 1
+        <ImportContactsOutlinedIcon
+          sx={ImportContactsOutlinedIconStyle(colorNumber as TColors)}
+        />
+        {buttonText}
       </Button>
       <Menu
         id="fade-menu"

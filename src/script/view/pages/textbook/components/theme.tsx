@@ -8,7 +8,7 @@ export const theme = createTheme({
 });
 
 export const colors = {
-  0: '#ffee58',
+  0: '#29b6f6',
   1: '#26a69a',
   2: '#ffa726',
   3: '#9ccc65',
