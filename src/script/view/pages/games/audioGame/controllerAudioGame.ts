@@ -1,11 +1,12 @@
 import { ControllerApp } from '../../../../controller/controller';
-import { shuffleWordList } from '../../../../helper/helper';
+import { createTag, shuffleWordList } from '../../../../helper/helper';
 import { Server } from '../../../../server/server';
 import { modelAudioGame } from './modelAudioGame';
 import { ViewAudioGame } from './viewAudioGame';
 import { ModelAudioGame } from '../../../../interface/audioGame';
 import successSound from '../../../../../assets/sounds/correct.mp3';
 import failSound from '../../../../../assets/sounds/wrong.mp3';
+import { CSSClass } from '../../../../interface/freeText';
 
 export class ControllerAudioGame {
   private controllerApp: ControllerApp;
@@ -15,6 +16,8 @@ export class ControllerAudioGame {
   private view: ViewAudioGame;
 
   private model: ModelAudioGame;
+
+  public img!: HTMLElement;
 
   public constructor(view: ViewAudioGame) {
     this.controllerApp = new ControllerApp();
@@ -26,7 +29,6 @@ export class ControllerAudioGame {
   public async loadWordsAndStartGame(): Promise<void> {
     const listWord = await this.server.getAllWords(this.model.difficulty - 1);
     shuffleWordList(listWord);
-    console.log(listWord[0]);
     this.model.quantityWords = listWord.length;
     this.model.listWords.length = 0;
     this.model.listWords.push(...listWord);
@@ -44,15 +46,40 @@ export class ControllerAudioGame {
     return new Audio(`${this.server.port}/${this.model.listWords[this.model.currentNumWord].audio}`);
   }
 
-  public wrongAnswer(): void {
-    const audio = new Audio(failSound);
-    audio.play();
-    console.log('wrongAnswer');
+  public loadImage(): void {
+    const img = createTag('div', CSSClass.gameAudioHeaderImg) as HTMLElement;
+    img.style.backgroundImage = `url(${this.server.port}/${this.model.listWords[this.model.currentNumWord].image})`;
+    this.img = img;
   }
 
-  public rightAnswer(): void {
+  public wrongAnswer(block?: HTMLElement): void {
+    const audio = new Audio(failSound);
+    audio.play();
+    this.view.addLineThroughWrongAnswer(block);
+    this.view.dimLightAnswers(this.model.wrongAnswer);
+    this.view.createHeaderRightAnswer();
+    this.disabledListener();
+    this.view.createButtonNextWord();
+  }
+
+  public rightAnswer(block: HTMLElement): void {
     const audio = new Audio(successSound);
     audio.play();
-    console.log('rightAnswer');
+    const numBlock = block.querySelector(`.${CSSClass.gameAudioAnswerNum}`);
+    if (numBlock) {
+      numBlock.innerHTML = '<img src = "./assets/svg/success.svg" alt = "succeed">';
+    }
+
+    this.view.dimLightAnswers(this.model.wrongAnswer);
+    this.view.createHeaderRightAnswer();
+    this.disabledListener();
+    this.view.createButtonNextWord();
+  }
+
+  private disabledListener(): void {
+    [this.model.rightAnswer, ...this.model.wrongAnswer].forEach((item) => {
+      // eslint-disable-next-line no-param-reassign
+      item.style.pointerEvents = 'none';
+    });
   }
 }

@@ -14,6 +14,12 @@ export class ViewAudioGame {
 
   private model: ModelAudioGame;
 
+  public buttonUnknown!: HTMLElement;
+
+  private blockHeader!: HTMLElement;
+
+  private blockVoice!: HTMLElement;
+
   public constructor() {
     this.model = modelAudioGame;
     this.server = new Server();
@@ -81,21 +87,28 @@ export class ViewAudioGame {
 
     wrapper.style.backgroundImage = 'url(./assets/img/games/audioGame_background.svg)';
     const blockHeader = createTag('div', CSSClass.gameAudioHeader);
-
-    blockHeader.append(this.createVoiceButtonAndStartPlay());
+    this.blockHeader = blockHeader;
+    blockHeader.append(this.createVoiceButtonAndPlayVoice());
 
     const wrapperButton = createTag('div', CSSClass.gameAudioWrapperButton);
     const button = createTag('button', CSSClass.gameAudioButton, 'не знаю');
+    this.buttonUnknown = button;
     button.onclick = ():void => this.controller.wrongAnswer();
+
     wrapperButton.append(button);
 
     gamePage.append(blockHeader, this.createBlockWithAnswer(), wrapperButton);
     wrapper.append(gamePage);
+
+    this.controller.loadImage();
+
     return wrapper;
   }
 
-  private createVoiceButtonAndStartPlay(): HTMLElement {
-    const wrapper = createTag('div', CSSClass.gameAudioButtonVoice);
+  private createVoiceButtonAndPlayVoice(): HTMLElement {
+    const wrapper = createTag('div', CSSClass.gameAudioHeaderBottom);
+    const blockVoice = createTag('div', CSSClass.gameAudioButtonVoice);
+    this.blockVoice = blockVoice;
     const voiceImg = createTag('img', CSSClass.gameAudioButtonVoiceImg) as HTMLImageElement;
     voiceImg.src = './assets/svg/voice.svg';
     voiceImg.alt = 'voice';
@@ -104,7 +117,8 @@ export class ViewAudioGame {
     voice.play();
     voiceImg.onclick = (): Promise<void> => voice.play();
 
-    wrapper.append(voiceImg);
+    blockVoice.append(voiceImg);
+    wrapper.append(blockVoice);
     return wrapper;
   }
 
@@ -124,9 +138,11 @@ export class ViewAudioGame {
       const num = createTag('span', CSSClass.gameAudioAnswerNum, `${i + 1}`);
 
       if (i === numRightAnswer) {
-        contain.onclick = ():void => this.controller.rightAnswer();
+        this.model.rightAnswer = contain;
+        contain.onclick = ():void => this.controller.rightAnswer(contain);
       } else {
-        contain.onclick = ():void => this.controller.wrongAnswer();
+        this.model.wrongAnswer.push(contain);
+        contain.onclick = ():void => this.controller.wrongAnswer(contain);
       }
 
       contain.append(num, word);
@@ -135,5 +151,28 @@ export class ViewAudioGame {
 
     wrapper.append(...answer);
     return wrapper;
+  }
+
+  public dimLightAnswers(answers: HTMLElement[]): void {
+    answers.forEach((item) => item.classList.add(CSSClass.dimLight));
+  }
+
+  public createHeaderRightAnswer():void {
+    const answerWords = createTag('span', '', this.model.listWords[this.model.currentNumWord].word);
+    this.blockVoice.after(answerWords);
+    this.blockVoice.classList.add(CSSClass.rightAnswer);
+
+    this.blockHeader.append(this.controller.img);
+  }
+
+  public addLineThroughWrongAnswer(block?: HTMLElement): void {
+    if (block) {
+      block.classList.add(CSSClass.lineThrough);
+    }
+  }
+
+  public createButtonNextWord():void {
+    this.buttonUnknown.classList.add(CSSClass.fillGray, CSSClass.deleteBorder);
+    this.buttonUnknown.innerHTML = '<img src = "./assets/svg/arrow-right.svg" alt = "next word">';
   }
 }

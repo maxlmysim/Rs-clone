@@ -5,8 +5,9 @@ export enum CSSClass {
   authorizationInputEmail = 'authorization__input-email',
   authorizationInputPassword = 'authorization__input-password',
   authorizationButton = 'authorization__button',
-  warning = 'warning',
-  warningMessage = 'warning-message',
+  dimLight = 'dim-light',
+  deleteBorder = 'delete-border',
+  fillGray = 'fill-gray',
   gamesPage = 'games-page',
   gamesPageGame = 'games-page__game',
   gameAudio = 'game-audio',
@@ -16,6 +17,8 @@ export enum CSSClass {
   gameAudioAnswerNum = 'game-audio__answer_num',
   gameAudioAnswers = 'game-audio__answers',
   gameAudioHeader = 'game-audio__header',
+  gameAudioHeaderBottom = 'game-audio__header-bottom',
+  gameAudioHeaderImg = 'game-audio__header-img',
   gameAudioButton = 'game-audio__button',
   gameAudioButtonVoice = 'game-audio__button-voice',
   gameAudioButtonVoiceImg = 'game-audio__button-voice__img',
@@ -30,6 +33,10 @@ export enum CSSClass {
   gameAudioDescriptionControl = 'game-audio__description-control',
   gamesPageGameName = 'games-page__game-name',
   gameAudioWrapperButton = 'game-audio__wrapper-button',
+  lineThrough = 'line-through',
+  rightAnswer = 'right-answer',
+  warning = 'warning',
+  warningMessage = 'warning-message',
 }
 
 export enum AuthorizationText {

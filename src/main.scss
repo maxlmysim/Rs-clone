@@ -10,14 +10,15 @@
 
 //components
 @import "./styles/components/buttons";
+@import "./styles/components/bytton-answer";
+@import "./styles/components/footer";
+@import "./styles/components/header";
+@import "./styles/components/navigation";
 
 //layout
 
 //pages
-@import "./styles/components/header";
-@import "./styles/components/navigation";
 @import "./styles/components/main";
-@import "./styles/components/footer";
 @import "./script/view/pages/mainPages";
 @import "./script/authorization/authorization";
 @import "./script/view/pages/games/gamesPage";
