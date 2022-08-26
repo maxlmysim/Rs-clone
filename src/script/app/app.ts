@@ -35,7 +35,7 @@ export class App {
     const navItems = document.querySelectorAll('.nav-item') as NodeList;
     navItems.forEach((elem) => {
       elem.addEventListener('mousedown', (event) => this.button.addButtonClass(event as MouseEvent));
-      elem.addEventListener('mouseup', (event) => new ButtonAnimation().removeButtonClass(event as MouseEvent));
+      elem.addEventListener('mouseup', (event) => this.button.removeButtonClass(event as MouseEvent));
     });
   }
 
