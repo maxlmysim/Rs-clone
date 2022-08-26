@@ -2,9 +2,9 @@ import { Word } from './server';
 
 export interface ModelAudioGame {
   'currentNumWord': number,
-  'quantityWords': number,
+  'lastNumWord': number,
   'difficulty': number,
   'listWords': Word[],
-  'rightAnswer': HTMLElement,
-  'wrongAnswer': HTMLElement[]
+  'rightAnswerOnPage': HTMLElement,
+  'wrongAnswerOnPage': HTMLElement[]
 }

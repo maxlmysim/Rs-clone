@@ -6,6 +6,7 @@ import { Server } from '../../../../server/server';
 import { ControllerAudioGame } from './controllerAudioGame';
 import { modelAudioGame } from './modelAudioGame';
 import { ModelAudioGame } from '../../../../interface/audioGame';
+import { Word } from '../../../../interface/server';
 
 export class ViewAudioGame {
   private controller: ControllerAudioGame;
@@ -127,8 +128,17 @@ export class ViewAudioGame {
     const answer: HTMLElement[] = [];
 
     const numRightAnswer = Math.floor(Math.random() * 5);
+
+    const forCheckRepeat: Set<Word> = new Set();
+    forCheckRepeat.add(this.model.listWords[this.model.currentNumWord]);
+
     for (let i = 0; i < 5; i += 1) {
-      let wordInfo = getRandomItemFromArray(this.model.listWords, this.model.listWords[this.model.currentNumWord]);
+      let wordInfo = getRandomItemFromArray(
+        this.model.listWords,
+        forCheckRepeat,
+      );
+
+      forCheckRepeat.add(wordInfo);
 
       if (i === numRightAnswer) {
         wordInfo = this.model.listWords[this.model.currentNumWord];
@@ -138,10 +148,10 @@ export class ViewAudioGame {
       const num = createTag('span', CSSClass.gameAudioAnswerNum, `${i + 1}`);
 
       if (i === numRightAnswer) {
-        this.model.rightAnswer = contain;
+        this.model.rightAnswerOnPage = contain;
         contain.onclick = ():void => this.controller.rightAnswer(contain);
       } else {
-        this.model.wrongAnswer.push(contain);
+        this.model.wrongAnswerOnPage.push(contain);
         contain.onclick = ():void => this.controller.wrongAnswer(contain);
       }
 
@@ -174,5 +184,6 @@ export class ViewAudioGame {
   public createButtonNextWord():void {
     this.buttonUnknown.classList.add(CSSClass.fillGray, CSSClass.deleteBorder);
     this.buttonUnknown.innerHTML = '<img src = "./assets/svg/arrow-right.svg" alt = "next word">';
+    this.buttonUnknown.onclick = ():void => this.controller.nextWord();
   }
 }

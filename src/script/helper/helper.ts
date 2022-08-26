@@ -92,18 +92,29 @@ export function createOptionListDifficulty(num: number, selected: number): Optio
 
 export function shuffleWordList(array: Word[] | HTMLElement[]): void {
   for (let i = array.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
+    const j = Math.floor(Math.random() * (i + 1));
 
     // eslint-disable-next-line no-param-reassign
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
 
-export function getRandomItemFromArray(array: Word[], exclude?: Word): Word {
-  if (array.length === 1) return array[0];
-  const item = array[Math.floor(Math.random() * array.length)];
-  if (item === exclude) {
-    return getRandomItemFromArray(array, exclude);
+export function getRandomItemFromArray(array: Word[], words: Set<Word>): Word {
+  const excludeWords = Array.from(words);
+
+  if (array.length === 1) {
+    return array[0];
   }
+
+  if (array.every((word) => excludeWords.includes(word))) {
+    return array[0];
+  }
+
+  const item = array[Math.floor(Math.random() * array.length)];
+
+  if (excludeWords.includes(item)) {
+    return getRandomItemFromArray(array, words);
+  }
+
   return item;
 }
