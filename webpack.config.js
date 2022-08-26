@@ -1,6 +1,7 @@
+/* eslint-disable */
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -15,7 +16,7 @@ const babelOptions = (presets) => {
   };
 
   if (presets) {
-        opts.presets.push(presets);
+    opts.presets.push(presets);
   }
 
   return opts;
@@ -65,6 +66,7 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+    modules: [path.resolve(__dirname, './src'), 'node_modules']
   },
   optimization: {
     minimizer: [
@@ -88,8 +90,13 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico|mp3)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.mp3$/,
+        include: path.resolve(__dirname, 'node_modules'),
+        loader: 'file-loader'
       },
       {
         test: /\.xml$/,
@@ -118,7 +125,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-          }
+          },
         },
       },
     ],
