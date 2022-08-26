@@ -4,10 +4,10 @@ import PageButtonsGroup from './PageButtonsGroup';
 import { CSSClass } from '../../../../../interface/freeText';
 import { MenuItemLength } from '../../../../../interface/textbook';
 
-export default function TextbookButtonsGroup({ itemsLength }: MenuItemLength): React.ReactElement {
+export default function TextbookButtonsGroup({ itemsLength, updateWords }: MenuItemLength): React.ReactElement {
   return (
     <div className={CSSClass.textbookButtonsGroup}>
-      <MenuButton itemsLength={itemsLength} />
+      <MenuButton itemsLength={itemsLength} updateWords={updateWords} />
       <PageButtonsGroup />
     </div>
   );

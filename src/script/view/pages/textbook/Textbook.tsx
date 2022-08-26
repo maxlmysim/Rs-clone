@@ -17,12 +17,17 @@ const controller = new TextbookController();
 
 function Textbook(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
-  server.getAllWords().then((json) => setWords(json));
+  const updateWords = (group:number, page:number): void => {
+    server.getAllWords(group, page).then((json) => setWords(json));
+  };
+  if (words.length === 0) {
+    server.getAllWords().then((json) => setWords(json));
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <div className={CSSClass.textbookWrapper}>
-        <TextbookButtonsGroup itemsLength={controller.groupsNum} />
+        <TextbookButtonsGroup itemsLength={controller.groupsNum} updateWords={updateWords} />
         {words.map((w) => <WordCard word={w} port={server.port} key={w.id} />)}
       </div>
     </ThemeProvider>
