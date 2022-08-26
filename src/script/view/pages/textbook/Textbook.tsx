@@ -27,7 +27,11 @@ function Textbook(): React.ReactElement {
   return (
     <ThemeProvider theme={theme}>
       <div className={CSSClass.textbookWrapper}>
-        <TextbookButtonsGroup itemsLength={controller.groupsNum} updateWords={updateWords} />
+        <TextbookButtonsGroup
+          itemsLength={controller.groupsNum}
+          pagesLength={controller.pagesNum}
+          updateWords={updateWords}
+        />
         {words.map((w) => <WordCard word={w} port={server.port} key={w.id} />)}
       </div>
     </ThemeProvider>

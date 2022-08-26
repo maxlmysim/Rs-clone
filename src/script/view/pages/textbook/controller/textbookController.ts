@@ -6,6 +6,8 @@ export class TextbookController {
 
   public groupsNum = 6;
 
+  public pagesNum = 30;
+
   public group: number;
 
   public page: number;

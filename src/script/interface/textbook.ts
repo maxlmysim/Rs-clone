@@ -10,7 +10,12 @@ export interface CardProps {
 
 export interface MenuItemLength {
   itemsLength: number;
+  pagesLength: number;
   updateWords: UpdWords;
+}
+
+export interface PagesLength {
+  pagesLength: number;
 }
 
 export interface UpdateWords {
