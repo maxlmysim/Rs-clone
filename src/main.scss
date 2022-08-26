@@ -18,6 +18,11 @@
 //layout
 
 //pages
+@import "./styles/components/footer";
+@import "script/view/pages/mainPages";
+@import "./script/view/pages/textbook/Textbook.scss";
+
+
 @import "./styles/components/main";
 @import "./script/view/pages/mainPages";
 @import "./script/authorization/authorization";
