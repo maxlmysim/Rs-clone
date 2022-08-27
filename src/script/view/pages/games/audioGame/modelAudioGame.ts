@@ -8,5 +8,4 @@ export const modelAudioGame: ModelAudioGame = {
   currentNumWord: 0,
   lastNumWord: 0,
   difficulty: 2,
-
 };

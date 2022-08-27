@@ -2,7 +2,7 @@ import { ViewApp } from '../view/viewApp';
 import { ControllerApp } from '../controller/controller';
 import { AuthorizationView } from '../authorization/authorizationView';
 import { IdPages } from '../interface/typeApp';
-import { MainPage } from '../view/pages/mainPage';
+import { MainPage } from '../view/pages/mainPage/mainPage';
 import { Server } from '../server/server';
 import { userInfo } from '../authorization/user';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
@@ -32,19 +32,17 @@ export class App {
   public async start():Promise<void> {
     await window.addEventListener('load', this.startApp.bind(this));
     await window.addEventListener('hashchange', this.startPageUseHash.bind(this));
-    const navItems = document.querySelectorAll('.nav-item') as NodeList;
-    navItems.forEach((elem) => {
-      elem.addEventListener('mousedown', (event) => this.button.addButtonClass(event as MouseEvent));
-      elem.addEventListener('mouseup', (event) => this.button.removeButtonClass(event as MouseEvent));
-    });
   }
 
   private async startApp(): Promise<void> {
     await this.server.getUser().then(() => {
       userInfo.login = true;
     }).catch(() => {});
-
     this.controller.startPage(this.view.renderPage);
+    const navItems = document.querySelectorAll('.nav-item') as NodeList;
+    navItems.forEach((elem) => {
+      elem.addEventListener('mousedown', (event) => this.button.addButtonClass(event as MouseEvent));
+    });
     this.startPageUseHash();
   }
 
