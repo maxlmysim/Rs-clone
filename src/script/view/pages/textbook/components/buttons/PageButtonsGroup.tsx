@@ -28,6 +28,22 @@ export default function PageButtonsGroup({ pagesLength, updateWords }: PagesLeng
     }
     setAnchorEl(null);
   };
+
+  const changePage = (event: React.MouseEvent<HTMLElement>): void => {
+    const pageNum = textbookLocation.page;
+
+    if (event.currentTarget.className.includes('textbook-prev-page')
+        && pageNum > 0) {
+      updateWords(textbookLocation.group, pageNum - 1);
+      setButtonText(`Страница ${pageNum}`);
+    }
+    if (event.currentTarget.className.includes('textbook-next-page')
+        && pageNum < (pagesLength - 1)) {
+      updateWords(textbookLocation.group, pageNum + 1);
+      setButtonText(`Страница ${pageNum + 2}`);
+    }
+  };
+
   return (
     <ButtonGroup
       variant="contained"
@@ -35,7 +51,10 @@ export default function PageButtonsGroup({ pagesLength, updateWords }: PagesLeng
       color="inherit"
       aria-label="outlined primary button group"
     >
-      <Button>
+      <Button
+        className="textbook-prev-page"
+        onClick={changePage}
+      >
         <ArrowBackIosNewIcon sx={ArrowIosIconStyle} />
       </Button>
       <Button
@@ -70,7 +89,10 @@ export default function PageButtonsGroup({ pagesLength, updateWords }: PagesLeng
         }
 
       </Menu>
-      <Button>
+      <Button
+        className="textbook-next-page"
+        onClick={changePage}
+      >
         <ArrowForwardIosIcon sx={ArrowIosIconStyle} />
       </Button>
     </ButtonGroup>
