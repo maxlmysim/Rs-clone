@@ -9,7 +9,7 @@ export default function TextbookButtonsGroup({ itemsLength, pagesLength, updateW
   return (
     <div className={CSSClass.textbookButtonsGroup}>
       <MenuButton itemsLength={itemsLength} pagesLength={pagesLength} updateWords={updateWords} />
-      <PageButtonsGroup pagesLength={pagesLength} />
+      <PageButtonsGroup pagesLength={pagesLength} updateWords={updateWords} />
     </div>
   );
 }

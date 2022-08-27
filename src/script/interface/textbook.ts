@@ -16,6 +16,7 @@ export interface MenuItemLength {
 
 export interface PagesLength {
   pagesLength: number;
+  updateWords: UpdWords;
 }
 
 export interface UpdateWords {
