@@ -6,13 +6,19 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { ArrowIosIconStyle, InsertDriveFileOutlinedIconStyle } from '../theme';
-import { PagesLength } from '../../../../../interface/textbook';
+import { IPageButtonsGroup } from '../../../../../interface/textbook';
 import { CSSClass } from '../../../../../interface/freeText';
 import { textbookLocation } from '../../Textbook';
 
-export default function PageButtonsGroup({ pagesLength, updateWords }: PagesLength): React.ReactElement {
+export default function PageButtonsGroup(
+  {
+    pagesLength, updateWords, buttonText, setButtonText,
+  }
+  : IPageButtonsGroup,
+):
+  React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [buttonText, setButtonText] = React.useState<string>('Страница 1');
+  // const [buttonText, setButtonText] = React.useState<string>('Страница 1');
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
