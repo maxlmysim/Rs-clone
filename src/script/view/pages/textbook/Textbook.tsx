@@ -19,6 +19,7 @@ export const textbookLocation = {
   page: controller.page,
   group: controller.group,
 };
+
 function Textbook(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
   const updateWords = (group:number, page:number): void => {

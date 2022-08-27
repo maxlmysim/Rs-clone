@@ -8,15 +8,24 @@ export interface CardProps {
   port: string
 }
 
-export interface MenuItemLength {
+export interface ITextbookButtonsGroup {
   itemsLength: number;
   pagesLength: number;
   updateWords: UpdWords;
 }
 
-export interface PagesLength {
+export interface IMenuButton {
+  itemsLength: number;
   pagesLength: number;
   updateWords: UpdWords;
+  setPageButtonText: React.Dispatch<React.SetStateAction<string>>
+}
+
+export interface IPageButtonsGroup {
+  pagesLength: number;
+  updateWords: UpdWords;
+  buttonText: string;
+  setButtonText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface UpdateWords {
