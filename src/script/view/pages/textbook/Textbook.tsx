@@ -15,10 +15,17 @@ const rootContainer = createRoot(rootTextbook as Element);
 const server = new Server();
 const controller = new TextbookController();
 
+export const textbookLocation = {
+  page: controller.page,
+  group: controller.group,
+};
 function Textbook(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
   const updateWords = (group:number, page:number): void => {
     server.getAllWords(group, page).then((json) => setWords(json));
+    textbookLocation.page = page;
+    textbookLocation.group = group;
+    console.log(textbookLocation);
   };
   if (words.length === 0) {
     server.getAllWords().then((json) => setWords(json));

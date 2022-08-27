@@ -8,8 +8,9 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import { ArrowIosIconStyle, InsertDriveFileOutlinedIconStyle } from '../theme';
 import { PagesLength } from '../../../../../interface/textbook';
 import { CSSClass } from '../../../../../interface/freeText';
+import { textbookLocation } from '../../Textbook';
 
-export default function PageButtonsGroup({ pagesLength }: PagesLength): React.ReactElement {
+export default function PageButtonsGroup({ pagesLength, updateWords }: PagesLength): React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [buttonText, setButtonText] = React.useState<string>('Страница 1');
   const open = Boolean(anchorEl);
@@ -21,8 +22,8 @@ export default function PageButtonsGroup({ pagesLength }: PagesLength): React.Re
   const handleClose = (event: React.MouseEvent<HTMLElement>): void => {
     if (event.currentTarget.className.includes('page-')) {
       const pageNum = (Number(event.currentTarget.innerText.match(/\d+/g)) - 1);
-      // updateWords(groupNum, 0);
-      console.log(pageNum);
+      updateWords(textbookLocation.group, pageNum);
+      console.log(textbookLocation);
       setButtonText(event.currentTarget.innerText);
     }
     setAnchorEl(null);
