@@ -35,6 +35,7 @@ function Textbook(): React.ReactElement {
   return (
     <ThemeProvider theme={theme}>
       <div className={CSSClass.textbookWrapper}>
+        <h2 className={CSSClass.textbookHeader}>Учебник</h2>
         <TextbookButtonsGroup
           itemsLength={controller.groupsNum}
           pagesLength={controller.pagesNum}

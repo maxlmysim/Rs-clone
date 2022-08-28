@@ -18,7 +18,6 @@ export default function PageButtonsGroup(
 ):
   React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  // const [buttonText, setButtonText] = React.useState<string>('Страница 1');
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
