@@ -26,7 +26,6 @@ export class Header {
   public autorization():HTMLElement {
     const autorization: HTMLElement = createTag('div', CSSClass.headerAutorization);
     const autorizationSVG = createTag('a', CSSClass.headerSVG) as HTMLBaseElement;
-    console.log('header', userInfo);
     if (!userInfo.login) {
       autorizationSVG.innerHTML = '<img src = "./assets/svg/Login.svg" alt = "login">';
       autorizationSVG.href = `#${IdPages.login}`;

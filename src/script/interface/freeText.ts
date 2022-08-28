@@ -99,7 +99,9 @@ export enum HTMLPageFreeText {
 
 export enum MainPageText {
   mainPageTitle = 'RSLang',
-  mainPageText = 'Здесь текст с пожеланиями',
+  mainPageText = `Используй быстрый и эффективный способ
+  изучения английского языка.<br> Все самые лучшие методики в одном месте.`,
+  mainPageTextForUser = 'Hello User',
 }
 
 export enum FooterGithubUser {

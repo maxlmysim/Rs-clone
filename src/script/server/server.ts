@@ -203,8 +203,9 @@ export class Server {
 
   private async saveUserInLocalStorage(userResponse: Response): Promise<void> {
     const user = await userResponse.json();
-    Object.assign(userInfo, user);
-    localStorage.setItem('userInfo', JSON.stringify(user));
+    // userInfo.login = true;
+    const data = Object.assign(userInfo, user);
+    localStorage.setItem('userInfo', JSON.stringify(data));
   }
 
   public async signInUser(user: object): Promise<Response> {
