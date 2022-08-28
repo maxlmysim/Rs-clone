@@ -1,5 +1,5 @@
 import { createTheme, SxProps, Theme } from '@mui/material';
-import { CardProps, TColors } from '../../../../interface/textbook';
+import { ITextbookCardImageStyle, TColors } from '../../../../interface/textbook';
 
 export const theme = createTheme({
   typography: {
@@ -22,7 +22,7 @@ export const textbookCardStyle: SxProps<Theme> = {
   display: 'flex',
 };
 
-export const textbookCardImageStyle = ({ word, port }: CardProps):SxProps<Theme> => ({
+export const textbookCardImageStyle = ({ word, port }: ITextbookCardImageStyle):SxProps<Theme> => ({
   height: 1,
   width: 300,
   backgroundImage: `url(${port}/${word.image})`,

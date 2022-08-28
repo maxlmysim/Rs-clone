@@ -1,4 +1,5 @@
 // import { MenuItemTypeMap } from '@mui/material';
+import { Word } from '../../../../interface/server';
 import { Server } from '../../../../server/server';
 
 export class TextbookController {
@@ -12,12 +13,29 @@ export class TextbookController {
 
   public page: number;
 
+  public port: string;
+
   public constructor() {
     this.server = new Server();
     this.group = 0;
     this.page = 0;
+    this.port = this.server.port;
   }
 
-  // public generateButtonMenuItems(menuItem: MenuItemTypeMap) {
-  // }
+  public playSounds(word: Word): void {
+    console.log(this.group, this.page);
+    const sounds = [
+      new Audio(`${this.server.port}/${word.audio}`),
+      new Audio(`${this.server.port}/${word.audioMeaning}`),
+      new Audio(`${this.server.port}/${word.audioExample}`),
+    ];
+    let i = -1;
+    function playSnd(): void {
+      i += 1;
+      if (i === sounds.length) return;
+      sounds[i].addEventListener('ended', playSnd);
+      sounds[i].play();
+    }
+    playSnd();
+  }
 }
