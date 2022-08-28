@@ -31,7 +31,6 @@ function Textbook(): React.ReactElement {
   if (words.length === 0) {
     server.getAllWords().then((json) => setWords(json));
   }
-
   return (
     <ThemeProvider theme={theme}>
       <div className={CSSClass.textbookWrapper}>
@@ -41,7 +40,14 @@ function Textbook(): React.ReactElement {
           pagesLength={controller.pagesNum}
           updateWords={updateWords}
         />
-        {words.map((w) => <WordCard word={w} port={server.port} key={w.id} />)}
+        {words.map((w) => (
+          <WordCard
+            word={w}
+            port={server.port}
+            playSounds={():void => { controller.playSounds(w); }}
+            key={w.id}
+          />
+        ))}
       </div>
     </ThemeProvider>
   );

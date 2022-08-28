@@ -11,7 +11,7 @@ import { CardProps } from '../../../../../interface/textbook';
 import CardButtonsGroup from '../buttons/CardButtonsGroup';
 import { userInfo } from '../../../../../authorization/user';
 
-export function WordCard({ word, port }: CardProps): React.ReactElement {
+export function WordCard({ word, port, playSounds }: CardProps): React.ReactElement {
   return (
     <Card
       className={CSSClass.textbookCard}
@@ -32,6 +32,7 @@ export function WordCard({ word, port }: CardProps): React.ReactElement {
             aria-label="play sound"
             size="small"
             sx={{ marginBottom: '0.4rem', marginLeft: '0.5rem' }}
+            onClick={():void => { playSounds(word); }}
           >
             <VolumeUpIcon fontSize="small" />
           </IconButton>

@@ -6,7 +6,13 @@ export type CardBtnClass = 'hard' | 'done';
 
 export interface CardProps {
   word: Word,
-  port: string
+  port: string,
+  playSounds: (word: Word) => void
+}
+
+export interface ITextbookCardImageStyle {
+  word: Word,
+  port: string,
 }
 
 export interface ITextbookButtonsGroup {
