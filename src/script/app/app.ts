@@ -51,7 +51,7 @@ export class App {
     switch (newHash) {
       case IdPages.login: {
         const auth = new AuthorizationView();
-        this.controller.openPage(auth.init());
+        this.controller.openPage(auth.init(this.mainPage.create()));
         break;
       }
       case IdPages.main: {

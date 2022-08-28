@@ -1,6 +1,7 @@
 import { createTag } from '../../../helper/helper';
 import { IdPages, NamePages } from '../../../interface/typeApp';
 import { CSSClass, MainPageText } from '../../../interface/freeText';
+import { userInfo } from '../../../authorization/user';
 
 export class MainPage {
   public create():HTMLElement {
@@ -10,6 +11,7 @@ export class MainPage {
     const loginBtn = this.createBtn(NamePages.login, IdPages.login);
     const aboutProjectBtn = this.createBtn(NamePages.aboutProject, IdPages.aboutProject);
     wrapper.append(title, text, loginBtn, aboutProjectBtn);
+    console.log('mainPage', userInfo);
     return wrapper;
   }
 

@@ -8,6 +8,7 @@ export class Header {
     const header: HTMLElement = createTag('header', CSSClass.header);
     const wrapper: HTMLElement = createTag('div', CSSClass.headerWrapper);
     const logo: HTMLElement = createTag('div', CSSClass.headerLogo, HTMLPageFreeText.heagerLogo);
+    logo.addEventListener('click', () => { window.location.hash = IdPages.main; });
     wrapper.append(this.burger(), logo, this.autorization());
     header.append(wrapper);
     return header;
@@ -25,11 +26,13 @@ export class Header {
   public autorization():HTMLElement {
     const autorization: HTMLElement = createTag('div', CSSClass.headerAutorization);
     const autorizationSVG = createTag('a', CSSClass.headerSVG) as HTMLBaseElement;
+    console.log('header', userInfo);
     if (!userInfo.login) {
       autorizationSVG.innerHTML = '<img src = "./assets/svg/Login.svg" alt = "login">';
       autorizationSVG.href = `#${IdPages.login}`;
     } else {
       autorizationSVG.innerHTML = '<img src = "./assets/svg/logout.svg" alt = "logOut">';
+      autorizationSVG.href = `#${IdPages.login}`;
       autorization.onclick = (): void => logoutUser();
     }
     autorization.append(autorizationSVG);
