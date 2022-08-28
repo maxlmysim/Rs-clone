@@ -7,6 +7,7 @@ import { CSSClass } from '../../../../../interface/freeText';
 import { textbookCardStyle, textbookCardImageStyle, textbookCardContentStyle } from '../theme';
 import { CardProps } from '../../../../../interface/textbook';
 import CardButtonsGroup from '../buttons/CardButtonsGroup';
+import { userInfo } from '../../../../../authorization/user';
 
 export function WordCard({ word, port }: CardProps): React.ReactElement {
   return (
@@ -34,7 +35,7 @@ export function WordCard({ word, port }: CardProps): React.ReactElement {
         <Typography variant="body2" dangerouslySetInnerHTML={{ __html: word.textExample }} />
         <Typography variant="body2" color="text.secondary">{word.textExampleTranslate}</Typography>
       </CardContent>
-      <CardButtonsGroup />
+      {userInfo.login && <CardButtonsGroup />}
     </Card>
 
   );
