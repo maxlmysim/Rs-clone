@@ -2,6 +2,7 @@ import { Word } from './server';
 
 export type TColors = 0 | 1 | 2 | 3 | 4 | 5;
 export type UpdWords = (group: number, page: number) => void;
+export type CardBtnClass = 'hard' | 'done';
 
 export interface CardProps {
   word: Word,

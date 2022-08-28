@@ -22,6 +22,7 @@ export enum CSSClass {
   mainPageText = 'main-page__text',
   mainPageBtn = 'main-page__btn',
   textbook = 'textbook',
+  textbookHeader = 'textbook-header',
   textbookWrapper = 'textbook-wrapper',
   textbookCard = 'textbook-card',
   textbookCardImage = 'textbook-card-image',
