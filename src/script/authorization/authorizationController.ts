@@ -3,6 +3,7 @@ import { Server } from '../server/server';
 import { createTag } from '../helper/helper';
 import { AuthorizationView } from './authorizationView';
 import { IdPages } from '../interface/typeApp';
+import { userInfo } from './user';
 
 export class AuthorizationController {
   private server: Server;
@@ -18,7 +19,10 @@ export class AuthorizationController {
         password: password.value,
       })
         .then((): void => {
+          userInfo.login = true;
           window.location.hash = `#${IdPages.main}`;
+          const autorizationSVG = document.querySelectorAll(`.${CSSClass.headerSVG}`) as NodeList;
+          (autorizationSVG[1] as HTMLElement).innerHTML = '<img src = "./assets/svg/logout.svg" alt = "logout">';
         })
         .catch((err) => {
           if (err.status === 404) {

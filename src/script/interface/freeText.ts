@@ -1,4 +1,18 @@
 export enum CSSClass {
+  header = 'header',
+  headerShift = 'header-shift',
+  headerWrapper = 'header-wrapper',
+  headerLogo = 'header__logo',
+  headerSVG = 'header-svg',
+  headerBurger = 'header__burger',
+  headerAutorization = 'header__autorization',
+  main = 'main',
+  mainWrapper = 'main-wrapper',
+  mainContainer = 'main-container',
+  mainContainerShift = 'main-container-shift',
+  mainPageTitle = 'main-page__title',
+  mainPageText = 'main-page__text',
+  mainPageBtn = 'main-page__btn',
   authorization = 'authorization',
   authorizationTitle = 'authorization__title',
   authorizationInput = 'authorization__input',
@@ -46,6 +60,17 @@ export enum CSSClass {
   rightAnswer = 'right-answer',
   warning = 'warning',
   warningMessage = 'warning-message',
+  footer = 'footer',
+  footerWrapper = 'footer-wrapper',
+  footerYear = 'footer__year',
+  footerRSSchool = 'footer__rsschool',
+  footerLink = 'link',
+  footerGithub = 'footer__github',
+  closeBurger = 'close-burger',
+  navItems = 'nav-items',
+  navItem = 'nav-item',
+  navItemIcon = 'item__icon',
+  navItemName = 'item__name',
 }
 
 export enum AuthorizationText {
@@ -64,4 +89,26 @@ export enum AudioGameText {
   descriptionControlReplayingVoice = 'Используйте пробел для повторного звучания слова',
   descriptionControlHint = 'Используйте клавишу Enter для подсказки или для перехода к следующему слову',
   startButton = 'Начать',
+}
+
+export enum HTMLPageFreeText {
+  heagerLogo = 'RSlang',
+  footerYear = '2022',
+  urlToRSSchool = 'https://rs.school/js/',
+}
+
+export enum MainPageText {
+  mainPageTitle = 'RSLang',
+  mainPageText = `Используй быстрый и эффективный способ
+  изучения английского языка.<br> Все самые лучшие методики в одном месте.`,
+  mainPageTextForUser = 'Hello User',
+}
+
+export enum FooterGithubUser {
+  nameMax = 'maxlmysim',
+  urlToGitHubeMax = 'https://github.com/maxlmysim',
+  nameAnatoli = 'AnatoliHaralchuk',
+  urlToGitHubeAnatoli = 'https://github.com/AnatoliHaralchuk',
+  nameIlya = 'Naysa3r',
+  urlToGitHubeIlya = 'https://github.com/naysa3r',
 }
