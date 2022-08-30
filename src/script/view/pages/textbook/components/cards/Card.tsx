@@ -12,7 +12,7 @@ import CardButtonsGroup from '../buttons/CardButtonsGroup';
 import { userInfo } from '../../../../../authorization/user';
 
 export function WordCard({
-  word, port, playSounds, hardBtnSet,
+  word, port, playSounds, hardBtnSet, userWords,
 }: CardProps): React.ReactElement {
   return (
     <Card
@@ -51,6 +51,7 @@ export function WordCard({
       {userInfo.login && (
       <CardButtonsGroup
         word={word}
+        userWords={userWords}
         hardBtnSet={hardBtnSet}
       />
       )}

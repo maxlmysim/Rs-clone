@@ -2,6 +2,7 @@ import {
   ResponseUpdateToken, Statistics, UserSettings, Word, WordSettings,
 } from '../interface/server';
 import { userInfo } from '../authorization/user';
+import { IUserWordsResponse } from '../interface/textbook';
 
 export class Server {
   public port: string;
@@ -66,7 +67,7 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async getUserAllWords(): Promise<Response> {
+  public async getUserAllWords(): Promise<IUserWordsResponse[]> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}`, {
       method: 'GET',
       headers: {
@@ -75,7 +76,8 @@ export class Server {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => this.checkResponse(response));
+      .then((response) => response.json())
+      .catch((response) => Promise.reject(response));
   }
 
   public async getUserWord(idWord: string): Promise<Response> {
