@@ -9,6 +9,7 @@ import { Word } from '../../../interface/server';
 import { theme } from './components/theme';
 import { CSSClass } from '../../../interface/freeText';
 import { TextbookController } from './controller/textbookController';
+import { userInfo } from '../../../authorization/user';
 
 export const rootTextbook = createTag('div', CSSClass.textbook, '');
 const rootContainer = createRoot(rootTextbook as Element);
@@ -26,7 +27,7 @@ function Textbook(): React.ReactElement {
     server.getAllWords(group, page).then((json) => setWords(json));
     textbookLocation.page = page;
     textbookLocation.group = group;
-    console.log(textbookLocation);
+    console.log(userInfo.login);
   };
   if (words.length === 0) {
     server.getAllWords().then((json) => setWords(json));
