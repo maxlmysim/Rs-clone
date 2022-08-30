@@ -1,4 +1,3 @@
-// import { MenuItemTypeMap } from '@mui/material';
 import { Word, WordSettings } from '../../../../interface/server';
 import { IUserWordsResponse } from '../../../../interface/textbook';
 import { Server } from '../../../../server/server';
