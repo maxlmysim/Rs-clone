@@ -1,12 +1,12 @@
 import {
   createOptionListDifficulty, createSelect, createTag, getRandomItemFromArray,
-} from '../../../../helper/helper';
-import { AudioGameText, CSSClass } from '../../../../interface/freeText';
-import { Server } from '../../../../server/server';
+} from '../../../helper/helper';
+import { AudioGameText, CSSClass } from '../../../interface/freeText';
+import { Server } from '../../../server/server';
 import { ControllerAudioGame } from './controllerAudioGame';
 import { modelAudioGame } from './modelAudioGame';
-import { ModelAudioGame } from '../../../../interface/audioGame';
-import { Word } from '../../../../interface/server';
+import { ModelAudioGame } from '../../../interface/audioGame';
+import { Word } from '../../../interface/server';
 
 export class ViewAudioGame {
   private controller: ControllerAudioGame;
@@ -27,7 +27,7 @@ export class ViewAudioGame {
     this.controller = new ControllerAudioGame(this);
   }
 
-  public init():HTMLElement {
+  public init(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameAudio);
     const preview = createTag('div', CSSClass.gameAudioPreview);
 
@@ -39,7 +39,7 @@ export class ViewAudioGame {
     return wrapper;
   }
 
-  private createDescriptionGame():HTMLElement {
+  private createDescriptionGame(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameAudioDescriptionBlock);
 
     const description = createTag('h4', CSSClass.gameAudioDescription, AudioGameText.description);
@@ -56,9 +56,53 @@ export class ViewAudioGame {
     return wrapper;
   }
 
+  private addListener():void {
+    document.body.addEventListener('keydown', (e) => {
+      if (this.model.isShowAnswer) {
+        if (e.code === 'Enter') {
+          console.log('nextPage');
+        }
+        return;
+      }
+
+      switch (e.key) {
+        case ' ':
+          console.log('space');
+          break;
+
+        case 'Enter':
+          console.log('enter');
+          break;
+
+        case '1':
+          console.log('digit1');
+          break;
+
+        case '2':
+          console.log('2');
+          break;
+
+        case '3':
+          console.log('3');
+          break;
+
+        case '4':
+          console.log('4');
+          break;
+
+        case '5':
+          console.log('5');
+          break;
+
+        default:
+      }
+    });
+  }
+
   private createBlockWithStartButtons(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameAudioBlockButtons);
     const startGameButton = createTag('button', CSSClass.gameAudioBlockButtonsStart, AudioGameText.startButton);
+
     startGameButton.onclick = (): Promise<void> => this.controller.loadWordsAndStartGame();
 
     const selectedDifficultyButton = createSelect(
@@ -94,7 +138,7 @@ export class ViewAudioGame {
     const wrapperButton = createTag('div', CSSClass.gameAudioWrapperButton);
     const button = createTag('button', CSSClass.gameAudioButton, 'не знаю');
     this.buttonUnknown = button;
-    button.onclick = ():void => this.controller.wrongAnswer();
+    button.onclick = (): void => this.controller.wrongAnswer();
 
     wrapperButton.append(button);
 
@@ -102,6 +146,7 @@ export class ViewAudioGame {
     wrapper.append(gamePage);
 
     this.controller.loadImage();
+    this.addListener();
 
     return wrapper;
   }
@@ -149,10 +194,10 @@ export class ViewAudioGame {
 
       if (i === numRightAnswer) {
         this.model.rightAnswerOnPage = contain;
-        contain.onclick = ():void => this.controller.rightAnswer(contain);
+        contain.onclick = (): void => this.controller.rightAnswer(contain);
       } else {
         this.model.wrongAnswerOnPage.push(contain);
-        contain.onclick = ():void => this.controller.wrongAnswer(contain);
+        contain.onclick = (): void => this.controller.wrongAnswer(contain);
       }
 
       contain.append(num, word);
@@ -167,7 +212,7 @@ export class ViewAudioGame {
     answers.forEach((item) => item.classList.add(CSSClass.dimLight));
   }
 
-  public createHeaderRightAnswer():void {
+  public createHeaderRightAnswer(): void {
     const answerWords = createTag('span', '', this.model.listWords[this.model.currentNumWord].word);
     this.blockVoice.after(answerWords);
     this.blockVoice.classList.add(CSSClass.rightAnswer);
@@ -181,9 +226,9 @@ export class ViewAudioGame {
     }
   }
 
-  public createButtonNextWord():void {
+  public createButtonNextWord(): void {
     this.buttonUnknown.classList.add(CSSClass.fillGray, CSSClass.deleteBorder);
     this.buttonUnknown.innerHTML = '<img src = "./assets/svg/arrow-right.svg" alt = "next word">';
-    this.buttonUnknown.onclick = ():void => this.controller.nextWord();
+    this.buttonUnknown.onclick = (): void => this.controller.nextWord();
   }
 }

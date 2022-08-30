@@ -1,4 +1,4 @@
-import { ModelAudioGame } from '../../../../interface/audioGame';
+import { ModelAudioGame } from '../../../interface/audioGame';
 
 export const modelAudioGame: ModelAudioGame = {
   // @ts-ignore
@@ -8,5 +8,6 @@ export const modelAudioGame: ModelAudioGame = {
   currentNumWord: 0,
   lastNumWord: 0,
   difficulty: 2,
+  isShowAnswer: false,
 
 };

@@ -1,6 +1,6 @@
 import { createTag } from '../../../helper/helper';
 import { AudioGameText, CSSClass } from '../../../interface/freeText';
-import { ViewAudioGame } from './audioGame/viewAudioGame';
+import { ViewAudioGame } from '../../components/audioGame/viewAudioGame';
 import { IdPages } from '../../../interface/typeApp';
 
 export class GamesPage {
