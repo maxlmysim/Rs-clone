@@ -1,5 +1,6 @@
 // import { MenuItemTypeMap } from '@mui/material';
 import { Word, WordSettings } from '../../../../interface/server';
+import { IUserWordsResponse } from '../../../../interface/textbook';
 import { Server } from '../../../../server/server';
 
 export class TextbookController {
@@ -15,11 +16,14 @@ export class TextbookController {
 
   public port: string;
 
+  public userWords: Promise<IUserWordsResponse[]>;
+
   public constructor() {
     this.server = new Server();
     this.group = 0;
     this.page = 0;
     this.port = this.server.port;
+    this.userWords = this.server.getUserAllWords();
   }
 
   public playSounds(word: Word): void {
@@ -38,11 +42,15 @@ export class TextbookController {
     playSnd();
   }
 
+  public refreshHardWords(): void {
+    this.userWords = (this.server.getUserAllWords()) as Promise<IUserWordsResponse[]>;
+  }
+
   public setHardWord(word: Word): void {
     const wordSet: WordSettings = {
       difficulty: 'hard',
     };
     this.server.createUserWord(word.id, wordSet);
-    console.log('Сложное слово добавлено');
+    this.refreshHardWords();
   }
 }

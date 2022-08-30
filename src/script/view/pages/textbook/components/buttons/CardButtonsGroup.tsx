@@ -5,7 +5,7 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import { CardBtnClass, ICardButtonsGroup } from '../../../../../interface/textbook';
 import { CSSClass } from '../../../../../interface/freeText';
 
-export default function CardButtonsGroup({ word, hardBtnSet }: ICardButtonsGroup): React.ReactElement {
+export default function CardButtonsGroup({ word, userWords, hardBtnSet }: ICardButtonsGroup): React.ReactElement {
   const [isDoneActive, setDoneActive] = useState(false);
   const [isHardActive, setHardActive] = useState(false);
   const toggleClass = (btnClass: CardBtnClass): void => {
@@ -20,6 +20,12 @@ export default function CardButtonsGroup({ word, hardBtnSet }: ICardButtonsGroup
         break;
     }
   };
+
+  userWords.then((json) => {
+    if (json.filter((w) => w.wordId === word.id).length !== 0) {
+      toggleClass('hard');
+    }
+  });
 
   return (
     <div className={CSSClass.cardIconButtonsWrapper}>

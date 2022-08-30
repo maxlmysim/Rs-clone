@@ -8,8 +8,14 @@ export type HardBtnSet = (word: Word) => void;
 export interface CardProps {
   word: Word,
   port: string,
+  userWords: Promise<IUserWordsResponse[]>,
   playSounds: (word: Word) => void,
   hardBtnSet: HardBtnSet,
+}
+export interface IUserWordsResponse {
+  difficulty: string,
+  id: string,
+  wordId: string,
 }
 
 export interface ITextbookCardImageStyle {
@@ -47,5 +53,6 @@ export interface ColorNum {
 
 export interface ICardButtonsGroup {
   word: Word;
+  userWords: Promise<IUserWordsResponse[]>;
   hardBtnSet: HardBtnSet;
 }
