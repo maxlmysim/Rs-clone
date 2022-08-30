@@ -7,7 +7,7 @@ import { Server } from '../server/server';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 import { GamesPage } from '../view/pages/games/gamesPage';
 import { ButtonAnimation } from '../helper/buttonAnimation';
-import { singInUserAndUpdateToken, userInfo } from '../authorization/user';
+import { singInUserAndUpdateToken } from '../authorization/user';
 import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
 import { resetKeyDownListener } from '../helper/helper';
 

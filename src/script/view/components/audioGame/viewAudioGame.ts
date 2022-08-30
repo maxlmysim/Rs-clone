@@ -214,14 +214,12 @@ export class ViewAudioGame {
   }
 
   private createButtonsForResult():HTMLElement {
-    const wrapper = createTag('div', '');
+    const wrapper = createTag('div', CSSClass.gameAudioResultButtons);
 
-    const btnRestartGame = createTag('button', '');
-    btnRestartGame.onclick = ():void => {
-      window.location.hash = IdPages.gameAudio;
-    };
+    const btnRestartGame = createTag('button', '', 'Играть еще');
+    btnRestartGame.onclick = ():void => this.controllerApp.openPage(this.init());
 
-    const btnGameList = createTag('button', '');
+    const btnGameList = createTag('button', '', 'К списку игр');
     btnGameList.onclick = ():void => {
       window.location.hash = IdPages.games;
     };

@@ -49,6 +49,7 @@ export class ControllerAudioGame {
 
   public nextWord(): void {
     if (this.model.currentNumWord === this.model.lastNumWord) {
+      this.model.currentNumWord = 0;
       resetKeyDownListener();
       this.view.showResults();
       return;

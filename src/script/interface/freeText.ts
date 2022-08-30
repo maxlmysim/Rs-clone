@@ -59,6 +59,7 @@ export enum CSSClass {
   gamesPageGameName = 'games-page__game-name',
   gameAudioWrapperButton = 'game-audio__wrapper-button',
   gameAudioResultBlock = 'game-audio__result-block',
+  gameAudioResultButtons = 'game-audio__result-buttons',
   lineThrough = 'line-through',
   rightAnswer = 'right-answer',
   warning = 'warning',
