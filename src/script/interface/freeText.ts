@@ -58,6 +58,7 @@ export enum CSSClass {
   gameAudioDescriptionControl = 'game-audio__description-control',
   gamesPageGameName = 'games-page__game-name',
   gameAudioWrapperButton = 'game-audio__wrapper-button',
+  gameAudioResultBlock = 'game-audio__result-block',
   lineThrough = 'line-through',
   rightAnswer = 'right-answer',
   warning = 'warning',
@@ -73,6 +74,14 @@ export enum CSSClass {
   navItem = 'nav-item',
   navItemIcon = 'item__icon',
   navItemName = 'item__name',
+  resultBlock = 'result-block',
+  resultBlockTitle = 'result-block__title',
+  resultBlockAnswer = 'result-block__answer',
+  resultBlockRightAnswers = 'result-block__right-answers',
+  resultBlockWrongAnswers = 'result-block__wrong-answers',
+  resultBlockEnglishWord = 'result-block__english-word',
+  resultBlockVoice = 'result-block__voice',
+  title = 'title',
 }
 
 export enum AuthorizationText {

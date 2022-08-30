@@ -1,5 +1,5 @@
 import { ControllerApp } from '../../../controller/controller';
-import { createTag, shuffleWordList } from '../../../helper/helper';
+import { createTag, resetKeyDownListener, shuffleWordList } from '../../../helper/helper';
 import { Server } from '../../../server/server';
 import { modelAudioGame } from './modelAudioGame';
 import { ViewAudioGame } from './viewAudioGame';
@@ -37,6 +37,7 @@ export class ControllerAudioGame {
     }
 
     shuffleWordList(listWords);
+
     this.model.lastNumWord = listWords.length - 1;
     this.model.listWords.length = 0;
     this.model.listWords.push(...listWords);
@@ -48,13 +49,13 @@ export class ControllerAudioGame {
 
   public nextWord(): void {
     if (this.model.currentNumWord === this.model.lastNumWord) {
-      this.model.currentNumWord = 0;
-      console.log('end');
-      console.log(this.model);
+      resetKeyDownListener();
+      this.view.showResults();
       return;
     }
-    this.model.currentNumWord += 1;
-    this.model.wrongAnswerOnPage.length = 0;
+
+    this.model.applySettingsNextPage();
+
     this.controllerApp.openPage(
       this.view.createPageWithWord(),
     );
@@ -75,6 +76,7 @@ export class ControllerAudioGame {
   }
 
   public wrongAnswer(block?: HTMLElement): void {
+    this.model.wrongAnswers.push(this.model.listWords[this.model.currentNumWord]);
     this.model.isShowAnswer = true;
 
     const audio = new Audio(failSound);
@@ -87,6 +89,7 @@ export class ControllerAudioGame {
   }
 
   public rightAnswer(block: HTMLElement): void {
+    this.model.rightAnswers.push(this.model.listWords[this.model.currentNumWord]);
     this.model.isShowAnswer = true;
 
     const audio = new Audio(successSound);
@@ -107,5 +110,47 @@ export class ControllerAudioGame {
       // eslint-disable-next-line no-param-reassign
       item.style.pointerEvents = 'none';
     });
+  }
+
+  public addListener():void {
+    document.body.onkeydown = (e):void => {
+      switch (e.key) {
+        case ' ':
+          this.view.voiceImg.click();
+          break;
+
+        case 'Enter':
+          this.view.buttonUnknown.click();
+          break;
+
+        default:
+      }
+
+      if (!this.model.isShowAnswer) {
+        switch (e.key) {
+          case '1':
+            this.model.listAnswerOnPage[0].click();
+            break;
+
+          case '2':
+            this.model.listAnswerOnPage[1].click();
+            break;
+
+          case '3':
+            this.model.listAnswerOnPage[2].click();
+            break;
+
+          case '4':
+            this.model.listAnswerOnPage[3].click();
+            break;
+
+          case '5':
+            this.model.listAnswerOnPage[4].click();
+            break;
+
+          default:
+        }
+      }
+    };
   }
 }
