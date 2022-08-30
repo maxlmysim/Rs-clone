@@ -6,9 +6,10 @@ import { MainPage } from '../view/pages/mainPage/mainPage';
 import { Server } from '../server/server';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 import { GamesPage } from '../view/pages/games/gamesPage';
-import { ViewAudioGame } from '../view/pages/games/audioGame/viewAudioGame';
 import { ButtonAnimation } from '../helper/buttonAnimation';
 import { singInUserAndUpdateToken } from '../authorization/user';
+import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
+import { resetKeyDownListener } from '../helper/helper';
 
 export class App {
   private view: ViewApp;
@@ -50,6 +51,8 @@ export class App {
   }
 
   private startPageUseHash():void {
+    resetKeyDownListener();
+
     const newHash = window.location.hash.slice(1);
     switch (newHash) {
       case IdPages.login: {

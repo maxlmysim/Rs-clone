@@ -126,3 +126,7 @@ export function getRandomItemFromArray(array: Word[], words: Set<Word>): Word {
 
   return item;
 }
+
+export function resetKeyDownListener():void {
+  document.body.onkeydown = ():void => {};
+}

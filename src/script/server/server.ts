@@ -101,7 +101,7 @@ export class Server {
       body: JSON.stringify(wordSettings),
     }).then((response) => {
       if (response.ok) {
-        return response;
+        return response.json();
       }
       if (response.status === 417) {
         console.log('Слово уже было записано');
