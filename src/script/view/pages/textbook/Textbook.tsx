@@ -46,6 +46,7 @@ function Textbook(): React.ReactElement {
             word={w}
             port={server.port}
             playSounds={():void => { controller.playSounds(w); }}
+            hardBtnSet={():void => { controller.setHardWord(w); }}
             key={w.id}
           />
         ))}
