@@ -26,7 +26,7 @@ function Textbook(): React.ReactElement {
     server.getAllWords(group, page).then((json) => setWords(json));
     textbookLocation.page = page;
     textbookLocation.group = group;
-    console.log(controller.userWords.then((json) => json));
+    // console.log(controller.userWords.then((json) => json));
   };
   if (words.length === 0) {
     server.getAllWords().then((json) => setWords(json));
