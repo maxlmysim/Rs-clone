@@ -6,9 +6,9 @@ import { MainPage } from '../view/pages/mainPage/mainPage';
 import { Server } from '../server/server';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 import { GamesPage } from '../view/pages/games/gamesPage';
-import { ViewAudioGame } from '../view/pages/games/audioGame/viewAudioGame';
 import { ButtonAnimation } from '../helper/buttonAnimation';
 import { singInUserAndUpdateToken } from '../authorization/user';
+import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
 
 export class App {
   private view: ViewApp;

@@ -1,13 +1,13 @@
-import { ControllerApp } from '../../../../controller/controller';
-import { createTag, shuffleWordList } from '../../../../helper/helper';
-import { Server } from '../../../../server/server';
+import { ControllerApp } from '../../../controller/controller';
+import { createTag, shuffleWordList } from '../../../helper/helper';
+import { Server } from '../../../server/server';
 import { modelAudioGame } from './modelAudioGame';
 import { ViewAudioGame } from './viewAudioGame';
-import { ModelAudioGame } from '../../../../interface/audioGame';
-import successSound from '../../../../../assets/sounds/correct.mp3';
-import failSound from '../../../../../assets/sounds/wrong.mp3';
-import { CSSClass } from '../../../../interface/freeText';
-import { Word } from '../../../../interface/server';
+import { ModelAudioGame } from '../../../interface/audioGame';
+import successSound from '../../../../assets/sounds/correct.mp3';
+import failSound from '../../../../assets/sounds/wrong.mp3';
+import { CSSClass } from '../../../interface/freeText';
+import { Word } from '../../../interface/server';
 
 export class ControllerAudioGame {
   private controllerApp: ControllerApp;
@@ -75,6 +75,8 @@ export class ControllerAudioGame {
   }
 
   public wrongAnswer(block?: HTMLElement): void {
+    this.model.isShowAnswer = true;
+
     const audio = new Audio(failSound);
     audio.play();
     this.view.addLineThroughWrongAnswer(block);
@@ -85,6 +87,8 @@ export class ControllerAudioGame {
   }
 
   public rightAnswer(block: HTMLElement): void {
+    this.model.isShowAnswer = true;
+
     const audio = new Audio(successSound);
     audio.play();
     const numBlock = block.querySelector(`.${CSSClass.gameAudioAnswerNum}`);
