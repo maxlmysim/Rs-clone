@@ -1,5 +1,5 @@
 // import { MenuItemTypeMap } from '@mui/material';
-import { Word } from '../../../../interface/server';
+import { Word, WordSettings } from '../../../../interface/server';
 import { Server } from '../../../../server/server';
 
 export class TextbookController {
@@ -23,7 +23,6 @@ export class TextbookController {
   }
 
   public playSounds(word: Word): void {
-    console.log(this.group, this.page);
     const sounds = [
       new Audio(`${this.server.port}/${word.audio}`),
       new Audio(`${this.server.port}/${word.audioMeaning}`),
@@ -37,5 +36,13 @@ export class TextbookController {
       sounds[i].play();
     }
     playSnd();
+  }
+
+  public setHardWord(word: Word): void {
+    const wordSet: WordSettings = {
+      difficulty: 'hard',
+    };
+    this.server.createUserWord(word.id, wordSet);
+    console.log('Сложное слово добавлено');
   }
 }

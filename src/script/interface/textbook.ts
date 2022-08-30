@@ -3,11 +3,13 @@ import { Word } from './server';
 export type TColors = 0 | 1 | 2 | 3 | 4 | 5;
 export type UpdWords = (group: number, page: number) => void;
 export type CardBtnClass = 'hard' | 'done';
+export type HardBtnSet = (word: Word) => void;
 
 export interface CardProps {
   word: Word,
   port: string,
-  playSounds: (word: Word) => void
+  playSounds: (word: Word) => void,
+  hardBtnSet: HardBtnSet,
 }
 
 export interface ITextbookCardImageStyle {
@@ -41,4 +43,9 @@ export interface UpdateWords {
 
 export interface ColorNum {
   num: TColors,
+}
+
+export interface ICardButtonsGroup {
+  word: Word;
+  hardBtnSet: HardBtnSet;
 }

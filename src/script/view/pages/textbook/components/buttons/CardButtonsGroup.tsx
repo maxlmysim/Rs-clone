@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { IconButton } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import PsychologyIcon from '@mui/icons-material/Psychology';
-import { CardBtnClass } from '../../../../../interface/textbook';
+import { CardBtnClass, ICardButtonsGroup } from '../../../../../interface/textbook';
 import { CSSClass } from '../../../../../interface/freeText';
 
-export default function CardButtonsGroup(): React.ReactElement {
+export default function CardButtonsGroup({ word, hardBtnSet }: ICardButtonsGroup): React.ReactElement {
   const [isDoneActive, setDoneActive] = useState(false);
   const [isHardActive, setHardActive] = useState(false);
   const toggleClass = (btnClass: CardBtnClass): void => {
@@ -14,7 +14,7 @@ export default function CardButtonsGroup(): React.ReactElement {
         setDoneActive(!isDoneActive);
         break;
       case 'hard':
-        setHardActive(!isHardActive);
+        setHardActive(true);
         break;
       default:
         break;
@@ -26,7 +26,16 @@ export default function CardButtonsGroup(): React.ReactElement {
       <IconButton aria-label="done" onClick={(): void => toggleClass('done')}>
         <DoneIcon fontSize="large" className={`${isDoneActive && CSSClass.cardDoneActive}`} />
       </IconButton>
-      <IconButton aria-label="hard" onClick={(): void => toggleClass('hard')}>
+      <IconButton
+        aria-label="hard"
+        onClick={
+        (): void => {
+          toggleClass('hard');
+          hardBtnSet(word);
+        }
+        }
+        disabled={isHardActive}
+      >
         <PsychologyIcon fontSize="large" className={`${isHardActive && CSSClass.cardHardActive}`} />
       </IconButton>
     </div>

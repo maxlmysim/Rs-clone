@@ -11,7 +11,9 @@ import { CardProps } from '../../../../../interface/textbook';
 import CardButtonsGroup from '../buttons/CardButtonsGroup';
 import { userInfo } from '../../../../../authorization/user';
 
-export function WordCard({ word, port, playSounds }: CardProps): React.ReactElement {
+export function WordCard({
+  word, port, playSounds, hardBtnSet,
+}: CardProps): React.ReactElement {
   return (
     <Card
       className={CSSClass.textbookCard}
@@ -46,7 +48,12 @@ export function WordCard({ word, port, playSounds }: CardProps): React.ReactElem
         <Typography variant="body2" dangerouslySetInnerHTML={{ __html: word.textExample }} />
         <Typography variant="body2" color="text.secondary">{word.textExampleTranslate}</Typography>
       </CardContent>
-      {userInfo.login && <CardButtonsGroup />}
+      {userInfo.login && (
+      <CardButtonsGroup
+        word={word}
+        hardBtnSet={hardBtnSet}
+      />
+      )}
     </Card>
 
   );
