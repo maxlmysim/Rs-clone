@@ -5,7 +5,6 @@ import { userInfo } from '../../../authorization/user';
 
 export class MainPage {
   public create():HTMLElement {
-    console.log('mainPage', userInfo.login);
     const wrapper = createTag('div', IdPages.main, '');
     const title = createTag('h1', CSSClass.mainPageTitle, MainPageText.mainPageTitle);
     if (!userInfo.login) {
@@ -14,11 +13,10 @@ export class MainPage {
       const aboutProjectBtn = this.createBtn(NamePages.aboutProject, IdPages.aboutProject);
       wrapper.append(title, text, loginBtn, aboutProjectBtn);
     } else {
-      const text = createTag('p', CSSClass.mainPageText, MainPageText.mainPageTextForUser);
+      const text = createTag('p', CSSClass.mainPageText, MainPageText.mainPageTextForUser + userInfo.name);
       const aboutProjectBtn = this.createBtn(NamePages.aboutProject, IdPages.aboutProject);
       wrapper.append(title, text, aboutProjectBtn);
     }
-    userInfo.login = false;
     return wrapper;
   }
 

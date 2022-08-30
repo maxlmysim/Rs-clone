@@ -1,4 +1,4 @@
-import { createTag } from '../../helper/helper';
+import { createImg, createTag } from '../../helper/helper';
 import { IdPages } from '../../interface/typeApp';
 import { logoutUser, userInfo } from '../../authorization/user';
 import { CSSClass, HTMLPageFreeText } from '../../interface/freeText';
@@ -7,9 +7,9 @@ export class Header {
   public create():HTMLElement {
     const header: HTMLElement = createTag('header', CSSClass.header);
     const wrapper: HTMLElement = createTag('div', CSSClass.headerWrapper);
-    const logo: HTMLElement = createTag('div', CSSClass.headerLogo, HTMLPageFreeText.heagerLogo);
+    const logo: HTMLElement = createTag('div', CSSClass.headerLogo, HTMLPageFreeText.headerLogo);
     logo.addEventListener('click', () => { window.location.hash = IdPages.main; });
-    wrapper.append(this.burger(), logo, this.autorization());
+    wrapper.append(this.burger(), logo, this.authorization());
     header.append(wrapper);
     return header;
   }
@@ -23,19 +23,21 @@ export class Header {
     return burger;
   }
 
-  public autorization():HTMLElement {
-    const autorization: HTMLElement = createTag('div', CSSClass.headerAutorization);
-    const autorizationSVG = createTag('a', CSSClass.headerSVG) as HTMLBaseElement;
-    if (!userInfo.login) {
-      autorizationSVG.innerHTML = '<img src = "./assets/svg/Login.svg" alt = "login">';
-      autorizationSVG.href = `#${IdPages.login}`;
+  public authorization():HTMLElement {
+    const authorization: HTMLElement = createTag('div', CSSClass.headerAuthorization);
+    const authorizationButton = createTag('a', CSSClass.authorizationLogo) as HTMLBaseElement;
+    if (userInfo.login) {
+      const img = createImg('./assets/svg/logout.svg', CSSClass.authorizationSVG, 'logOut');
+      authorizationButton.append(img);
+      authorizationButton.href = `#${IdPages.login}`;
+      authorization.onclick = (): void => logoutUser();
     } else {
-      autorizationSVG.innerHTML = '<img src = "./assets/svg/logout.svg" alt = "logOut">';
-      autorizationSVG.href = `#${IdPages.login}`;
-      autorization.onclick = (): void => logoutUser();
+      const img = createImg('./assets/svg/Login.svg', CSSClass.authorizationSVG, 'logIn');
+      authorizationButton.append(img);
+      authorizationButton.href = `#${IdPages.login}`;
     }
-    autorization.append(autorizationSVG);
-    return autorization;
+    authorization.append(authorizationButton);
+    return authorization;
   }
 
   private openMenu(event: Event):void {

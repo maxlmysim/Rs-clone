@@ -1,11 +1,19 @@
 export enum CSSClass {
+  authorization = 'authorization',
+  authorizationTitle = 'authorization__title',
+  authorizationInput = 'authorization__input',
+  authorizationInputEmail = 'authorization__input-email',
+  authorizationInputPassword = 'authorization__input-password',
+  authorizationButton = 'authorization__button',
+  authorizationSVG = 'authorization-svg',
+  authorizationLogo = 'authorization__logo',
   header = 'header',
   headerShift = 'header-shift',
   headerWrapper = 'header-wrapper',
   headerLogo = 'header__logo',
   headerSVG = 'header-svg',
   headerBurger = 'header__burger',
-  headerAutorization = 'header__autorization',
+  headerAuthorization = 'header__authorization',
   main = 'main',
   mainWrapper = 'main-wrapper',
   mainContainer = 'main-container',
@@ -13,12 +21,6 @@ export enum CSSClass {
   mainPageTitle = 'main-page__title',
   mainPageText = 'main-page__text',
   mainPageBtn = 'main-page__btn',
-  authorization = 'authorization',
-  authorizationTitle = 'authorization__title',
-  authorizationInput = 'authorization__input',
-  authorizationInputEmail = 'authorization__input-email',
-  authorizationInputPassword = 'authorization__input-password',
-  authorizationButton = 'authorization__button',
   textbook = 'textbook',
   textbookWrapper = 'textbook-wrapper',
   textbookCard = 'textbook-card',
@@ -92,7 +94,7 @@ export enum AudioGameText {
 }
 
 export enum HTMLPageFreeText {
-  heagerLogo = 'RSlang',
+  headerLogo = 'RSlang',
   footerYear = '2022',
   urlToRSSchool = 'https://rs.school/js/',
 }
@@ -101,7 +103,7 @@ export enum MainPageText {
   mainPageTitle = 'RSLang',
   mainPageText = `Используй быстрый и эффективный способ
   изучения английского языка.<br> Все самые лучшие методики в одном месте.`,
-  mainPageTextForUser = 'Hello User',
+  mainPageTextForUser = 'Hello ',
 }
 
 export enum FooterGithubUser {

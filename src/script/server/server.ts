@@ -1,5 +1,5 @@
 import {
-  Statistics, Word, WordSettings,
+  ResponseUpdateToken, Statistics, UserSettings, Word, WordSettings,
 } from '../interface/server';
 import { userInfo } from '../authorization/user';
 
@@ -184,7 +184,7 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async updateUserToken(): Promise<Response> {
+  public async updateUserToken(): Promise<ResponseUpdateToken> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlTokens}`, {
       method: 'GET',
       headers: {
@@ -195,20 +195,13 @@ export class Server {
     })
       .then((response) => {
         if (response.ok) {
-          return response;
+          return response.json();
         }
         return Promise.reject(response);
       });
   }
 
-  private async saveUserInLocalStorage(userResponse: Response): Promise<void> {
-    const user = await userResponse.json();
-    // userInfo.login = true;
-    const data = Object.assign(userInfo, user);
-    localStorage.setItem('userInfo', JSON.stringify(data));
-  }
-
-  public async signInUser(user: object): Promise<Response> {
+  public async signInUser(user: object): Promise<UserSettings> {
     return fetch(`${this.port}${this.urlSignIn}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -216,8 +209,7 @@ export class Server {
     })
       .then((response) => {
         if (response.ok) {
-          this.saveUserInLocalStorage(response);
-          return response;
+          return response.json();
         }
         return Promise.reject(response);
       });
