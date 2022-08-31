@@ -4,11 +4,12 @@ import { AuthorizationView } from '../authorization/authorizationView';
 import { IdPages } from '../interface/typeApp';
 import { MainPage } from '../view/pages/mainPage/mainPage';
 import { Server } from '../server/server';
-import { userInfo } from '../authorization/user';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 import { GamesPage } from '../view/pages/games/gamesPage';
-import { ViewAudioGame } from '../view/pages/games/audioGame/viewAudioGame';
 import { AboutProject } from '../view/pages/mainPage/aboutProject';
+import { singInUserAndUpdateToken } from '../authorization/user';
+import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
+import { resetKeyDownListener } from '../helper/helper';
 
 export class App {
   private view: ViewApp;
@@ -32,19 +33,22 @@ export class App {
   }
 
   private async startApp(): Promise<void> {
-    await this.server.getUser().then(() => {
-      userInfo.login = true;
-    }).catch(() => {});
+    await this.server.updateUserToken()
+      .then((data) => singInUserAndUpdateToken(data))
+      .catch(() => {});
     this.controller.startPage(this.view.renderPage);
+    const navItems = document.querySelectorAll('.nav-item') as NodeList;
     this.startPageUseHash();
   }
 
   private startPageUseHash():void {
+    resetKeyDownListener();
+
     const newHash = window.location.hash.slice(1);
     switch (newHash) {
       case IdPages.login: {
         const auth = new AuthorizationView();
-        this.controller.openPage(auth.init(this.mainPage.create()));
+        this.controller.openPage(auth.init());
         break;
       }
       case IdPages.main: {

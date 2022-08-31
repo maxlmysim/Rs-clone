@@ -13,11 +13,10 @@ export class MainPage {
       const aboutProjectBtn = this.createBtn(NamePages.aboutProject, IdPages.aboutProject);
       wrapper.append(title, text, loginBtn, aboutProjectBtn);
     } else {
-      const text = createTag('p', CSSClass.mainPageText, MainPageText.mainPageTextForUser);
+      const text = createTag('p', CSSClass.mainPageText, MainPageText.mainPageTextForUser + userInfo.name);
       const aboutProjectBtn = this.createBtn(NamePages.aboutProject, IdPages.aboutProject);
       wrapper.append(title, text, aboutProjectBtn);
     }
-    userInfo.login = false;
     return wrapper;
   }
 

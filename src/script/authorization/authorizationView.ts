@@ -1,7 +1,6 @@
 import { createInput, createTag } from '../helper/helper';
 import { CSSClass } from '../interface/freeText';
 import { AuthorizationController } from './authorizationController';
-import { userInfo, logoutUser } from './user';
 
 export class AuthorizationView {
   private controller: AuthorizationController;
@@ -10,18 +9,16 @@ export class AuthorizationView {
     this.controller = new AuthorizationController();
   }
 
-  public init(node: HTMLElement = this.signInView()): HTMLElement {
+  public init(elem: HTMLElement = this.signInView()): HTMLElement {
     const authWrapper = document.querySelector(`.${CSSClass.authorization}`);
+
     if (authWrapper) {
       authWrapper.innerHTML = '';
-      authWrapper.append(node);
-      return this.signInView();
+      authWrapper.append(elem);
+      return elem;
     }
-    if (userInfo.login) return node;
-    const autorizationSVG = document.querySelectorAll(`.${CSSClass.headerSVG}`) as NodeList;
-    (autorizationSVG[1] as HTMLElement).innerHTML = '<img src = "./assets/svg/Login.svg" alt = "Login">';
-    logoutUser();
-    return this.signInView();
+
+    return elem;
   }
 
   public signInView(): HTMLElement {

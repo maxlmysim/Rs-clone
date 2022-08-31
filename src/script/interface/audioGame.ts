@@ -6,5 +6,12 @@ export interface ModelAudioGame {
   'difficulty': number,
   'listWords': Word[],
   'rightAnswerOnPage': HTMLElement,
-  'wrongAnswerOnPage': HTMLElement[]
+  'wrongAnswerOnPage': HTMLElement[],
+  'listAnswerOnPage':HTMLElement[],
+  'isShowAnswer': boolean,
+  'rightAnswers': Word[],
+  'wrongAnswers': Word[],
+  'reset': ()=>void,
+  'resetAll': ()=>void,
+  'applySettingsNextPage': ()=>void,
 }

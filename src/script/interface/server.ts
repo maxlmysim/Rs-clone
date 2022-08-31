@@ -29,6 +29,11 @@ export interface UserSettings {
   'name': string
 }
 
+export interface ResponseUpdateToken {
+  'token': string,
+  'refreshToken': string,
+}
+
 export interface Statistics {
   'learnedWords': number,
   'optional': object

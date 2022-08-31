@@ -90,6 +90,14 @@ export function createOptionListDifficulty(num: number, selected: number): Optio
   return list;
 }
 
+type CreateImg = (link: string, className: string, alt: string) => HTMLImageElement;
+export const createImg: CreateImg = (link: string, className: string, alt: string): HTMLImageElement => {
+  const img = createTag('img', className) as HTMLImageElement;
+  img.src = link;
+  img.alt = alt;
+  return img;
+};
+
 export function shuffleWordList(array: Word[] | HTMLElement[]): void {
   for (let i = array.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -117,4 +125,8 @@ export function getRandomItemFromArray(array: Word[], words: Set<Word>): Word {
   }
 
   return item;
+}
+
+export function resetKeyDownListener():void {
+  document.body.onkeydown = ():void => {};
 }

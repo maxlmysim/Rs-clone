@@ -1,5 +1,6 @@
-import { UserSettings } from '../interface/server';
+import { ResponseUpdateToken, UserSettings } from '../interface/server';
 import { CSSClass } from '../interface/freeText';
+import { createImg } from '../helper/helper';
 
 export const userInfo: UserSettings = {
   login: false,
@@ -15,6 +16,26 @@ if (userFromLocalStorage) {
   Object.assign(userInfo, userSettings);
 }
 
+function saveUserInLocalStorage(userSettings:UserSettings): void {
+  localStorage.setItem('userInfo', JSON.stringify(userSettings));
+}
+
+function changeLogoAuthorization():void {
+  const logo = document.querySelector(`.${CSSClass.authorizationLogo}`);
+
+  if (logo) {
+    if (userInfo.login) {
+      const img = createImg('./assets/svg/logout.svg', CSSClass.authorizationSVG, 'logOut');
+      logo.innerHTML = '';
+      logo.append(img);
+    } else {
+      const img = createImg('./assets/svg/Login.svg', CSSClass.authorizationSVG, 'logIn');
+      logo.innerHTML = '';
+      logo.append(img);
+    }
+  }
+}
+
 export function logoutUser(): void {
   Object.assign(userInfo, {
     login: false,
@@ -24,6 +45,23 @@ export function logoutUser(): void {
     userId: '',
   });
   localStorage.removeItem('userInfo');
-  const autorizationSVG = document.querySelectorAll(`.${CSSClass.headerSVG}`) as NodeList;
-  (autorizationSVG[1] as HTMLElement).innerHTML = '<img src = "./assets/svg/Login.svg" alt = "login">';
+
+  changeLogoAuthorization();
+}
+
+export function singInUser(userSettings:UserSettings): void {
+  userInfo.login = true;
+  Object.assign(userInfo, userSettings);
+  saveUserInLocalStorage(userSettings);
+  changeLogoAuthorization();
+}
+
+export function singInUserAndUpdateToken(newTokens: ResponseUpdateToken): void {
+  const userLocalStorage = localStorage.getItem('userInfo');
+  let user;
+  if (userLocalStorage) {
+    user = JSON.parse(userLocalStorage);
+  }
+  Object.assign(user, newTokens);
+  singInUser(user);
 }
