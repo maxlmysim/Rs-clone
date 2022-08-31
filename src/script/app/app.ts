@@ -37,13 +37,11 @@ export class App {
       .then((data) => singInUserAndUpdateToken(data))
       .catch(() => {});
     this.controller.startPage(this.view.renderPage);
-    const navItems = document.querySelectorAll('.nav-item') as NodeList;
     this.startPageUseHash();
   }
 
   private startPageUseHash():void {
     resetKeyDownListener();
-
     const newHash = window.location.hash.slice(1);
     switch (newHash) {
       case IdPages.login: {
