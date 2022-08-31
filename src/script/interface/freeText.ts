@@ -82,6 +82,8 @@ export enum CSSClass {
   aboutProjectAdvancedSvg = 'about-project__advanced-item__svg',
   aboutProjectAdvancedName = 'about-project__advanced-item__name',
   aboutProjectAdvancedText = 'about-project__advanced-item__text',
+  aboutProjectBtn = 'about-project__btn',
+  aboutProjectBtnYoutube = 'youtube',
   resultBlock = 'result-block',
   resultBlockTitle = 'result-block__title',
   resultBlockAnswer = 'result-block__answer',
@@ -134,10 +136,21 @@ export enum FooterGithubUser {
 
 export enum AboutPtojectText {
   title = 'О ПРОЕКТЕ',
-  text = `Приложение для изучения иностранных слов с техникой интервального повторения,<br>
+  text = `Приложение для изучения иностранных слов с техникой интервального повторения,
   отслеживания индивидуального прогресса и мини-игр.`,
   ebookText = `Возможность изучать слова разного уровня,<br>
   отмечать сложные и подучать новые знания`,
   dictionaryText = `Возможность изучения неизвестных,<br>
   или труднозапоминаемых по другой схеме`,
+  gameText = `Игры позволяют провести время не только в удовольствие,
+  но и с пользой`,
+  statisticsText = `Можно легко оценивать свой
+  уровень знаний по статистике`,
+  aboutProjectBtn = 'Назад',
+  aboutProjectYoutube = 'Видео',
+  youtubeFrame = `<iframe width="560" height="315"
+  src="https://www.youtube.com/embed/-WR5EEl5YyE"
+  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
+  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen></iframe>`,
 }

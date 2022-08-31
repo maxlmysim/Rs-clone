@@ -21,7 +21,7 @@ export class MainPage {
   }
 
   private createBtn(name: string, idPage:string):HTMLElement {
-    const wrapper = createTag('a', CSSClass.mainPageBtn, name) as HTMLBaseElement;
+    const wrapper = createTag('a', CSSClass.mainPageBtn, name) as HTMLAnchorElement;
     wrapper.href = `#${idPage}`;
     return wrapper;
   }
