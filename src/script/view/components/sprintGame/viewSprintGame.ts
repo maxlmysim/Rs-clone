@@ -17,14 +17,6 @@ export class ViewSprintGame {
 
   private model: ModelSprintGame;
 
-  public buttonUnknown!: HTMLElement;
-
-  private blockHeader!: HTMLElement;
-
-  private blockVoice!: HTMLElement;
-
-  public voiceImg!: HTMLElement;
-
   private gameSprintContainer!: HTMLElement;
 
   private controllerApp: ControllerApp;
@@ -115,13 +107,12 @@ export class ViewSprintGame {
 
     const word = this.model.listWords[this.model.currentNumWord];
 
-    const timerBlock = createTag('div', CSSClass.gameWindowTimerBlock);
     const correctAnswerCounter = createTag('div', CSSClass.gameWindowCorrectCounter);
     const englishWord = createTag('h3', CSSClass.gameWindowEnglishWord, word.word);
     const russianWord = createTag('h3', CSSClass.gameWindowRussianWord, word.wordTranslate);
     const hr = createTag('hr', '');
 
-    wrapper.append(timerBlock, correctAnswerCounter, englishWord, russianWord, hr, this.createButtonsForGame());
+    wrapper.append(this.createTimer(), correctAnswerCounter, englishWord, russianWord, hr, this.createButtonsForGame());
     return wrapper;
   }
 
@@ -136,6 +127,7 @@ export class ViewSprintGame {
     );
     const textForCorrectButton = createTag('span', '', 'верно');
     correctButton.append(arrowLeftForButton, textForCorrectButton);
+    correctButton.onclick = ():void => this.controller.checkAnswer(true);
 
     const incorrectButton = createTag('button', CSSClass.gameWindowIncorrectButton);
     const arrowRightForButton = createTag(
@@ -145,10 +137,51 @@ export class ViewSprintGame {
     );
     const textForIncorrectButton = createTag('span', '', 'неверно');
     incorrectButton.append(textForIncorrectButton, arrowRightForButton);
+    incorrectButton.onclick = ():void => this.controller.checkAnswer(false);
 
     buttonsContainer.append(correctButton, incorrectButton);
 
     return buttonsContainer;
+  }
+
+  private createTimer(): HTMLElement {
+    const wrapper = createTag('div', [CSSClass.gameWindowTimerBlock, CSSClass.timerBlock]);
+
+    const timeCaption = createTag('h3', '', '0');
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.classList.add(CSSClass.timerBlockCircle);
+    circle.setAttributeNS(null, 'cx', '25');
+    circle.setAttributeNS(null, 'cy', '25');
+    circle.setAttributeNS(null, 'r', '20');
+    circle.setAttributeNS(null, 'stroke-width', '4');
+    circle.setAttributeNS(null, 'fill', 'none');
+    svg.append(circle);
+
+    const time = 160;
+    let i = 0;
+    const finalOffset = 125;
+    const step = finalOffset / time;
+    const circleStyle = circle.style;
+
+    circleStyle.strokeDasharray = `${finalOffset}`;
+    circleStyle.strokeDashoffset = '0';
+    timeCaption.innerText = `${time}`;
+
+    const interval = setInterval(() => {
+      timeCaption.innerText = `${time - i}`;
+      i += 1;
+      if (i > time) {
+        clearInterval(interval);
+      } else {
+        circleStyle.strokeDashoffset = `${step * i}`;
+      }
+    }, 1000);
+
+    wrapper.append(timeCaption, svg);
+    return wrapper;
   }
 
   public showResults(): void {

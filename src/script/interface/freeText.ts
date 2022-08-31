@@ -31,6 +31,8 @@ export enum CSSClass {
   textbookButtonsGroup = 'textbook-buttons-group',
   textbookMenuButtonWrapper = 'textbook-menu-button-wrapper',
   textbookMenuButton = 'textbook-menu-button',
+  timerBlock = 'timer-block',
+  timerBlockCircle = 'timer-block__circle',
   dimLight = 'dim-light',
   deleteBorder = 'delete-border',
   fillGray = 'fill-gray',
