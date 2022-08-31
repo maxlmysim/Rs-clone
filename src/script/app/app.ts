@@ -10,6 +10,7 @@ import { ButtonAnimation } from '../helper/buttonAnimation';
 import { singInUserAndUpdateToken } from '../authorization/user';
 import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
 import { resetKeyDownListener } from '../helper/helper';
+import { ViewSprintGame } from '../view/components/sprintGame/viewSprintGame';
 
 export class App {
   private view: ViewApp;
@@ -75,6 +76,11 @@ export class App {
       }
       case IdPages.gameAudio: {
         const game = new ViewAudioGame();
+        this.controller.openPage(game.init());
+        break;
+      }
+      case IdPages.gameSprint: {
+        const game = new ViewSprintGame();
         this.controller.openPage(game.init());
         break;
       }

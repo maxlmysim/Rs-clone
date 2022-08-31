@@ -1,8 +1,10 @@
-.game-audio {
+.game-sprint {
   width: 100%;
   height: 100%;
   padding: 3rem;
   background-size: cover;
+  color: white;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 
   &__preview {
     display: flex;
@@ -13,13 +15,12 @@
     height: 100%;
     position: relative;
 
-    .game-audio {
+    .game-sprint {
       &__title {
         font-size: 5rem;
         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-        font-weight: 300;
+        font-weight: 500;
         line-height: 1.2;
-        color: white;
         text-transform: uppercase;
         letter-spacing: 0.3em;
         margin-bottom: 60px;
@@ -31,7 +32,6 @@
         margin: 0 auto 25px;
         padding: 0 15px;
         flex-direction: column;
-        color: white;
         font-size: 1.8rem;
       }
 
@@ -57,6 +57,7 @@
         justify-content: center;
         gap: 3rem;
         height: 4rem;
+        font-size: 1.8rem;
 
         &__start {
           height: 100%;
@@ -98,7 +99,7 @@
           width: 100px;
           height: 100%;
 
-          .game-audio__block-buttons__fieldset {
+          .game-sprint__block-buttons__fieldset {
             border: 1px solid #c0c0c0;
             border-radius: 10px;
             padding: 0.35rem 0.625rem 0.75rem;
@@ -108,8 +109,8 @@
             height: 113%;
           }
 
-          .game-audio__block-buttons__select,
-          .game-audio__block-buttons__fieldset {
+          .game-sprint__block-buttons__select,
+          .game-sprint__block-buttons__fieldset {
             position: absolute;
           }
         }
@@ -122,122 +123,82 @@
   &__game {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .game-audio__header {
-      height: 55%;
+  &__current-account {
+    font-size: 3rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .game-window {
+    min-height: 50%;
+    min-width: 50%;
+    background-color: #7986CBA1;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    &__english-word {
+      font-size: 3rem;
+      font-weight: 400;
+    }
+
+    &__russian-word {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    hr {
+      background-color: #ffffff8c;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    &__buttons {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column-reverse;
       gap: 2rem;
-      font-size: 2.8rem;
+      font-size: 2.2rem;
+    }
+
+    &__correct-button,
+    &__incorrect-button {
+      border: none;
       color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease-in-out;
 
-      &-bottom {
-        display: flex;
-        align-items: center;
-        gap: 2.5rem;
-      }
-
-      &-img {
-        display: block;
-        width: 12rem;
-        height: 12rem;
-        border-radius: 50%;
-        border: 2px solid white;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
+      .button__arrow img {
+        width: 2.5rem;
+        filter: invert(100%) sepia(5%) saturate(0%) hue-rotate(42deg) brightness(107%) contrast(105%);
       }
     }
 
-
-    .game-audio__button-voice {
-      width: 120px;
-      height: 120px;
-      background-color: rgba(255, 255, 255, .2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-
-      &__img {
-        filter: invert(99%) sepia(1%) saturate(2%) hue-rotate(232deg) brightness(111%) contrast(101%);
-        width: 7em;
-        height: 7em;
-      }
-    }
-
-    .right-answer {
-      width: 36px;
-      height: 36px;
-    }
-
-    .game-audio__answers {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      gap: 15px;
-      flex-wrap: wrap;
-      max-width: 700px;
-      margin: 0 auto 3rem;
-      font-size: 2rem;
-      color: white;
-    }
-
-    .game-audio__answer {
-      display: flex;
-      padding: 1rem;
-      cursor: pointer;
+    &__correct-button {
+      background-color: #4caf50;
 
       &:hover {
-        background-color: rgba(255, 255, 255, .2);
-      }
-
-      &_num {
-        width: 2rem;
-        height: 2rem;
-
-        img {
-          filter: invert(64%) sepia(37%) saturate(525%) hue-rotate(73deg) brightness(94%) contrast(89%);
-        }
+        background-color: #388e3c;
       }
     }
 
-    .game-audio__wrapper-button {
-      display: flex;
-      justify-content: center;
+    &__incorrect-button {
+      background-color: #f50057;
 
-      .game-audio__button {
-        color: rgba(255, 255, 255, .6);
-        font-size: 1.4rem;
-        text-transform: uppercase;
-        height: 50px;
-        max-width: 200px;
-        width: 100%;
-        border: 1px solid rgba(255, 255, 255, .6);
-        border-radius: 10px;
-        padding: 5px 15px;
-        background: rgba(0, 0, 0, 0);
-        transition: all 0.5s ease;
-
-        &:hover {
-          border: 1px solid rgba(255, 255, 255, 1);
-        }
-
-        img {
-          width: 100%;
-          height: 100%;
-          filter: invert(86%) sepia(11%) saturate(200%) hue-rotate(247deg) brightness(83%) contrast(90%);
-          transition: all 0.5s ease;
-
-          &:hover {
-            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
-          }
-        }
+      &:hover {
+        background-color: #c51162;
       }
     }
+
   }
 
   .result-block {
@@ -314,10 +275,10 @@
       font-weight: bold;
       font-size: 1.8rem;
       border: 0;
-      background-color: rgba(37,130,231,.3);
+      background-color: rgba(37, 130, 231, .3);
 
       &:hover {
-        background-color: rgba(37,130,231,.5);
+        background-color: rgba(37, 130, 231, .5);
       }
     }
   }

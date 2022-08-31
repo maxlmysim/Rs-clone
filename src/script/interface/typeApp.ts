@@ -6,6 +6,7 @@ export enum IdPages {
   dictionary = 'dictionary',
   games = 'games',
   gameAudio = 'game-audio',
+  gameSprint = 'game-sprint',
   statistics = 'statistics',
   aboutTeam = 'about-team',
   review = 'review',
