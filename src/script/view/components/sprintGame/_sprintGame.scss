@@ -132,12 +132,13 @@
   &__current-account {
     font-size: 3rem;
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     margin-bottom: 1rem;
+    align-items: center;
   }
 
   .game-window {
-    min-height: 50%;
+    min-height: 70%;
     min-width: 50%;
     background-color: #7986CBA1;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -170,24 +171,39 @@
         color: red;
       }
 
-      &__circle{
+      &__circle {
         width: 100%;
         height: 100%;
         stroke-dasharray: 125;
         transition: all 1s linear;
         stroke: currentColor;
       }
+    }
 
+    &__correct-counter {
+      display: flex;
+      justify-content: space-around;
+      width: 50%;
 
+      &-icon {
+        background-color: white;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+
+        img {
+          filter: invert(64%) sepia(37%) saturate(525%) hue-rotate(73deg) brightness(94%) contrast(89%);
+        }
+      }
     }
 
     &__english-word {
-      font-size: 3rem;
+      font-size: 4.8rem;
       font-weight: 400;
     }
 
     &__russian-word {
-      font-size: 1.5rem;
+      font-size: 2.4rem;
       font-weight: 400;
     }
 
@@ -240,7 +256,10 @@
     padding: 1.5rem;
     overflow: auto;
     height: 80%;
+    width: 80%;
+    max-width: 700px;
     margin-bottom: 2rem;
+    color: black;
 
     &__title {
       font-size: 2.5rem;

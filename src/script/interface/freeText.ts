@@ -83,6 +83,7 @@ export enum CSSClass {
   gameWindowTimer = 'game-window__timer',
   gameWindowTimerBlock = 'game-window__timer-block',
   gameWindowCorrectCounter = 'game-window__correct-counter',
+  gameWindowCorrectCounterIcon = 'game-window__correct-counter-icon',
   gameWindowEnglishWord = 'game-window__english-word',
   gameWindowRussianWord = 'game-window__russian-word',
   gameWindowButtons = 'game-window__buttons',

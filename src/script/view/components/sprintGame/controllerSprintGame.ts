@@ -52,7 +52,6 @@ export class ControllerSprintGame {
     if (this.model.currentNumWord === this.model.lastNumWord) {
       resetKeyDownListener();
       this.view.showResults();
-      console.log('end');
       return;
     }
 
@@ -94,12 +93,8 @@ export class ControllerSprintGame {
       this.wrongAnswer();
     }
 
+    this.view.addMarkToCounterCorrectAnswer();
     this.nextWord();
-  }
-
-  public playVoice():void {
-    const voice = new Audio(`${this.server.port}/${this.model.listWords[this.model.currentNumWord].audio}`);
-    voice.play();
   }
 
   public wrongAnswer(): void {
@@ -114,6 +109,16 @@ export class ControllerSprintGame {
 
     const audio = new Audio(successSound);
     audio.play();
+
+    if (this.model.serialCorrectAnswer >= 3) {
+      this.model.serialCorrectAnswer = 0;
+      this.model.account += 40;
+    } else {
+      this.model.serialCorrectAnswer += 1;
+    }
+
+    this.model.account += 20;
+    this.view.changeCurrentAccount();
   }
 
   // public addListener():void {

@@ -1,5 +1,5 @@
 import {
-  createImg, createOptionListDifficulty, createSelect, createTag,
+  createImg, createOptionListDifficulty, createSelect, createTag, resetKeyDownListener,
 } from '../../../helper/helper';
 import { SprintGameText, CSSClass } from '../../../interface/freeText';
 import { Server } from '../../../server/server';
@@ -24,6 +24,8 @@ export class ViewSprintGame {
   private englishWord!: HTMLElement;
 
   private translateWord!: HTMLElement;
+
+  private currentAccount!: HTMLElement;
 
   public constructor() {
     this.model = modelSprintGame;
@@ -99,6 +101,7 @@ export class ViewSprintGame {
     const currentAccountBlock = createTag('div', CSSClass.gameSprintCurrentAccount);
     const currentAccountText = createTag('span', '', 'Текущий счет');
     const currentAccountNum = createTag('span', '', '0');
+    this.currentAccount = currentAccountNum;
     currentAccountBlock.append(currentAccountText, currentAccountNum);
 
     gamePage.append(currentAccountBlock, this.createGameBlock());
@@ -109,7 +112,6 @@ export class ViewSprintGame {
 
   private createGameBlock(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameWindow);
-    const correctAnswerCounter = createTag('div', CSSClass.gameWindowCorrectCounter);
     const englishWord = createTag('h3', CSSClass.gameWindowEnglishWord, this.model.englishWord);
     const translateWord = createTag('h3', CSSClass.gameWindowRussianWord, this.model.translateWord);
 
@@ -118,18 +120,51 @@ export class ViewSprintGame {
 
     const hr = createTag('hr', '');
 
-    wrapper
-      .append(this.createTimer(), correctAnswerCounter, englishWord, translateWord, hr, this.createButtonsForGame());
+    wrapper.append(
+      this.createTimer(),
+      this.createCounterCorrectAnswer(),
+      englishWord,
+      translateWord,
+      hr,
+      this.createButtonsForGame(),
+    );
 
     return wrapper;
   }
 
-  public changeWordOnPage():void {
+  private createCounterCorrectAnswer(): HTMLElement {
+    const wrapper = createTag('div', CSSClass.gameWindowCorrectCounter);
+    const circle = createTag('span', CSSClass.gameWindowCorrectCounterIcon);
+    wrapper.append(circle, circle.cloneNode(), circle.cloneNode());
+    return wrapper;
+  }
+
+  public addMarkToCounterCorrectAnswer(): void {
+    const circles = document.querySelectorAll(`.${CSSClass.gameWindowCorrectCounterIcon}`);
+    console.log(this.model.serialCorrectAnswer);
+    circles.forEach((item) => {
+      // eslint-disable-next-line no-param-reassign
+      item.innerHTML = '';
+    });
+
+    circles.forEach((item, index) => {
+      if (index < this.model.serialCorrectAnswer) {
+        const imgSucceed = createImg('./assets/svg/success.svg', '', 'succeed');
+        item.append(imgSucceed);
+      }
+    });
+  }
+
+  public changeWordOnPage(): void {
     this.englishWord.innerHTML = this.model.englishWord;
     this.translateWord.innerHTML = this.model.translateWord;
   }
 
-  private createButtonsForGame():HTMLElement {
+  public changeCurrentAccount(): void {
+    this.currentAccount.innerHTML = `${this.model.account}`;
+  }
+
+  private createButtonsForGame(): HTMLElement {
     const buttonsContainer = createTag('div', CSSClass.gameWindowButtons);
 
     const correctButton = createTag('button', CSSClass.gameWindowCorrectButton);
@@ -140,7 +175,7 @@ export class ViewSprintGame {
     );
     const textForCorrectButton = createTag('span', '', 'верно');
     correctButton.append(arrowLeftForButton, textForCorrectButton);
-    correctButton.onclick = ():void => this.controller.checkAnswer(true);
+    correctButton.onclick = (): void => this.controller.checkAnswer(true);
 
     const incorrectButton = createTag('button', CSSClass.gameWindowIncorrectButton);
     const arrowRightForButton = createTag(
@@ -150,7 +185,7 @@ export class ViewSprintGame {
     );
     const textForIncorrectButton = createTag('span', '', 'неверно');
     incorrectButton.append(textForIncorrectButton, arrowRightForButton);
-    incorrectButton.onclick = ():void => this.controller.checkAnswer(false);
+    incorrectButton.onclick = (): void => this.controller.checkAnswer(false);
 
     buttonsContainer.append(correctButton, incorrectButton);
 
@@ -173,7 +208,7 @@ export class ViewSprintGame {
     circle.setAttributeNS(null, 'fill', 'none');
     svg.append(circle);
 
-    const time = 160;
+    const time = 60;
     let i = 0;
     const finalOffset = 125;
     const step = finalOffset / time;
@@ -188,6 +223,8 @@ export class ViewSprintGame {
       i += 1;
       if (i > time) {
         clearInterval(interval);
+        resetKeyDownListener();
+        this.showResults();
       } else {
         circleStyle.strokeDashoffset = `${step * i}`;
       }
@@ -219,7 +256,7 @@ export class ViewSprintGame {
 
   private createResultBlock(): HTMLElement {
     const wrapper = createTag('div', [CSSClass.gameSprintResultBlock, CSSClass.resultBlock]);
-    const title = createTag('h3', CSSClass.resultBlockTitle, 'Ваш результат');
+    const title = createTag('h3', CSSClass.resultBlockTitle, `Количество очков: ${this.model.account} `);
     const rightAnswersBlock = this.createRightAnswersResult();
     const hr = createTag('hr', '');
     const wrongAnswersBlock = this.createWrongAnswersResult();

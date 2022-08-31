@@ -11,6 +11,7 @@ export const modelSprintGame: ModelSprintGame = {
   rightAnswers: [],
   wrongAnswers: [],
   account: 0,
+  serialCorrectAnswer: 0,
 
   resetAll() {
     this.listWords = [];
@@ -23,6 +24,7 @@ export const modelSprintGame: ModelSprintGame = {
     this.account = 0;
     this.englishWord = '';
     this.translateWord = '';
+    this.serialCorrectAnswer = 0;
   },
 
   applySettingsNextPage() {

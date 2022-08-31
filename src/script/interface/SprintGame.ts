@@ -11,6 +11,7 @@ export interface ModelSprintGame {
   'account': number,
   englishWord: string,
   translateWord: string,
+  serialCorrectAnswer: number,
   'resetAll': ()=>void,
   'applySettingsNextPage': ()=>void,
 }
