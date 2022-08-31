@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconButton } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import PsychologyIcon from '@mui/icons-material/Psychology';
@@ -8,6 +8,7 @@ import { CSSClass } from '../../../../../interface/freeText';
 export default function CardButtonsGroup({ word, userWords, hardBtnSet }: ICardButtonsGroup): React.ReactElement {
   const [isDoneActive, setDoneActive] = useState(false);
   const [isHardActive, setHardActive] = useState(false);
+
   const toggleClass = (btnClass: CardBtnClass): void => {
     switch (btnClass) {
       case 'done':
@@ -21,10 +22,12 @@ export default function CardButtonsGroup({ word, userWords, hardBtnSet }: ICardB
     }
   };
 
-  userWords.then((json) => {
-    if (json.filter((w) => w.wordId === word.id).length !== 0) {
-      toggleClass('hard');
-    }
+  useEffect(() => {
+    userWords.then((arr) => {
+      if (arr.includes(word.id)) {
+        toggleClass('hard');
+      }
+    });
   });
 
   return (

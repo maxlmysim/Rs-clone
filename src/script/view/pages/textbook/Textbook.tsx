@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider } from '@mui/material';
 import { createTag } from '../../../helper/helper';
@@ -20,17 +20,21 @@ export const textbookLocation = {
   group: controller.group,
 };
 
+const userWordIds = controller.userWords.then((json) => json.map((el) => el.wordId));
+
 function Textbook(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
+  const [userWords, setUserWords] = useState<Promise<string[]>>();
   const updateWords = (group:number, page:number): void => {
     server.getAllWords(group, page).then((json) => setWords(json));
     textbookLocation.page = page;
     textbookLocation.group = group;
-    // console.log(controller.userWords.then((json) => json));
   };
   if (words.length === 0) {
     server.getAllWords().then((json) => setWords(json));
   }
+  useEffect(() => setUserWords(userWordIds));
+
   return (
     <ThemeProvider theme={theme}>
       <div className={CSSClass.textbookWrapper}>
@@ -46,7 +50,7 @@ function Textbook(): React.ReactElement {
             port={server.port}
             playSounds={():void => { controller.playSounds(w); }}
             hardBtnSet={():void => { controller.setHardWord(w); }}
-            userWords={controller.userWords}
+            userWords={userWords as Promise<string[]>}
             key={w.id}
           />
         ))}
