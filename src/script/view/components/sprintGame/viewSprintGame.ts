@@ -21,6 +21,10 @@ export class ViewSprintGame {
 
   private controllerApp: ControllerApp;
 
+  private englishWord!: HTMLElement;
+
+  private translateWord!: HTMLElement;
+
   public constructor() {
     this.model = modelSprintGame;
     this.model.resetAll();
@@ -85,9 +89,10 @@ export class ViewSprintGame {
     return wrapper;
   }
 
-  public createPageWithWord(): HTMLElement {
+  public createGame(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameSprint);
     const gamePage = createTag('div', CSSClass.gameSprintGame);
+    this.gameSprintContainer = gamePage;
 
     wrapper.style.backgroundImage = 'url(./assets/img/games/sprintGame_background.svg)';
 
@@ -104,16 +109,24 @@ export class ViewSprintGame {
 
   private createGameBlock(): HTMLElement {
     const wrapper = createTag('div', CSSClass.gameWindow);
-
-    const word = this.model.listWords[this.model.currentNumWord];
-
     const correctAnswerCounter = createTag('div', CSSClass.gameWindowCorrectCounter);
-    const englishWord = createTag('h3', CSSClass.gameWindowEnglishWord, word.word);
-    const russianWord = createTag('h3', CSSClass.gameWindowRussianWord, word.wordTranslate);
+    const englishWord = createTag('h3', CSSClass.gameWindowEnglishWord, this.model.englishWord);
+    const translateWord = createTag('h3', CSSClass.gameWindowRussianWord, this.model.translateWord);
+
+    this.englishWord = englishWord;
+    this.translateWord = translateWord;
+
     const hr = createTag('hr', '');
 
-    wrapper.append(this.createTimer(), correctAnswerCounter, englishWord, russianWord, hr, this.createButtonsForGame());
+    wrapper
+      .append(this.createTimer(), correctAnswerCounter, englishWord, translateWord, hr, this.createButtonsForGame());
+
     return wrapper;
+  }
+
+  public changeWordOnPage():void {
+    this.englishWord.innerHTML = this.model.englishWord;
+    this.translateWord.innerHTML = this.model.translateWord;
   }
 
   private createButtonsForGame():HTMLElement {

@@ -1,12 +1,11 @@
 import { ControllerApp } from '../../../controller/controller';
-import { createTag, resetKeyDownListener, shuffleWordList } from '../../../helper/helper';
+import { getRandomIndexFromArray, resetKeyDownListener, shuffleWordList } from '../../../helper/helper';
 import { Server } from '../../../server/server';
 import { modelSprintGame } from './modelSprintGame';
 import { ViewSprintGame } from './viewSprintGame';
 import { ModelSprintGame } from '../../../interface/SprintGame';
 import successSound from '../../../../assets/sounds/correct.mp3';
 import failSound from '../../../../assets/sounds/wrong.mp3';
-import { CSSClass } from '../../../interface/freeText';
 import { Word } from '../../../interface/server';
 
 export class ControllerSprintGame {
@@ -28,6 +27,8 @@ export class ControllerSprintGame {
   }
 
   public async loadWordsAndStartGame(list?: Word[]): Promise<void> {
+    this.model.resetAll();
+
     let listWords = [];
     if (list) {
       listWords = [...list];
@@ -39,31 +40,61 @@ export class ControllerSprintGame {
     shuffleWordList(listWords);
 
     this.model.lastNumWord = listWords.length - 1;
-    this.model.listWords.length = 0;
     this.model.listWords.push(...listWords);
 
+    this.createSettingsForModel();
     this.controllerApp.openPage(
-      this.view.createPageWithWord(),
+      this.view.createGame(),
     );
   }
 
   public nextWord(): void {
     if (this.model.currentNumWord === this.model.lastNumWord) {
-      this.model.currentNumWord = 0;
       resetKeyDownListener();
       this.view.showResults();
+      console.log('end');
       return;
     }
 
     this.model.applySettingsNextPage();
+    this.createSettingsForModel();
 
-    this.controllerApp.openPage(
-      this.view.createPageWithWord(),
-    );
+    this.view.changeWordOnPage();
+  }
+
+  private createSettingsForModel():void {
+    this.model.englishWord = this.model.listWords[this.model.currentNumWord].word;
+
+    if (Math.random() < 0.5) {
+      this.createSettingsModelForCorrectAnswer();
+    } else {
+      this.createSettingsModelForIncorrectAnswer();
+    }
+  }
+
+  private createSettingsModelForCorrectAnswer(): void {
+    this.model.isTrue = true;
+    this.model.translateWord = this.model.listWords[this.model.currentNumWord].wordTranslate;
+  }
+
+  private createSettingsModelForIncorrectAnswer(): void {
+    this.model.isTrue = false;
+    const indexEnglishWord = getRandomIndexFromArray(this.model.listWords.length, this.model.currentNumWord);
+    this.model.translateWord = this.model.listWords[indexEnglishWord].wordTranslate;
   }
 
   public changeDifficulty(difficulty: number): void {
     this.model.difficulty = difficulty;
+  }
+
+  public checkAnswer(answer:boolean):void {
+    if (answer === this.model.isTrue) {
+      this.rightAnswer();
+    } else {
+      this.wrongAnswer();
+    }
+
+    this.nextWord();
   }
 
   public playVoice():void {
@@ -71,81 +102,59 @@ export class ControllerSprintGame {
     voice.play();
   }
 
-  public loadImage(): void {
-    const img = createTag('div', CSSClass.gameSprintHeaderImg) as HTMLElement;
-    img.style.backgroundImage = `url(${this.server.port}/${this.model.listWords[this.model.currentNumWord].image})`;
-    this.img = img;
-  }
-
   public wrongAnswer(): void {
     this.model.wrongAnswers.push(this.model.listWords[this.model.currentNumWord]);
-    this.model.isShowAnswer = true;
 
     const audio = new Audio(failSound);
     audio.play();
-    this.disabledListener();
   }
 
-  public rightAnswer(block: HTMLElement): void {
+  public rightAnswer(): void {
     this.model.rightAnswers.push(this.model.listWords[this.model.currentNumWord]);
-    this.model.isShowAnswer = true;
 
     const audio = new Audio(successSound);
     audio.play();
-    const numBlock = block.querySelector(`.${CSSClass.gameSprintAnswerNum}`);
-    if (numBlock) {
-      numBlock.innerHTML = '<img src = "./assets/svg/success.svg" alt = "succeed">';
-    }
-
-    this.disabledListener();
   }
 
-  private disabledListener(): void {
-    [this.model.rightAnswerOnPage, ...this.model.wrongAnswerOnPage].forEach((item) => {
-      // eslint-disable-next-line no-param-reassign
-      item.style.pointerEvents = 'none';
-    });
-  }
-
-  public addListener():void {
-    document.body.onkeydown = (e):void => {
-      switch (e.key) {
-        case ' ':
-          this.view.voiceImg.click();
-          break;
-
-        case 'Enter':
-          this.view.buttonUnknown.click();
-          break;
-
-        default:
-      }
-
-      if (!this.model.isShowAnswer) {
-        switch (e.key) {
-          case '1':
-            this.model.listAnswerOnPage[0].click();
-            break;
-
-          case '2':
-            this.model.listAnswerOnPage[1].click();
-            break;
-
-          case '3':
-            this.model.listAnswerOnPage[2].click();
-            break;
-
-          case '4':
-            this.model.listAnswerOnPage[3].click();
-            break;
-
-          case '5':
-            this.model.listAnswerOnPage[4].click();
-            break;
-
-          default:
-        }
-      }
-    };
-  }
+  // public addListener():void {
+  //   document.body.onkeydown = (e):void => {
+  //     switch (e.key) {
+  //       case ' ':
+  //         this.view.voiceImg.click();
+  //         break;
+  //
+  //       case 'Enter':
+  //         this.view.buttonUnknown.click();
+  //         break;
+  //
+  //       default:
+  //     }
+  //
+  //     if (!this.model.isShowAnswer) {
+  //       switch (e.key) {
+  //         case '1':
+  //           this.model.listAnswerOnPage[0].click();
+  //           break;
+  //
+  //         case '2':
+  //           this.model.listAnswerOnPage[1].click();
+  //           break;
+  //
+  //         case '3':
+  //           this.model.listAnswerOnPage[2].click();
+  //           break;
+  //
+  //         case '4':
+  //           this.model.listAnswerOnPage[3].click();
+  //           break;
+  //
+  //         case '5':
+  //           this.model.listAnswerOnPage[4].click();
+  //           break;
+  //
+  //         default:
+  //       }
+  //     }
+  //   };
+  // }
 }
