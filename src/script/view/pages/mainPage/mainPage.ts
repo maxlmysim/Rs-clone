@@ -5,7 +5,6 @@ import { userInfo } from '../../../authorization/user';
 
 export class MainPage {
   public create():HTMLElement {
-    console.log('mainPage', userInfo.login);
     const wrapper = createTag('div', IdPages.main, '');
     const title = createTag('h1', CSSClass.mainPageTitle, MainPageText.mainPageTitle);
     if (!userInfo.login) {

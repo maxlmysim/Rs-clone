@@ -71,6 +71,13 @@ export enum CSSClass {
   navItem = 'nav-item',
   navItemIcon = 'item__icon',
   navItemName = 'item__name',
+  aboutProjectTitle = 'about-project__title',
+  aboutProjectText = 'about-project__text',
+  aboutProjectAdvancedItems = 'about-project__advanced-items',
+  aboutProjectAdvancedItem = 'about-project__advanced-item',
+  aboutProjectAdvancedSvg = 'about-project__advanced-item__svg',
+  aboutProjectAdvancedName = 'about-project__advanced-item__name',
+  aboutProjectAdvancedText = 'about-project__advanced-item__text',
 }
 
 export enum AuthorizationText {
@@ -111,4 +118,14 @@ export enum FooterGithubUser {
   urlToGitHubeAnatoli = 'https://github.com/AnatoliHaralchuk',
   nameIlya = 'Naysa3r',
   urlToGitHubeIlya = 'https://github.com/naysa3r',
+}
+
+export enum AboutPtojectText {
+  title = 'О ПРОЕКТЕ',
+  text = `Приложение для изучения иностранных слов с техникой интервального повторения,<br>
+  отслеживания индивидуального прогресса и мини-игр.`,
+  ebookText = `Возможность изучать слова разного уровня,<br>
+  отмечать сложные и подучать новые знания`,
+  dictionaryText = `Возможность изучения неизвестных,<br>
+  или труднозапоминаемых по другой схеме`,
 }

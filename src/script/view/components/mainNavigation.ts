@@ -1,6 +1,7 @@
 import { createTag } from '../../helper/helper';
 import { IdPages, NamePages } from '../../interface/typeApp';
 import { CSSClass } from '../../interface/freeText';
+import { ButtonAnimation } from '../../helper/buttonAnimation';
 
 export class Navigation {
   public creat():HTMLElement {
@@ -22,7 +23,11 @@ export class Navigation {
     );
     const about = this.createItem(NamePages.aboutTeam, IdPages.aboutTeam, `./assets/svg/${IdPages.aboutTeam}.svg`);
     const review = this.createItem(NamePages.review, IdPages.review, `./assets/svg/${IdPages.review}.svg`);
-    wrapper.append(closeBurger, main, ebook, dictionary, games, statistics, about, review);
+    const buttons = [main, ebook, dictionary, games, statistics, about, review];
+    wrapper.append(closeBurger, ...buttons);
+    buttons.forEach((elem) => {
+      elem.addEventListener('mousedown', (event) => new ButtonAnimation().addButtonClass(event as MouseEvent));
+    });
     closeBurger.addEventListener('click', (event) => this.closeMenu(event));
     return wrapper;
   }
@@ -31,8 +36,8 @@ export class Navigation {
     const wrapper = createTag('a', CSSClass.navItem) as HTMLBaseElement;
     wrapper.href = `#${idPage}`;
     const svg = `<img src = ${pathIcon} alt = ${idPage}>`;
-    const itemIcon = createTag('div', CSSClass.navItemIcon, `${svg}`);
-    const itemName = createTag('div', CSSClass.navItemName, `${name}`);
+    const itemIcon = createTag('div', CSSClass.navItemIcon, svg);
+    const itemName = createTag('div', CSSClass.navItemName, name);
     wrapper.append(itemIcon, itemName);
     return wrapper;
   }

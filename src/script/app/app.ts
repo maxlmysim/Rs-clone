@@ -8,7 +8,7 @@ import { userInfo } from '../authorization/user';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 import { GamesPage } from '../view/pages/games/gamesPage';
 import { ViewAudioGame } from '../view/pages/games/audioGame/viewAudioGame';
-import { ButtonAnimation } from '../helper/buttonAnimation';
+import { AboutProject } from '../view/pages/mainPage/aboutProject';
 
 export class App {
   private view: ViewApp;
@@ -19,14 +19,11 @@ export class App {
 
   private server: Server;
 
-  private button: ButtonAnimation;
-
   public constructor() {
     this.view = new ViewApp();
     this.controller = new ControllerApp();
     this.mainPage = new MainPage();
     this.server = new Server();
-    this.button = new ButtonAnimation();
   }
 
   public async start():Promise<void> {
@@ -39,10 +36,6 @@ export class App {
       userInfo.login = true;
     }).catch(() => {});
     this.controller.startPage(this.view.renderPage);
-    const navItems = document.querySelectorAll('.nav-item') as NodeList;
-    navItems.forEach((elem) => {
-      elem.addEventListener('mousedown', (event) => this.button.addButtonClass(event as MouseEvent));
-    });
     this.startPageUseHash();
   }
 
@@ -72,7 +65,11 @@ export class App {
         this.controller.openPage(game.init());
         break;
       }
-
+      case IdPages.aboutProject: {
+        const aboutProject = new AboutProject();
+        this.controller.openPage(aboutProject.init());
+        break;
+      }
       default: {
         this.controller.openPage(this.mainPage.create());
       }

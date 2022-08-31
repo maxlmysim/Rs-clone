@@ -13,8 +13,6 @@ const userFromLocalStorage = localStorage.getItem('userInfo');
 if (userFromLocalStorage) {
   const userSettings = JSON.parse(userFromLocalStorage);
   Object.assign(userInfo, userSettings);
-  // userInfo.login = true;
-  // console.log('sdasdas', userInfo);
 }
 
 export function logoutUser(): void {
