@@ -10,6 +10,7 @@ import { AboutProject } from '../view/pages/mainPage/aboutProject';
 import { singInUserAndUpdateToken } from '../authorization/user';
 import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
 import { resetKeyDownListener } from '../helper/helper';
+import { AboutTeam } from '../view/pages/aboutTeam/aboutTeam';
 
 export class App {
   private view: ViewApp;
@@ -70,6 +71,11 @@ export class App {
       case IdPages.aboutProject: {
         const aboutProject = new AboutProject();
         this.controller.openPage(aboutProject.init());
+        break;
+      }
+      case IdPages.aboutTeam: {
+        const aboutTeam = new AboutTeam();
+        this.controller.openPage(aboutTeam.init());
         break;
       }
       default: {

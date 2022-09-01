@@ -93,6 +93,17 @@ export enum CSSClass {
   resultBlockEnglishWord = 'result-block__english-word',
   resultBlockVoice = 'result-block__voice',
   title = 'title',
+  aboutTeamTitle = 'about-team__title',
+  aboutTeamItems = 'about-team__items',
+  aboutTeamItem = 'about-team-item',
+  aboutTeamItemImg = 'about-team-item__img',
+  aboutTeamItemName = 'about-team-item__name',
+  aboutTeamItemGithub = 'about-team-item__github',
+  aboutTeamItemGithubSvg = 'about-team-item__github__svg',
+  aboutTeamItemGithubName = 'about-team-item__github__name',
+  aboutTeamItemJob = 'about-team-item__job',
+  aboutTeamItemList = 'about-team-item__list',
+  aboutTeamItemListItem = 'about-team-item__list__item',
 }
 
 export enum AuthorizationText {
@@ -127,11 +138,14 @@ export enum MainPageText {
 }
 
 export enum FooterGithubUser {
-  nameMax = 'maxlmysim',
+  nameMax = 'Максим Лапко',
+  nameGithubMax = 'maxlmysim',
   urlToGitHubeMax = 'https://github.com/maxlmysim',
-  nameAnatoli = 'AnatoliHaralchuk',
+  nameAnatoli = 'Анатолий Горальчук',
+  nameGithubAnatoli = 'AnatoliHaralchuk',
   urlToGitHubeAnatoli = 'https://github.com/AnatoliHaralchuk',
-  nameIlya = 'Naysa3r',
+  nameIlya = 'Илья Махнач',
+  nameGithubIlya = 'Naysa3r',
   urlToGitHubeIlya = 'https://github.com/naysa3r',
 }
 
@@ -154,4 +168,12 @@ export enum AboutPtojectText {
   title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
   clipboard-write; encrypted-media; gyroscope; picture-in-picture"
   allowfullscreen></iframe>`,
+}
+
+export enum AboutTeamText {
+  maxFoto = '<img src = "./assets/img/MaxLapko.jpg" alt = "MaxFoto">',
+  anatoliFoto = '<img src = "./assets/img/AnatoliHaralchuk.jpg" alt = "AnatoliFoto">',
+  ilyaFoto = '<img src = "./assets/img/IlyaMahnach.jpg" alt = "IlyaFoto">',
+  aboutTeamTitle = 'Над проектом работали:',
+  job = 'Разработчик',
 }
