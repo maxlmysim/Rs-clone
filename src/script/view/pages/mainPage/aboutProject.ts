@@ -9,11 +9,13 @@ export class AboutProject {
     const projectText = createTag('p', CSSClass.aboutProjectText, AboutPtojectText.text);
     const items = createTag('div', CSSClass.aboutProjectAdvancedItems);
     items.append(...this.advanced());
+    const wrapperBtn = createTag('div', CSSClass.aboutProjectBtnWrapper);
     const aboutTeamBtn = createTag('a', CSSClass.aboutProjectBtn, NamePages.aboutTeam) as HTMLAnchorElement;
     aboutTeamBtn.href = `#${IdPages.aboutTeam}`;
     const youtubeBtn = createTag('div', CSSClass.aboutProjectBtn, NamePages.aboutProjectYoutube);
+    wrapperBtn.append(aboutTeamBtn, youtubeBtn);
     youtubeBtn.onclick = (event):void => this.addAboutProjectYoutubeBtn(event);
-    wrapper.append(title, projectText, items, aboutTeamBtn, youtubeBtn);
+    wrapper.append(title, projectText, items, wrapperBtn);
     return wrapper;
   }
 

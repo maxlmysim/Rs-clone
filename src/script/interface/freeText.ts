@@ -82,6 +82,7 @@ export enum CSSClass {
   aboutProjectAdvancedSvg = 'about-project__advanced-item__svg',
   aboutProjectAdvancedName = 'about-project__advanced-item__name',
   aboutProjectAdvancedText = 'about-project__advanced-item__text',
+  aboutProjectBtnWrapper = 'about-project__btn-wrapper',
   aboutProjectBtn = 'about-project__btn',
   aboutProjectBtnYoutube = 'youtube',
   resultBlock = 'result-block',
