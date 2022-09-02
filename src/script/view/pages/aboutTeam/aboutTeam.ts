@@ -2,9 +2,11 @@ import { createTag } from '../../../helper/helper';
 import { IdPages } from '../../../interface/typeApp';
 import { CSSClass, AboutTeamText, FooterGithubUser } from '../../../interface/freeText';
 
-const maxDone: Array<string> = ['Страница регистрации и логина', 'Игра "Спринт"', 'Игра "Aудиовызов"'];
-const AnatoliDone: Array<string> = ['Главная страница', 'Страница «О команде»', 'Описание проекта'];
-const IlyaDone: Array<string> = ['Учебник', 'Словарь'];
+const maxDone: Array<string> = ['Страница регистрации и логина',
+  'Игра "Спринт"', 'Игра "Aудиовызов"', 'Страница Игры', 'Создание API'];
+const AnatoliDone: Array<string> = ['Главная страница', 'Страница статистики',
+  'Страница «О команде»', 'Описание проекта'];
+const IlyaDone: Array<string> = ['Страница Учебник', 'Страница Словарь'];
 
 export class AboutTeam {
   public init():HTMLElement {
