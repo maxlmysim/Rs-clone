@@ -31,6 +31,7 @@ export enum CSSClass {
   textbookButtonsGroup = 'textbook-buttons-group',
   textbookMenuButtonWrapper = 'textbook-menu-button-wrapper',
   textbookMenuButton = 'textbook-menu-button',
+  dictionary = 'dictionary',
   cardIconButtonsWrapper = 'card-iconbuttons-wrapper',
   cardDoneActive = 'card-done--active',
   cardHardActive = 'card-hard--active',

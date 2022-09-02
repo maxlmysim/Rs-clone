@@ -22,13 +22,15 @@ export default function CardButtonsGroup({ word, userWords, hardBtnSet }: ICardB
     }
   };
 
-  useEffect(() => {
-    userWords.then((arr) => {
-      if (arr.includes(word.id)) {
-        toggleClass('hard');
-      }
+  if (userWords) {
+    useEffect(() => {
+      userWords.then((arr) => {
+        if (arr.includes(word.id)) {
+          toggleClass('hard');
+        }
+      });
     });
-  });
+  }
 
   return (
     <div className={CSSClass.cardIconButtonsWrapper}>
@@ -38,10 +40,10 @@ export default function CardButtonsGroup({ word, userWords, hardBtnSet }: ICardB
       <IconButton
         aria-label="hard"
         onClick={
-        (): void => {
+        hardBtnSet && ((): void => {
           toggleClass('hard');
           hardBtnSet(word);
-        }
+        })
         }
         disabled={isHardActive}
       >

@@ -5,6 +5,7 @@ import { IdPages } from '../interface/typeApp';
 import { MainPage } from '../view/pages/mainPage/mainPage';
 import { Server } from '../server/server';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
+import dictionaryRender, { rootDictionary } from '../view/pages/textbook/Dictionary';
 import { GamesPage } from '../view/pages/games/gamesPage';
 import { ButtonAnimation } from '../helper/buttonAnimation';
 import { singInUserAndUpdateToken } from '../authorization/user';
@@ -66,6 +67,10 @@ export class App {
       }
       case IdPages.ebook: {
         this.controller.openPage(rootTextbook, textbookRender);
+        break;
+      }
+      case IdPages.dictionary: {
+        this.controller.openPage(rootDictionary, dictionaryRender);
         break;
       }
       case IdPages.games: {
