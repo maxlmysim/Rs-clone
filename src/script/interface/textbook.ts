@@ -11,6 +11,7 @@ export interface CardProps {
   userWords?: Promise<string[]>,
   playSounds: (word: Word) => void,
   hardBtnSet?: HardBtnSet,
+  hardBtnRemove?: HardBtnSet,
 }
 export interface IUserWordsResponse {
   difficulty: string,
@@ -55,4 +56,5 @@ export interface ICardButtonsGroup {
   word: Word;
   userWords?: Promise<string[]>;
   hardBtnSet?: HardBtnSet;
+  hardBtnRemove?: HardBtnSet;
 }

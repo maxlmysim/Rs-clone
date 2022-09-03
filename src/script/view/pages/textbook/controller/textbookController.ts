@@ -52,4 +52,9 @@ export class TextbookController {
     this.server.createUserWord(word.id, wordSet);
     this.refreshHardWords();
   }
+
+  public removeHardWord(word: Word): void {
+    this.server.deleteUserWord(word.id);
+    this.refreshHardWords();
+  }
 }

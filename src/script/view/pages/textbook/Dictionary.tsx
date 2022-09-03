@@ -19,11 +19,10 @@ export const textbookLocation = {
   group: controller.group,
 };
 
-const userWordIds = controller.userWords.then((json) => json.map((el) => el.wordId));
-
 function Dictionary(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
   if (words.length === 0) {
+    const userWordIds = controller.userWords.then((json) => json.map((el) => el.wordId));
     let addArr: Word[] = [];
     userWordIds.then((uWordIds) => {
       uWordIds.forEach((id) => server.getWord(id).then((el: unknown) => {
@@ -42,8 +41,11 @@ function Dictionary(): React.ReactElement {
             word={w}
             port={server.port}
             playSounds={():void => { controller.playSounds(w); }}
-            // userWords={userWords as Promise<string[]>}
             key={w.id}
+            hardBtnRemove={(): void => {
+              controller.removeHardWord(w);
+              setWords(words.filter((word) => word !== w));
+            }}
           />
         ))}
       </div>

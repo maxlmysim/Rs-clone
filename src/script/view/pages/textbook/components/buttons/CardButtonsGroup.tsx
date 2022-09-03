@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { IconButton } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import PsychologyIcon from '@mui/icons-material/Psychology';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { CardBtnClass, ICardButtonsGroup } from '../../../../../interface/textbook';
 import { CSSClass } from '../../../../../interface/freeText';
 
-export default function CardButtonsGroup({ word, userWords, hardBtnSet }: ICardButtonsGroup): React.ReactElement {
+export default function CardButtonsGroup({
+  word, userWords, hardBtnSet, hardBtnRemove,
+}: ICardButtonsGroup): React.ReactElement {
   const [isDoneActive, setDoneActive] = useState(false);
   const [isHardActive, setHardActive] = useState(false);
 
@@ -40,14 +43,19 @@ export default function CardButtonsGroup({ word, userWords, hardBtnSet }: ICardB
       <IconButton
         aria-label="hard"
         onClick={
-        hardBtnSet && ((): void => {
-          toggleClass('hard');
-          hardBtnSet(word);
-        })
+          (hardBtnSet && ((): void => {
+            toggleClass('hard');
+            hardBtnSet(word);
+          }))
+          || (hardBtnRemove && ((): void => {
+            setHardActive(false);
+            hardBtnRemove(word);
+          }))
         }
         disabled={isHardActive}
       >
-        <PsychologyIcon fontSize="large" className={`${isHardActive && CSSClass.cardHardActive}`} />
+        { hardBtnSet && <PsychologyIcon fontSize="large" className={`${isHardActive && CSSClass.cardHardActive}`} /> }
+        { !hardBtnSet && <DeleteIcon fontSize="large" /> }
       </IconButton>
     </div>
   );
