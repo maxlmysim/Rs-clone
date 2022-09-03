@@ -38,8 +38,8 @@ export class ControllerSprintGame {
     if (list) {
       listWords = [...list];
     } else {
-      // const randomPage = Math.floor(Math.random() * 30);
-      listWords = await this.server.getAllWords(this.model.difficulty - 1, 3);
+      const randomPage = Math.floor(Math.random() * 30);
+      listWords = await this.server.getAllWords(this.model.difficulty - 1, randomPage);
     }
 
     shuffleWordList(listWords);
@@ -101,9 +101,6 @@ export class ControllerSprintGame {
     } else {
       this.wrongAnswer();
     }
-
-    // this.sendStatistics
-    //   .checkStatisticWord(this.model.listWords[this.model.currentNumWord].id, this.model.isCurrentAnswerRights);
 
     this.view.addMarkToCounterCorrectAnswer();
     this.nextWord();

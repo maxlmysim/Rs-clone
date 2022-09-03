@@ -179,7 +179,7 @@ export class SendStatistics {
     }
 
     // @ts-ignore
-    this.statisticsDay.optional[this.date][this.gameName].countNewWords += countNewWords;
+    this.statisticsDay.optional[this.date][this.gameName].countNewWords += this.newWord;
     // @ts-ignore
     this.statisticsDay.optional[this.date][this.gameName].wrongAnswers += this.model.wrongAnswers.length;
     // @ts-ignore
