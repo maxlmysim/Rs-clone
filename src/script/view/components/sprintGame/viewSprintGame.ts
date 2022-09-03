@@ -27,6 +27,10 @@ export class ViewSprintGame {
 
   private currentAccount!: HTMLElement;
 
+  public correctButton!: HTMLElement;
+
+  public incorrectButton!: HTMLElement;
+
   public constructor() {
     this.model = modelSprintGame;
     this.model.resetAll();
@@ -141,7 +145,6 @@ export class ViewSprintGame {
 
   public addMarkToCounterCorrectAnswer(): void {
     const circles = document.querySelectorAll(`.${CSSClass.gameWindowCorrectCounterIcon}`);
-    console.log(this.model.serialCorrectAnswer);
     circles.forEach((item) => {
       // eslint-disable-next-line no-param-reassign
       item.innerHTML = '';
@@ -176,6 +179,7 @@ export class ViewSprintGame {
     const textForCorrectButton = createTag('span', '', 'верно');
     correctButton.append(arrowLeftForButton, textForCorrectButton);
     correctButton.onclick = (): void => this.controller.checkAnswer(true);
+    this.correctButton = correctButton;
 
     const incorrectButton = createTag('button', CSSClass.gameWindowIncorrectButton);
     const arrowRightForButton = createTag(
@@ -186,6 +190,7 @@ export class ViewSprintGame {
     const textForIncorrectButton = createTag('span', '', 'неверно');
     incorrectButton.append(textForIncorrectButton, arrowRightForButton);
     incorrectButton.onclick = (): void => this.controller.checkAnswer(false);
+    this.incorrectButton = incorrectButton;
 
     buttonsContainer.append(correctButton, incorrectButton);
 

@@ -29,7 +29,8 @@ export class ControllerSprintGame {
   public async loadWordsAndStartGame(list?: Word[]): Promise<void> {
     this.model.resetAll();
 
-    let listWords = [];
+    let listWords;
+
     if (list) {
       listWords = [...list];
     } else {
@@ -46,12 +47,15 @@ export class ControllerSprintGame {
     this.controllerApp.openPage(
       this.view.createGame(),
     );
+
+    this.addListener();
   }
 
   public nextWord(): void {
     if (this.model.currentNumWord === this.model.lastNumWord) {
       resetKeyDownListener();
       this.view.showResults();
+      resetKeyDownListener();
       return;
     }
 
@@ -121,45 +125,18 @@ export class ControllerSprintGame {
     this.view.changeCurrentAccount();
   }
 
-  // public addListener():void {
-  //   document.body.onkeydown = (e):void => {
-  //     switch (e.key) {
-  //       case ' ':
-  //         this.view.voiceImg.click();
-  //         break;
-  //
-  //       case 'Enter':
-  //         this.view.buttonUnknown.click();
-  //         break;
-  //
-  //       default:
-  //     }
-  //
-  //     if (!this.model.isShowAnswer) {
-  //       switch (e.key) {
-  //         case '1':
-  //           this.model.listAnswerOnPage[0].click();
-  //           break;
-  //
-  //         case '2':
-  //           this.model.listAnswerOnPage[1].click();
-  //           break;
-  //
-  //         case '3':
-  //           this.model.listAnswerOnPage[2].click();
-  //           break;
-  //
-  //         case '4':
-  //           this.model.listAnswerOnPage[3].click();
-  //           break;
-  //
-  //         case '5':
-  //           this.model.listAnswerOnPage[4].click();
-  //           break;
-  //
-  //         default:
-  //       }
-  //     }
-  //   };
-  // }
+  private addListener():void {
+    document.body.onkeydown = (e):void => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          this.view.correctButton.click();
+          break;
+
+        case 'ArrowRight':
+          this.view.incorrectButton.click();
+          break;
+        default:
+      }
+    };
+  }
 }
