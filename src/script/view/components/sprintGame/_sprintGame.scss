@@ -258,7 +258,7 @@
     height: 80%;
     width: 80%;
     max-width: 700px;
-    margin-bottom: 2rem;
+    margin: 0 auto 2rem;
     color: black;
 
     &__title {
@@ -287,6 +287,7 @@
     &__voice {
       width: 2.5rem;
       filter: invert(47%) sepia(8%) saturate(3%) hue-rotate(338deg) brightness(95%) contrast(94%);
+      cursor: pointer;
     }
 
     &__right-answers {

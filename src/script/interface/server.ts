@@ -34,12 +34,45 @@ export interface ResponseUpdateToken {
   'refreshToken': string,
 }
 
-export interface Statistics {
-  'learnedWords': number,
-  'optional': object
-}
-
 export interface WordSettings {
   'difficulty'?: string;
-  'optional'?: object;
+  'optional': WordOptions;
+}
+
+interface WordOptions {
+  isWas: boolean;
+  isDelete: boolean;
+  isLearned: boolean;
+  correctAnswerRow: number;
+  gameSprint?: CountAnswersForGame
+  gameAudioCall?: CountAnswersForGame
+}
+
+export interface CountAnswersForGame {
+  rightCountAnswers: number;
+  wrongCountAnswers: number;
+}
+
+export interface Statistics {
+  'learnedWords': number,
+  'optional': {
+    [key: string]: {
+      countNewWords: number,
+      rightAnswers: number,
+      wrongAnswers: number
+      serialRightAnswers: number,
+      gameSprint?: {
+        countNewWords: number,
+        rightAnswers: number,
+        wrongAnswers: number
+        serialRightAnswers: number
+      },
+      gameAudioCall?: {
+        countNewWords: number,
+        rightAnswers: number,
+        wrongAnswers: number
+        serialRightAnswers: number
+      },
+    }
+  }
 }

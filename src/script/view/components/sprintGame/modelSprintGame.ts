@@ -11,7 +11,10 @@ export const modelSprintGame: ModelSprintGame = {
   rightAnswers: [],
   wrongAnswers: [],
   account: 0,
+  serialCorrectAnswerForAccount: 0,
   serialCorrectAnswer: 0,
+  maxSerialCorrectAnswer: 0,
+  isCurrentAnswerRights: false,
 
   resetAll() {
     this.listWords = [];
@@ -24,7 +27,11 @@ export const modelSprintGame: ModelSprintGame = {
     this.account = 0;
     this.englishWord = '';
     this.translateWord = '';
+    this.serialCorrectAnswerForAccount = 0;
     this.serialCorrectAnswer = 0;
+
+    this.maxSerialCorrectAnswer = 0;
+    this.isCurrentAnswerRights = false;
   },
 
   applySettingsNextPage() {
@@ -32,5 +39,6 @@ export const modelSprintGame: ModelSprintGame = {
     this.isTrue = false;
     this.englishWord = '';
     this.translateWord = '';
+    this.isCurrentAnswerRights = false;
   },
 };

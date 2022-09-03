@@ -7,6 +7,7 @@ import { ModelSprintGame } from '../../../interface/SprintGame';
 import successSound from '../../../../assets/sounds/correct.mp3';
 import failSound from '../../../../assets/sounds/wrong.mp3';
 import { Word } from '../../../interface/server';
+import { SendStatistics } from '../SendStatistics';
 
 export class ControllerSprintGame {
   private controllerApp: ControllerApp;
@@ -19,11 +20,14 @@ export class ControllerSprintGame {
 
   public img!: HTMLElement;
 
+  private sendStatistics: SendStatistics;
+
   public constructor(view: ViewSprintGame) {
     this.controllerApp = new ControllerApp();
     this.server = new Server();
     this.view = view;
     this.model = modelSprintGame;
+    this.sendStatistics = new SendStatistics('gameSprint', this.model);
   }
 
   public async loadWordsAndStartGame(list?: Word[]): Promise<void> {
@@ -34,8 +38,8 @@ export class ControllerSprintGame {
     if (list) {
       listWords = [...list];
     } else {
-      const randomPage = Math.floor(Math.random() * 30);
-      listWords = await this.server.getAllWords(this.model.difficulty - 1, randomPage);
+      // const randomPage = Math.floor(Math.random() * 30);
+      listWords = await this.server.getAllWords(this.model.difficulty - 1, 3);
     }
 
     shuffleWordList(listWords);
@@ -56,6 +60,7 @@ export class ControllerSprintGame {
       resetKeyDownListener();
       this.view.showResults();
       resetKeyDownListener();
+      this.sendStatistics.createStatisticDay();
       return;
     }
 
@@ -97,12 +102,17 @@ export class ControllerSprintGame {
       this.wrongAnswer();
     }
 
+    // this.sendStatistics
+    //   .checkStatisticWord(this.model.listWords[this.model.currentNumWord].id, this.model.isCurrentAnswerRights);
+
     this.view.addMarkToCounterCorrectAnswer();
     this.nextWord();
   }
 
   public wrongAnswer(): void {
     this.model.wrongAnswers.push(this.model.listWords[this.model.currentNumWord]);
+    this.model.serialCorrectAnswerForAccount = 0;
+    this.model.serialCorrectAnswer = 0;
 
     const audio = new Audio(failSound);
     audio.play();
@@ -110,15 +120,21 @@ export class ControllerSprintGame {
 
   public rightAnswer(): void {
     this.model.rightAnswers.push(this.model.listWords[this.model.currentNumWord]);
+    this.model.isCurrentAnswerRights = true;
 
     const audio = new Audio(successSound);
     audio.play();
 
-    if (this.model.serialCorrectAnswer >= 3) {
-      this.model.serialCorrectAnswer = 0;
+    this.model.serialCorrectAnswer += 1;
+    if (this.model.maxSerialCorrectAnswer < this.model.serialCorrectAnswer) {
+      this.model.maxSerialCorrectAnswer = this.model.serialCorrectAnswer;
+    }
+
+    if (this.model.serialCorrectAnswerForAccount >= 3) {
+      this.model.serialCorrectAnswerForAccount = 0;
       this.model.account += 40;
     } else {
-      this.model.serialCorrectAnswer += 1;
+      this.model.serialCorrectAnswerForAccount += 1;
     }
 
     this.model.account += 20;

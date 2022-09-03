@@ -11,7 +11,10 @@ export interface ModelSprintGame {
   'account': number,
   englishWord: string,
   translateWord: string,
+  serialCorrectAnswerForAccount: number,
   serialCorrectAnswer: number,
+  maxSerialCorrectAnswer:number,
+  isCurrentAnswerRights: boolean,
   'resetAll': ()=>void,
   'applySettingsNextPage': ()=>void,
 }
