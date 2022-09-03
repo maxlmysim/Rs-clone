@@ -6,10 +6,11 @@ import { MainPage } from '../view/pages/mainPage/mainPage';
 import { Server } from '../server/server';
 import textbookRender, { rootTextbook } from '../view/pages/textbook/Textbook';
 import { GamesPage } from '../view/pages/games/gamesPage';
-import { ButtonAnimation } from '../helper/buttonAnimation';
+import { AboutProject } from '../view/pages/mainPage/aboutProject';
 import { singInUserAndUpdateToken } from '../authorization/user';
 import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
 import { resetKeyDownListener } from '../helper/helper';
+import { AboutTeam } from '../view/pages/aboutTeam/aboutTeam';
 
 export class App {
   private view: ViewApp;
@@ -20,14 +21,11 @@ export class App {
 
   private server: Server;
 
-  private button: ButtonAnimation;
-
   public constructor() {
     this.view = new ViewApp();
     this.controller = new ControllerApp();
     this.mainPage = new MainPage();
     this.server = new Server();
-    this.button = new ButtonAnimation();
   }
 
   public async start():Promise<void> {
@@ -39,20 +37,12 @@ export class App {
     await this.server.updateUserToken()
       .then((data) => singInUserAndUpdateToken(data))
       .catch(() => {});
-
     this.controller.startPage(this.view.renderPage);
-
-    const navItems = document.querySelectorAll('.nav-item') as NodeList;
-    navItems.forEach((elem) => {
-      elem.addEventListener('mousedown', (event) => this.button.addButtonClass(event as MouseEvent));
-    });
-
     this.startPageUseHash();
   }
 
   private startPageUseHash():void {
     resetKeyDownListener();
-
     const newHash = window.location.hash.slice(1);
     switch (newHash) {
       case IdPages.login: {
@@ -78,7 +68,16 @@ export class App {
         this.controller.openPage(game.init());
         break;
       }
-
+      case IdPages.aboutProject: {
+        const aboutProject = new AboutProject();
+        this.controller.openPage(aboutProject.init());
+        break;
+      }
+      case IdPages.aboutTeam: {
+        const aboutTeam = new AboutTeam();
+        this.controller.openPage(aboutTeam.init());
+        break;
+      }
       default: {
         this.controller.openPage(this.mainPage.create());
       }
