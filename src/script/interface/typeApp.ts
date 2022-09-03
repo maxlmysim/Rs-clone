@@ -24,4 +24,5 @@ export enum NamePages {
   review = 'Отзывы',
   aboutProject = 'O проекте',
   login = 'Регистрация',
+  aboutProjectYoutube = 'Видео',
 }

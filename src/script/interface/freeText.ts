@@ -80,6 +80,16 @@ export enum CSSClass {
   navItem = 'nav-item',
   navItemIcon = 'item__icon',
   navItemName = 'item__name',
+  aboutProjectTitle = 'about-project__title',
+  aboutProjectText = 'about-project__text',
+  aboutProjectAdvancedItems = 'about-project__advanced-items',
+  aboutProjectAdvancedItem = 'about-project__advanced-item',
+  aboutProjectAdvancedSvg = 'about-project__advanced-item__svg',
+  aboutProjectAdvancedName = 'about-project__advanced-item__name',
+  aboutProjectAdvancedText = 'about-project__advanced-item__text',
+  aboutProjectBtnWrapper = 'about-project__btn-wrapper',
+  aboutProjectBtn = 'about-project__btn',
+  aboutProjectBtnYoutube = 'youtube',
   resultBlock = 'result-block',
   resultBlockTitle = 'result-block__title',
   resultBlockAnswer = 'result-block__answer',
@@ -88,6 +98,17 @@ export enum CSSClass {
   resultBlockEnglishWord = 'result-block__english-word',
   resultBlockVoice = 'result-block__voice',
   title = 'title',
+  aboutTeamTitle = 'about-team__title',
+  aboutTeamItems = 'about-team__items',
+  aboutTeamItem = 'about-team-item',
+  aboutTeamItemImg = 'about-team-item__img',
+  aboutTeamItemName = 'about-team-item__name',
+  aboutTeamItemGithub = 'about-team-item__github',
+  aboutTeamItemGithubSvg = 'about-team-item__github__svg',
+  aboutTeamItemGithubName = 'about-team-item__github__name',
+  aboutTeamItemJob = 'about-team-item__job',
+  aboutTeamItemList = 'about-team-item__list',
+  aboutTeamItemListItem = 'about-team-item__list__item',
 }
 
 export enum AuthorizationText {
@@ -122,10 +143,42 @@ export enum MainPageText {
 }
 
 export enum FooterGithubUser {
-  nameMax = 'maxlmysim',
+  nameMax = 'Максим Лапко',
+  nameGithubMax = 'maxlmysim',
   urlToGitHubeMax = 'https://github.com/maxlmysim',
-  nameAnatoli = 'AnatoliHaralchuk',
+  nameAnatoli = 'Анатолий Горальчук',
+  nameGithubAnatoli = 'AnatoliHaralchuk',
   urlToGitHubeAnatoli = 'https://github.com/AnatoliHaralchuk',
-  nameIlya = 'Naysa3r',
+  nameIlya = 'Илья Махнач',
+  nameGithubIlya = 'Naysa3r',
   urlToGitHubeIlya = 'https://github.com/naysa3r',
+}
+
+export enum AboutPtojectText {
+  title = 'О ПРОЕКТЕ',
+  text = `Приложение для изучения иностранных слов с техникой интервального повторения,
+  отслеживания индивидуального прогресса и мини-игр.`,
+  ebookText = `Возможность изучать слова разного уровня,<br>
+  отмечать сложные и подучать новые знания`,
+  dictionaryText = `Возможность изучения неизвестных,<br>
+  или труднозапоминаемых по другой схеме`,
+  gameText = `Игры позволяют провести время не только в удовольствие,
+  но и с пользой`,
+  statisticsText = `Можно легко оценивать свой
+  уровень знаний по статистике`,
+  aboutProjectBtn = 'Назад',
+  aboutProjectYoutube = 'Видео',
+  youtubeFrame = `<iframe width="560" height="315"
+  src="https://www.youtube.com/embed/-WR5EEl5YyE"
+  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
+  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen></iframe>`,
+}
+
+export enum AboutTeamText {
+  maxFoto = '<img src = "./assets/img/MaxLapko.jpg" alt = "MaxFoto">',
+  anatoliFoto = '<img src = "./assets/img/AnatoliHaralchuk.jpg" alt = "AnatoliFoto">',
+  ilyaFoto = '<img src = "./assets/img/IlyaMahnach.jpg" alt = "IlyaFoto">',
+  aboutTeamTitle = 'Над проектом работали:',
+  job = 'Разработчик',
 }

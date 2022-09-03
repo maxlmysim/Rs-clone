@@ -22,13 +22,13 @@ export class Footer {
 
   public gitHubs():HTMLElement {
     const gitHubs: HTMLElement = createTag('div', CSSClass.footerGithub);
-    const url1 = createTag('a', CSSClass.footerLink, FooterGithubUser.nameMax) as HTMLBaseElement;
+    const url1 = createTag('a', CSSClass.footerLink, FooterGithubUser.nameMax) as HTMLAnchorElement;
     url1.target = '_blank';
     url1.href = FooterGithubUser.urlToGitHubeMax;
-    const url2 = createTag('a', CSSClass.footerLink, FooterGithubUser.nameAnatoli) as HTMLBaseElement;
+    const url2 = createTag('a', CSSClass.footerLink, FooterGithubUser.nameAnatoli) as HTMLAnchorElement;
     url2.target = '_blank';
     url2.href = FooterGithubUser.urlToGitHubeAnatoli;
-    const url3 = createTag('a', CSSClass.footerLink, FooterGithubUser.nameIlya) as HTMLBaseElement;
+    const url3 = createTag('a', CSSClass.footerLink, FooterGithubUser.nameIlya) as HTMLAnchorElement;
     url3.target = '_blank';
     url3.href = FooterGithubUser.urlToGitHubeIlya;
     gitHubs.append(url1, url2, url3);
