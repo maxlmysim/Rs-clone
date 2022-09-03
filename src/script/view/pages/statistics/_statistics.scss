@@ -1,0 +1,11 @@
+.statistics{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .statistic-nologin{
+        color: red;
+        font-size: 1.6rem;
+        padding: 2rem;
+    }
+}
