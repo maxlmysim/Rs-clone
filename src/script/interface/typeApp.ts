@@ -26,3 +26,8 @@ export enum NamePages {
   login = 'Регистрация',
   aboutProjectYoutube = 'Видео',
 }
+
+export interface ChartData {
+  type: string;
+  data: Array<number>;
+}
