@@ -135,8 +135,12 @@ export enum CSSClass {
   aboutTeamItemList = 'about-team-item__list',
   aboutTeamItemListItem = 'about-team-item__list__item',
   statisticsNoLogin = 'statistics-nologin',
+  statisticsTitle = 'statistics-title',
   statisticsWrapper = 'statistics-wrapper',
-  statisticsCanvas1 = 'canvas-1',
+  statisticsCurDay = 'canvas-cur-day',
+  statisticsAllDay = 'canvas-all-day',
+  statisticsTimeForDay = 'canvas-time-for-day',
+  statisticsTimeForAll = 'canvas-time-for-all',
 }
 
 export enum AuthorizationText {

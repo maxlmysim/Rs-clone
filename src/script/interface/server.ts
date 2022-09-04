@@ -55,24 +55,23 @@ export interface CountAnswersForGame {
 
 export interface Statistics {
   'learnedWords': number,
-  'optional': {
-    [key: string]: {
-      countNewWords: number,
-      rightAnswers: number,
-      wrongAnswers: number
-      serialRightAnswers: number,
-      gameSprint?: {
-        countNewWords: number,
-        rightAnswers: number,
-        wrongAnswers: number
-        serialRightAnswers: number
-      },
-      gameAudioCall?: {
-        countNewWords: number,
-        rightAnswers: number,
-        wrongAnswers: number
-        serialRightAnswers: number
-      },
-    }
+  'optional': StatisticsOptional,
+}
+
+export interface StatisticsOptional {
+  [key: string]: {
+    countNewWords: number,
+    rightAnswers: number,
+    wrongAnswers: number
+    serialRightAnswers: number,
+    gameSprint?: StatisticsGame,
+    gameAudioCall?: StatisticsGame,
   }
+}
+
+export interface StatisticsGame {
+  countNewWords: number,
+  rightAnswers: number,
+  wrongAnswers: number
+  serialRightAnswers: number
 }

@@ -11,7 +11,7 @@ import { singInUserAndUpdateToken } from '../authorization/user';
 import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
 import { resetKeyDownListener } from '../helper/helper';
 import { AboutTeam } from '../view/pages/aboutTeam/aboutTeam';
-import { Statistics } from '../view/pages/statistics/statistics';
+import { StatisticsView } from '../view/pages/statistics/statisticsView';
 import { ViewSprintGame } from '../view/components/sprintGame/viewSprintGame';
 
 export class App {
@@ -87,7 +87,7 @@ export class App {
         break;
       }
       case IdPages.statistics: {
-        const statistics = new Statistics();
+        const statistics = new StatisticsView();
         this.controller.openPage(statistics.init());
         break;
       }
