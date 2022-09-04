@@ -11,6 +11,7 @@ import { singInUserAndUpdateToken } from '../authorization/user';
 import { ViewAudioGame } from '../view/components/audioGame/viewAudioGame';
 import { resetKeyDownListener } from '../helper/helper';
 import { AboutTeam } from '../view/pages/aboutTeam/aboutTeam';
+import { ViewSprintGame } from '../view/components/sprintGame/viewSprintGame';
 
 export class App {
   private view: ViewApp;
@@ -43,6 +44,7 @@ export class App {
 
   private startPageUseHash():void {
     resetKeyDownListener();
+
     const newHash = window.location.hash.slice(1);
     switch (newHash) {
       case IdPages.login: {
@@ -65,6 +67,11 @@ export class App {
       }
       case IdPages.gameAudio: {
         const game = new ViewAudioGame();
+        this.controller.openPage(game.init());
+        break;
+      }
+      case IdPages.gameSprint: {
+        const game = new ViewSprintGame();
         this.controller.openPage(game.init());
         break;
       }

@@ -28,6 +28,8 @@ export class ControllerAudioGame {
   }
 
   public async loadWordsAndStartGame(list?: Word[]): Promise<void> {
+    this.model.resetAll();
+
     let listWords = [];
     if (list) {
       listWords = [...list];
@@ -49,7 +51,6 @@ export class ControllerAudioGame {
 
   public nextWord(): void {
     if (this.model.currentNumWord === this.model.lastNumWord) {
-      this.model.currentNumWord = 0;
       resetKeyDownListener();
       this.view.showResults();
       return;
