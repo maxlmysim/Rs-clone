@@ -1,8 +1,10 @@
-.game-audio {
+.game-sprint {
   width: 100%;
   height: 100%;
   padding: 3rem;
   background-size: cover;
+  color: white;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 
   &__preview {
     display: flex;
@@ -13,13 +15,12 @@
     height: 100%;
     position: relative;
 
-    .game-audio {
+    .game-sprint {
       &__title {
         font-size: 5rem;
         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-        font-weight: 300;
+        font-weight: 500;
         line-height: 1.2;
-        color: white;
         text-transform: uppercase;
         letter-spacing: 0.3em;
         margin-bottom: 60px;
@@ -31,7 +32,6 @@
         margin: 0 auto 25px;
         padding: 0 15px;
         flex-direction: column;
-        color: white;
         font-size: 1.8rem;
       }
 
@@ -57,6 +57,7 @@
         justify-content: center;
         gap: 3rem;
         height: 4rem;
+        font-size: 1.8rem;
 
         &__start {
           height: 100%;
@@ -98,7 +99,7 @@
           width: 100px;
           height: 100%;
 
-          .game-audio__block-buttons__fieldset {
+          .game-sprint__block-buttons__fieldset {
             border: 1px solid #c0c0c0;
             border-radius: 10px;
             padding: 0.35rem 0.625rem 0.75rem;
@@ -108,8 +109,8 @@
             height: 113%;
           }
 
-          .game-audio__block-buttons__select,
-          .game-audio__block-buttons__fieldset {
+          .game-sprint__block-buttons__select,
+          .game-sprint__block-buttons__fieldset {
             position: absolute;
           }
         }
@@ -122,82 +123,73 @@
   &__game {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .game-audio__header {
-      height: 55%;
+  &__current-account {
+    font-size: 3rem;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+
+  .game-window {
+    min-height: 70%;
+    min-width: 50%;
+    background-color: #7986CBA1;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    .timer-block {
       display: flex;
-      align-items: center;
       justify-content: center;
-      flex-direction: column-reverse;
-      gap: 2rem;
-      font-size: 2.8rem;
-      color: white;
+      align-items: center;
+      position: relative;
 
-      &-bottom {
+      h3 {
+        width: 50px;
+        font-size: 1.8rem;
+        position: absolute;
         display: flex;
         align-items: center;
-        gap: 2.5rem;
+        justify-content: center;
       }
 
-      &-img {
+      svg {
         display: block;
-        width: 12rem;
-        height: 12rem;
-        border-radius: 50%;
-        border: 2px solid white;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
+        width: 50px;
+        height: 50px;
+        transform: rotate(-90deg);
+        color: red;
+      }
+
+      &__circle {
+        width: 100%;
+        height: 100%;
+        stroke-dasharray: 125;
+        transition: all 1s linear;
+        stroke: currentColor;
       }
     }
 
-
-    .game-audio__button-voice {
-      width: 120px;
-      height: 120px;
-      background-color: rgba(255, 255, 255, .2);
-      border-radius: 50%;
+    &__correct-counter {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      justify-content: space-around;
+      width: 50%;
 
-      &__img {
-        filter: invert(99%) sepia(1%) saturate(2%) hue-rotate(232deg) brightness(111%) contrast(101%);
-        width: 7em;
-        height: 7em;
-      }
-    }
-
-    .right-answer {
-      width: 36px;
-      height: 36px;
-    }
-
-    .game-audio__answers {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      gap: 15px;
-      flex-wrap: wrap;
-      max-width: 700px;
-      margin: 0 auto 3rem;
-      font-size: 2rem;
-      color: white;
-    }
-
-    .game-audio__answer {
-      display: flex;
-      padding: 1rem;
-      cursor: pointer;
-
-      &:hover {
-        background-color: rgba(255, 255, 255, .2);
-      }
-
-      &_num {
+      &-icon {
+        background-color: white;
         width: 2rem;
         height: 2rem;
+        border-radius: 50%;
 
         img {
           filter: invert(64%) sepia(37%) saturate(525%) hue-rotate(73deg) brightness(94%) contrast(89%);
@@ -205,37 +197,55 @@
       }
     }
 
-    .game-audio__wrapper-button {
+    &__english-word {
+      font-size: 4.8rem;
+      font-weight: 400;
+    }
+
+    &__russian-word {
+      font-size: 2.4rem;
+      font-weight: 400;
+    }
+
+    hr {
+      background-color: #ffffff8c;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    &__buttons {
       display: flex;
-      justify-content: center;
+      gap: 2rem;
+      font-size: 2.2rem;
+    }
 
-      .game-audio__button {
-        color: rgba(255, 255, 255, .6);
-        font-size: 1.4rem;
-        text-transform: uppercase;
-        height: 50px;
-        max-width: 200px;
-        width: 100%;
-        border: 1px solid rgba(255, 255, 255, .6);
-        border-radius: 10px;
-        padding: 5px 15px;
-        background: rgba(0, 0, 0, 0);
-        transition: all 0.5s ease;
+    &__correct-button,
+    &__incorrect-button {
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease-in-out;
 
-        &:hover {
-          border: 1px solid rgba(255, 255, 255, 1);
-        }
+      .button__arrow img {
+        width: 2.5rem;
+        filter: invert(100%) sepia(5%) saturate(0%) hue-rotate(42deg) brightness(107%) contrast(105%);
+      }
+    }
 
-        img {
-          width: 100%;
-          height: 100%;
-          filter: invert(86%) sepia(11%) saturate(200%) hue-rotate(247deg) brightness(83%) contrast(90%);
-          transition: all 0.5s ease;
+    &__correct-button {
+      background-color: #4caf50;
 
-          &:hover {
-            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
-          }
-        }
+      &:hover {
+        background-color: #388e3c;
+      }
+    }
+
+    &__incorrect-button {
+      background-color: #f50057;
+
+      &:hover {
+        background-color: #c51162;
       }
     }
   }
@@ -246,7 +256,10 @@
     padding: 1.5rem;
     overflow: auto;
     height: 80%;
-    margin-bottom: 2rem;
+    width: 80%;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: black;
 
     &__title {
       font-size: 2.5rem;
@@ -274,6 +287,7 @@
     &__voice {
       width: 2.5rem;
       filter: invert(47%) sepia(8%) saturate(3%) hue-rotate(338deg) brightness(95%) contrast(94%);
+      cursor: pointer;
     }
 
     &__right-answers {
@@ -314,10 +328,10 @@
       font-weight: bold;
       font-size: 1.8rem;
       border: 0;
-      background-color: rgba(37,130,231,.3);
+      background-color: rgba(37, 130, 231, .3);
 
       &:hover {
-        background-color: rgba(37,130,231,.5);
+        background-color: rgba(37, 130, 231, .5);
       }
     }
   }

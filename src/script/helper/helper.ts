@@ -130,3 +130,14 @@ export function getRandomItemFromArray(array: Word[], words: Set<Word>): Word {
 export function resetKeyDownListener():void {
   document.body.onkeydown = ():void => {};
 }
+
+export function getRandomIndexFromArray(length:number, exclude: number):number {
+  if (length === 1) return 0;
+
+  const index = Math.floor(Math.random() * length);
+
+  if (index === exclude) {
+    return getRandomIndexFromArray(length, exclude);
+  }
+  return index;
+}
