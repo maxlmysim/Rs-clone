@@ -46,7 +46,7 @@ export interface WordSettings {
   'optional': WordOptions;
 }
 
-interface WordOptions {
+export interface WordOptions {
   isWas: boolean;
   isDelete: boolean;
   isLearned: boolean;
