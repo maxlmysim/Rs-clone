@@ -1,5 +1,5 @@
 import { createTag } from '../../../helper/helper';
-import { AudioGameText, CSSClass } from '../../../interface/freeText';
+import { AudioGameText, CSSClass, SprintGameText } from '../../../interface/freeText';
 import { ViewAudioGame } from '../../components/audioGame/viewAudioGame';
 import { IdPages } from '../../../interface/typeApp';
 
@@ -19,7 +19,13 @@ export class GamesPage {
       IdPages.gameAudio,
     );
 
-    wrapper.append(audioGame);
+    const sprintGame = this.createIcoGame(
+      SprintGameText.name,
+      'url(./assets/img/games/sprintGame_background.svg)',
+      IdPages.gameSprint,
+    );
+
+    wrapper.append(audioGame, sprintGame);
     return wrapper;
   }
 

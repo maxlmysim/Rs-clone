@@ -1,8 +1,7 @@
 import {
-  ResponseUpdateToken, Statistics, UserSettings, Word, WordSettings,
+  ResponseUpdateToken, Statistics, UserSettings, Word, WordSettings, UserAllWords,
 } from '../interface/server';
 import { userInfo } from '../authorization/user';
-import { IUserWordsResponse } from '../interface/textbook';
 
 export class Server {
   public port: string;
@@ -67,7 +66,7 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async getUserAllWords(): Promise<IUserWordsResponse[]> {
+  public async getUserAllWords(): Promise<UserAllWords[]> {
     return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}`, {
       method: 'GET',
       headers: {
@@ -76,8 +75,12 @@ export class Server {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json())
-      .catch((response) => Promise.reject(response));
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(response);
+      });
   }
 
   public async getUserWord(idWord: string): Promise<Response> {
@@ -88,8 +91,14 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    })
-      .then((response) => this.checkResponse(response));
+    });
+    // .then((response) => {
+    //   if (response.ok) {
+    //     return response;
+    //   }
+    //   return Promise.reject(response);
+    // })
+    // .then((response) => response.json());
   }
 
   public async createUserWord(idWord: string, wordSettings: WordSettings): Promise<Response> {
@@ -225,8 +234,7 @@ export class Server {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    })
-      .then((response) => this.checkResponse(response));
+    });
   }
 
   public async updateStatistics(statistics: Statistics): Promise<Response> {

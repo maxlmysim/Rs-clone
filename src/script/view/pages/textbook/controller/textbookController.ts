@@ -1,5 +1,4 @@
-import { Word, WordSettings } from '../../../../interface/server';
-import { IUserWordsResponse } from '../../../../interface/textbook';
+import { UserAllWords, Word, WordSettings } from '../../../../interface/server';
 import { Server } from '../../../../server/server';
 
 export class TextbookController {
@@ -15,7 +14,7 @@ export class TextbookController {
 
   public port: string;
 
-  public userWords: Promise<IUserWordsResponse[]>;
+  public userWords: Promise<UserAllWords[]>;
 
   public constructor() {
     this.server = new Server();
@@ -42,12 +41,18 @@ export class TextbookController {
   }
 
   public refreshHardWords(): void {
-    this.userWords = (this.server.getUserAllWords()) as Promise<IUserWordsResponse[]>;
+    this.userWords = (this.server.getUserAllWords()) as Promise<UserAllWords[]>;
   }
 
   public setHardWord(word: Word): void {
     const wordSet: WordSettings = {
       difficulty: 'hard',
+      optional: {
+        isWas: false,
+        isDelete: false,
+        isLearned: false,
+        correctAnswerRow: 0,
+      },
     };
     this.server.createUserWord(word.id, wordSet);
     this.refreshHardWords();
