@@ -17,6 +17,7 @@ export class AboutTeam {
       AboutTeamText.maxFoto,
       FooterGithubUser.nameMax,
       FooterGithubUser.nameGithubMax,
+      AboutTeamText.jobTeamLead,
     );
     maxLapko.append(this.addDoneList(maxDone));
 
@@ -24,6 +25,7 @@ export class AboutTeam {
       AboutTeamText.anatoliFoto,
       FooterGithubUser.nameAnatoli,
       FooterGithubUser.nameGithubAnatoli,
+      AboutTeamText.jobDev,
     );
     Anatoli.append(this.addDoneList(AnatoliDone));
 
@@ -31,6 +33,7 @@ export class AboutTeam {
       AboutTeamText.ilyaFoto,
       FooterGithubUser.nameIlya,
       FooterGithubUser.nameGithubIlya,
+      AboutTeamText.jobDev,
     );
     Ilya.append(this.addDoneList(IlyaDone));
     items.append(maxLapko, Anatoli, Ilya);
@@ -38,7 +41,7 @@ export class AboutTeam {
     return wrapper;
   }
 
-  private createDeveloper(foto: string, name: string, githubName: string):HTMLElement {
+  private createDeveloper(foto: string, name: string, githubName: string, job: string):HTMLElement {
     const item = createTag('div', CSSClass.aboutTeamItem, foto);
     const devName = createTag('p', CSSClass.aboutTeamItemName, name);
     const github = createTag('a', CSSClass.aboutTeamItemGithub) as HTMLAnchorElement;
@@ -47,8 +50,8 @@ export class AboutTeam {
     github.innerHTML = `<img class = "${CSSClass.aboutTeamItemGithubSvg}"
     src = "./assets/svg/github.svg" alt = "github">`;
     github.append(createTag('div', CSSClass.aboutTeamItemGithubName, githubName));
-    const job = createTag('p', CSSClass.aboutTeamItemJob, AboutTeamText.job);
-    item.append(devName, github, job);
+    const jobDev = createTag('p', CSSClass.aboutTeamItemJob, job);
+    item.append(devName, github, jobDev);
     return item;
   }
 
