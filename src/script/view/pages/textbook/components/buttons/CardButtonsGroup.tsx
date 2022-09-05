@@ -25,15 +25,16 @@ export default function CardButtonsGroup({
     }
   };
 
-  if (userWords) {
-    useEffect(() => {
-      userWords.then((arr) => {
+  useEffect(() => {
+    async function getUserWords(): Promise<void> {
+      await (userWords as Promise<string[]>).then((arr) => {
         if (arr.includes(word.id)) {
           toggleClass('hard');
         }
       });
-    });
-  }
+    }
+    getUserWords();
+  }, [hardBtnSet]);
 
   return (
     <div className={CSSClass.cardIconButtonsWrapper}>

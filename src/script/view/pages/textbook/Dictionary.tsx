@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider } from '@mui/material';
 import { createTag } from '../../../helper/helper';
@@ -21,17 +21,21 @@ export const textbookLocation = {
 
 function Dictionary(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
-  if (words.length === 0) {
-    const userWordIds = controller.userWords.then((json) => json.map((el) => el.wordId));
-    let addArr: Word[] = [];
-    userWordIds.then((uWordIds) => {
-      uWordIds.forEach((id) => server.getWord(id).then((el: unknown) => {
-        addArr = addArr.concat(el as Word);
-        setWords(addArr);
-      }));
-    });
-  }
+  const [dictCount, setCount] = useState<number>(0);
 
+  useEffect((): void => {
+    async function getUserWordsIds(): Promise<void> {
+      const userWordIds = controller.userWords.then((json) => json.map((el) => el.wordId));
+      let addArr: Word[] = [];
+      userWordIds.then((uWordIds) => {
+        uWordIds.forEach((id) => server.getWord(id).then((el: unknown) => {
+          addArr = addArr.concat(el as Word);
+          setWords(addArr);
+        }));
+      });
+    }
+    getUserWordsIds();
+  }, [setWords, setCount]);
   return (
     <ThemeProvider theme={theme}>
       <div className={CSSClass.textbookWrapper}>
@@ -45,6 +49,7 @@ function Dictionary(): React.ReactElement {
             hardBtnRemove={(): void => {
               controller.removeHardWord(w);
               setWords(words.filter((word) => word !== w));
+              setCount(dictCount - 1);
             }}
           />
         ))}

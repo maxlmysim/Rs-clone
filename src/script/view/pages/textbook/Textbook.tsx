@@ -20,7 +20,7 @@ export const textbookLocation = {
   group: controller.group,
 };
 
-const userWordIds = controller.userWords.then((json) => json.map((el) => el.wordId));
+// const userWordIds = controller.userWords.then((json) => json.map((el) => el.wordId));
 
 function Textbook(): React.ReactElement {
   const [words, setWords] = useState<Word[]>([]);
@@ -33,7 +33,10 @@ function Textbook(): React.ReactElement {
   if (words.length === 0) {
     server.getAllWords().then((json) => setWords(json));
   }
-  useEffect(() => setUserWords(userWordIds));
+  useEffect(
+    () => setUserWords(controller.userWords.then((json) => json.map((el) => el.wordId))),
+    [controller.userWords],
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,7 +52,9 @@ function Textbook(): React.ReactElement {
             word={w}
             port={server.port}
             playSounds={():void => { controller.playSounds(w); }}
-            hardBtnSet={():void => { controller.setHardWord(w); }}
+            hardBtnSet={():void => {
+              controller.setHardWord(w);
+            }}
             userWords={userWords as Promise<string[]>}
             key={w.id}
           />

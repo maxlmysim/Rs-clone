@@ -12,7 +12,8 @@ export interface Word {
   'transcription': string,
   'wordTranslate': string,
   'textMeaningTranslate': string,
-  'textExampleTranslate': string
+  'textExampleTranslate': string,
+  '_id'?: string,
 }
 
 export interface User {
@@ -27,13 +28,6 @@ export interface UserSettings {
   'refreshToken': string,
   'userId': string,
   'name': string
-}
-
-export interface UserAllWords {
-  'difficulty': string,
-  'id': string,
-  'wordId': string,
-  'optional'?: WordOptions;
 }
 
 export interface ResponseUpdateToken {
