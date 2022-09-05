@@ -18,6 +18,7 @@ export class StatisticsView {
       const controller = new StatisticsController();
       controller.init()
         .then((response) => {
+          console.log(response);
           wrapper.append(text, this.statisticsPage(response));
         });
     }
@@ -48,11 +49,11 @@ export class StatisticsView {
     const timeForAll = createTag(
       'div',
       CSSClass.statisticsTimeForAll,
-      'Статистика увеличения новых слов по дням',
+      'Статистика увеличения изученных слов по дням',
     ) as HTMLElement;
     const canvasTimeForAll = createTag('canvas', '') as HTMLCanvasElement;
     canvasTimeForAll.getContext('2d');
-    this.canvasTimeForAll(canvasTimeForAll, data.optional);
+    this.canvasTimeForAll(canvasTimeForAll, data.optional, data.learnedWords);
     timeForAll.append(canvasTimeForAll);
     wrapper.append(carDay, allDay, timeForDay, timeForAll);
     return wrapper;
@@ -188,7 +189,7 @@ export class StatisticsView {
       const d = el.split('.');
       return `${d[0]}.${+d[1] + 1}.2022`;
     });
-    const rightAnsver = days.map((el) => data[el].rightAnswers);
+    const rightAnsver = days.map((el) => data[el].countNewWords);
     //  eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mychart = new Chart(canvas, {
       type: 'line',
@@ -216,25 +217,25 @@ export class StatisticsView {
     });
   }
 
-  private canvasTimeForAll(canvas:HTMLCanvasElement, data:StatisticsOptional):void {
+  private canvasTimeForAll(canvas:HTMLCanvasElement, data:StatisticsOptional, learnWord: number):void {
     const days = Object.keys(data);
     const dates = days.map((el) => {
       const d = el.split('.');
       return `${d[0]}.${+d[1] + 1}.2022`;
     });
-    const rightAnsver = days.map((el) => data[el].countNewWords);
-    const upperRightAnsver = rightAnsver.map((n, i, a) => a.reduce((acc, m, j) => acc + m * (j <= i), 0));
+    // const rightAnsver = days.map((el) => data[el].countNewWords);
+    // const upperRightAnsver = rightAnsver.map((n, i, a) => a.reduce((acc, m, j) => acc + m * (j <= i), 0));
     //  eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mychart = new Chart(canvas, {
       type: 'line',
       data: {
         labels: dates,
         datasets: [{
-          label: 'Увеличение новых слов по дням',
+          label: 'Увеличение изученных слов по дням',
           backgroundColor: [
             'rgba(38, 5, 252, 1)',
           ],
-          data: upperRightAnsver,
+          data: [learnWord],
           borderColor: [
             'blue',
           ],
