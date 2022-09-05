@@ -18,6 +18,8 @@ export class Server {
 
   private urlTokens: string;
 
+  private urlAggregatedWords: string;
+
   public constructor() {
     this.port = 'https://learwords.herokuapp.com';
     this.urlWords = '/words';
@@ -26,6 +28,7 @@ export class Server {
     this.urlSettings = '/settings';
     this.urlSignIn = '/signin';
     this.urlTokens = '/tokens';
+    this.urlAggregatedWords = '/aggregatedWords';
   }
 
   private async checkResponse(response: Response): Promise<Response> {
@@ -139,8 +142,9 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async getUserAggregatedWord(idWord: string): Promise<Response> {
-    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}/${idWord}`, {
+  public async getUserAggregatedWord(idWord: string, option:string): Promise<Response> {
+    // eslint-disable-next-line max-len
+    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlAggregatedWords}/${idWord}?filter=${option}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
@@ -151,8 +155,8 @@ export class Server {
       .then((response) => this.checkResponse(response));
   }
 
-  public async getUserAggregatedAllWords(): Promise<Response> {
-    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlWords}`, {
+  public async getUserAggregatedAllWords(filter:string): Promise<Response> {
+    return fetch(`${this.port}${this.urlUsers}/${userInfo.userId}${this.urlAggregatedWords}?filter=${filter}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
