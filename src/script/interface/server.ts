@@ -34,6 +34,13 @@ export interface ResponseUpdateToken {
   'refreshToken': string,
 }
 
+export interface UserAllWords {
+  'difficulty'?: string;
+  'optional': WordOptions;
+  'id': string;
+  'wordId': string;
+}
+
 export interface WordSettings {
   'difficulty'?: string;
   'optional': WordOptions;

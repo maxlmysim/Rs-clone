@@ -8,6 +8,7 @@ import successSound from '../../../../assets/sounds/correct.mp3';
 import failSound from '../../../../assets/sounds/wrong.mp3';
 import { CSSClass } from '../../../interface/freeText';
 import { Word } from '../../../interface/server';
+import { SendStatistics } from '../SendStatistics';
 
 export class ControllerAudioGame {
   private controllerApp: ControllerApp;
@@ -20,11 +21,14 @@ export class ControllerAudioGame {
 
   public img!: HTMLElement;
 
+  private sendStatistics: SendStatistics;
+
   public constructor(view: ViewAudioGame) {
     this.controllerApp = new ControllerApp();
     this.server = new Server();
     this.view = view;
     this.model = modelAudioGame;
+    this.sendStatistics = new SendStatistics('gameAudioCall', this.model);
   }
 
   public async loadWordsAndStartGame(list?: Word[]): Promise<void> {
@@ -34,8 +38,8 @@ export class ControllerAudioGame {
     if (list) {
       listWords = [...list];
     } else {
-      const randomPage = Math.floor(Math.random() * 30);
-      listWords = await this.server.getAllWords(this.model.difficulty - 1, randomPage);
+      // const randomPage = Math.floor(Math.random() * 30);
+      listWords = await this.server.getAllWords(this.model.difficulty - 1, 1);
     }
 
     shuffleWordList(listWords);
@@ -53,6 +57,7 @@ export class ControllerAudioGame {
     if (this.model.currentNumWord === this.model.lastNumWord) {
       resetKeyDownListener();
       this.view.showResults();
+      this.sendStatistics.createStatistic();
       return;
     }
 
@@ -81,6 +86,8 @@ export class ControllerAudioGame {
     this.model.wrongAnswers.push(this.model.listWords[this.model.currentNumWord]);
     this.model.isShowAnswer = true;
 
+    this.model.serialCorrectAnswer = 0;
+
     const audio = new Audio(failSound);
     audio.play();
     this.view.addLineThroughWrongAnswer(block);
@@ -93,6 +100,11 @@ export class ControllerAudioGame {
   public rightAnswer(block: HTMLElement): void {
     this.model.rightAnswers.push(this.model.listWords[this.model.currentNumWord]);
     this.model.isShowAnswer = true;
+
+    this.model.serialCorrectAnswer += 1;
+    if (this.model.maxSerialCorrectAnswer < this.model.serialCorrectAnswer) {
+      this.model.maxSerialCorrectAnswer = this.model.serialCorrectAnswer;
+    }
 
     const audio = new Audio(successSound);
     audio.play();

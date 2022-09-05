@@ -38,8 +38,8 @@ export class ControllerSprintGame {
     if (list) {
       listWords = [...list];
     } else {
-      const randomPage = Math.floor(Math.random() * 30);
-      listWords = await this.server.getAllWords(this.model.difficulty - 1, randomPage);
+      // const randomPage = Math.floor(Math.random() * 30);
+      listWords = await this.server.getAllWords(this.model.difficulty - 1, 1);
     }
 
     shuffleWordList(listWords);
@@ -60,7 +60,7 @@ export class ControllerSprintGame {
       resetKeyDownListener();
       this.view.showResults();
       resetKeyDownListener();
-      this.sendStatistics.createStatisticDay();
+      this.sendStatistics.createStatistic();
       return;
     }
 

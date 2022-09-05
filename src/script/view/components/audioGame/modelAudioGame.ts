@@ -12,6 +12,8 @@ export const modelAudioGame: ModelAudioGame = {
   isShowAnswer: false,
   rightAnswers: [],
   wrongAnswers: [],
+  serialCorrectAnswer: 0,
+  maxSerialCorrectAnswer: 0,
 
   resetAll() {
     // @ts-ignore
@@ -25,6 +27,8 @@ export const modelAudioGame: ModelAudioGame = {
     this.isShowAnswer = false;
     this.rightAnswers = [];
     this.wrongAnswers = [];
+    this.serialCorrectAnswer = 0;
+    this.maxSerialCorrectAnswer = 0;
   },
 
   applySettingsNextPage() {
