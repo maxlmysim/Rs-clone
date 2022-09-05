@@ -54,8 +54,8 @@ export interface CountAnswersForGame {
 }
 
 export interface Statistics {
-  'learnedWords': number,
-  'optional': StatisticsOptional,
+  learnedWords: number,
+  optional: StatisticsOptional,
 }
 
 export interface StatisticsOptional {

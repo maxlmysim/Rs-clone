@@ -4,7 +4,7 @@ import { IdPages } from '../../../interface/typeApp';
 import { userInfo } from '../../../authorization/user';
 import { CSSClass, StatisticsText } from '../../../interface/freeText';
 import { StatisticsController } from './statisticsController';
-import { StatisticsOptional } from '../../../interface/server';
+import { StatisticsOptional, Statistics } from '../../../interface/server';
 
 export class StatisticsView {
   public init():HTMLElement {
@@ -24,36 +24,35 @@ export class StatisticsView {
     return wrapper;
   }
 
-  private statisticsPage(data:StatisticsOptional):HTMLElement {
-    console.log(data);
+  private statisticsPage(data:Statistics):HTMLElement {
     const wrapper = createTag('div', CSSClass.statisticsWrapper) as HTMLElement;
     const carDay = createTag('div', CSSClass.statisticsCurDay, 'Статистика по мини-играм') as HTMLElement;
     const canvasCurDay = createTag('canvas', '') as HTMLCanvasElement;
     canvasCurDay.getContext('2d');
-    this.canvasCurDay(canvasCurDay, data);
+    this.canvasCurDay(canvasCurDay, data.optional);
     carDay.append(canvasCurDay);
     const allDay = createTag('div', CSSClass.statisticsAllDay, 'Статистика за день') as HTMLElement;
     const canvasAllDay = createTag('canvas', '') as HTMLCanvasElement;
     canvasAllDay.getContext('2d');
-    this.canvasAllDay(canvasAllDay, data);
+    this.canvasAllDay(canvasAllDay, data.optional, data.learnedWords);
     allDay.append(canvasAllDay);
     const timeForDay = createTag(
       'div',
       CSSClass.statisticsTimeForDay,
-      'Статистика изученных слов по дням',
+      'Статистика новых слов по дням',
     ) as HTMLElement;
     const canvasTimeForDay = createTag('canvas', '') as HTMLCanvasElement;
     canvasTimeForDay.getContext('2d');
-    this.canvasTimeForDay(canvasTimeForDay, data);
+    this.canvasTimeForDay(canvasTimeForDay, data.optional);
     timeForDay.append(canvasTimeForDay);
     const timeForAll = createTag(
       'div',
       CSSClass.statisticsTimeForAll,
-      'Статистика увеличения изученных слов по дням',
+      'Статистика увеличения новых слов по дням',
     ) as HTMLElement;
     const canvasTimeForAll = createTag('canvas', '') as HTMLCanvasElement;
     canvasTimeForAll.getContext('2d');
-    this.canvasTimeForAll(canvasTimeForAll, data);
+    this.canvasTimeForAll(canvasTimeForAll, data.optional);
     timeForAll.append(canvasTimeForAll);
     wrapper.append(carDay, allDay, timeForDay, timeForAll);
     return wrapper;
@@ -62,7 +61,20 @@ export class StatisticsView {
   private canvasCurDay(canvas:HTMLCanvasElement, data:StatisticsOptional):void {
     const curDay = Object.keys(data)[Object.keys(data).length - 1];
     const games = Object.keys(data[curDay]).filter((el) => (el === 'gameSprint') || (el === 'gameAudio'));
-    const gameSets:Array<number> = Object.values(data[curDay][games[0]]);
+    const one = data[curDay][games[0]];
+    const two = data[curDay][games[1]];
+    let gameSets:Array<number> | null = null;
+    let gameSetsTwo:Array<number> | null = null;
+    if (one) gameSets = Object.values(one);
+    if (two) gameSetsTwo = Object.values(two);
+    let gameSprint = [0, 0, 0];
+    let gameAudio = [0, 0, 0];
+    if (gameSets) {
+      gameSprint = [gameSets[0], Math.floor((gameSets[1] / gameSets[0]) * 100), gameSets[3]];
+    }
+    if (gameSetsTwo) {
+      gameAudio = [gameSetsTwo[0], Math.floor((gameSetsTwo[1] / gameSetsTwo[0]) * 100), gameSetsTwo[3]];
+    }
     //  eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mychart = new Chart(canvas, {
       type: 'bar',
@@ -70,7 +82,7 @@ export class StatisticsView {
         labels: games,
         datasets: [{
           label: 'изученные слова',
-          data: [gameSets[0]],
+          data: [gameSprint[0], gameAudio[0]],
           backgroundColor: [
             'rgba(80, 150, 132, 0.5)',
           ],
@@ -81,7 +93,7 @@ export class StatisticsView {
         },
         {
           label: 'правильные, %',
-          data: [Math.floor((gameSets[1] / gameSets[0]) * 100)],
+          data: [gameSprint[1], gameAudio[1]],
           backgroundColor: [
             'rgba(230, 159, 64, 0.5)',
           ],
@@ -92,7 +104,7 @@ export class StatisticsView {
         },
         {
           label: 'серия правильных ответов',
-          data: [gameSets[3]],
+          data: [gameSprint[2], gameAudio[2]],
           backgroundColor: [
             'rgba(190, 60, 64, 0.5)',
           ],
@@ -112,10 +124,9 @@ export class StatisticsView {
     });
   }
 
-  private canvasAllDay(canvas:HTMLCanvasElement, data:StatisticsOptional):void {
+  private canvasAllDay(canvas:HTMLCanvasElement, data:StatisticsOptional, learnWord: number):void {
     const curDay = Object.keys(data)[Object.keys(data).length - 1];
     const prosent = Math.trunc((data[curDay].rightAnswers / data[curDay].countNewWords) * 100);
-    console.log(data);
     //  eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mychart = new Chart(canvas, {
       type: 'line',
@@ -136,7 +147,7 @@ export class StatisticsView {
         },
         {
           label: 'Количество изученных слов',
-          data: [0, data[curDay].rightAnswers],
+          data: [0, learnWord],
           backgroundColor: [
             'rgba(54, 162, 235, 1)',
             'rgba(54, 162, 235, 1)',
@@ -178,7 +189,6 @@ export class StatisticsView {
       return `${d[0]}.${+d[1] + 1}.2022`;
     });
     const rightAnsver = days.map((el) => data[el].rightAnswers);
-    console.log(dates);
     //  eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mychart = new Chart(canvas, {
       type: 'line',

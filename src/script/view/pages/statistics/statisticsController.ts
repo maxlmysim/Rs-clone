@@ -1,5 +1,5 @@
 import { Server } from '../../../server/server';
-import { StatisticsOptional } from '../../../interface/server';
+import { Statistics } from '../../../interface/server';
 
 export class StatisticsController {
   private server: Server;
@@ -8,10 +8,10 @@ export class StatisticsController {
     this.server = new Server();
   }
 
-  public async init():Promise<StatisticsOptional> {
+  public async init():Promise<Statistics> {
     const data = await this.server.getStatistics()
       .then((res) => res.json())
-      .then((obj) => obj.optional);
+      .then((obj) => obj);
     return data;
   }
 }
