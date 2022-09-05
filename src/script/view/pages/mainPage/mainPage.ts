@@ -13,7 +13,8 @@ export class MainPage {
       const aboutProjectBtn = this.createBtn(NamePages.aboutProject, IdPages.aboutProject);
       wrapper.append(title, text, loginBtn, aboutProjectBtn);
     } else {
-      const text = createTag('p', CSSClass.mainPageText, MainPageText.mainPageTextForUser + userInfo.name);
+      const firstName = userInfo.name[0].toUpperCase() + userInfo.name.slice(1);
+      const text = createTag('p', CSSClass.mainPageText, MainPageText.mainPageTextForUser + firstName);
       const aboutProjectBtn = this.createBtn(NamePages.aboutProject, IdPages.aboutProject);
       wrapper.append(title, text, aboutProjectBtn);
     }

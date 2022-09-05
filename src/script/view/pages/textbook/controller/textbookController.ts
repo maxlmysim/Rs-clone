@@ -49,7 +49,7 @@ export class TextbookController {
   public async setHardWord(word: Word): Promise<void> {
     let wordSet: WordSettings;
     try {
-      const response = (await this.server.getUserAggregatedWord(word.id) as unknown) as UserAllWords;
+      const response = (await this.server.getUserAggregatedWord(word.id, '') as unknown) as UserAllWords;
       wordSet = {
         difficulty: 'hard',
         optional: response.optional as WordOptions,

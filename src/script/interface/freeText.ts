@@ -139,6 +139,13 @@ export enum CSSClass {
   aboutTeamItemJob = 'about-team-item__job',
   aboutTeamItemList = 'about-team-item__list',
   aboutTeamItemListItem = 'about-team-item__list__item',
+  statisticsNoLogin = 'statistics-nologin',
+  statisticsTitle = 'statistics-title',
+  statisticsWrapper = 'statistics-wrapper',
+  statisticsCurDay = 'canvas-cur-day',
+  statisticsAllDay = 'canvas-all-day',
+  statisticsTimeForDay = 'canvas-time-for-day',
+  statisticsTimeForAll = 'canvas-time-for-all',
 }
 
 export enum AuthorizationText {
@@ -219,4 +226,9 @@ export enum AboutTeamText {
   ilyaFoto = '<img src = "./assets/img/IlyaMahnach.jpg" alt = "IlyaFoto">',
   aboutTeamTitle = 'Над проектом работали:',
   job = 'Разработчик',
+}
+
+export enum StatisticsText {
+  noLogin = `К сожалению, данная страница не доступна.
+  Необходимо авторизоваться!`,
 }

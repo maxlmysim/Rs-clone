@@ -12,6 +12,7 @@ export class GamesPage {
 
   public init():HTMLElement {
     const wrapper = createTag('div', CSSClass.gamesPage);
+    wrapper.style.backgroundImage = 'url(./assets/img/gamePageBackground.jpg)';
 
     const audioGame = this.createIcoGame(
       AudioGameText.name,
