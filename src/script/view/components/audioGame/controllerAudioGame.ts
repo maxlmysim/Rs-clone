@@ -38,8 +38,8 @@ export class ControllerAudioGame {
     if (list) {
       listWords = [...list];
     } else {
-      // const randomPage = Math.floor(Math.random() * 30);
-      listWords = await this.server.getAllWords(this.model.difficulty - 1, 1);
+      const randomPage = Math.floor(Math.random() * 30);
+      listWords = await this.server.getAllWords(this.model.difficulty - 1, randomPage);
     }
 
     shuffleWordList(listWords);
