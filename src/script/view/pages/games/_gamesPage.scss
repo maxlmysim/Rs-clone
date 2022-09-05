@@ -1,0 +1,34 @@
+.games-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 5%;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  gap: 5%;
+
+  .games-page__game {
+    flex-grow: 0;
+    min-width: 300px;
+    min-height: 200px;
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    text-transform: capitalize;
+    color: white;
+    cursor: pointer;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: all 0.2s ease;
+    border-radius: 40px;
+
+    &:hover {
+      box-shadow: 0 5px 24px 25px rgb(255 99 71 / 50%);
+    }
+  }
+
+}
+

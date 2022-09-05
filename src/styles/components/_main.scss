@@ -1,0 +1,43 @@
+
+.main {
+    background-color: azure;
+    flex: 1 1 auto;
+    overflow: auto;
+    
+}
+.main-wrapper{
+    display: flex;
+    position: relative;
+    height: 100%;
+    .nav-items{
+        padding-top: 5rem;
+        padding-left: 0.5rem;
+        background-color: white;
+        width: 18rem;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        font-size: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .main-container{
+        margin-left: 6rem;
+        position: relative;
+        z-index: 2;
+        border-left: 1px solid $borderside;
+        flex: 1 1 auto;
+        background-image: url('./assets/img/rslang\ backgroung.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        overflow: auto;
+        @extend%transition;
+    }
+    .main-container-shift{
+        margin-left: 18rem;
+    }
+}

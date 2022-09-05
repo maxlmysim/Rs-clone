@@ -1,0 +1,33 @@
+// abstracts
+@import "./styles/abstracts/variables";
+@import "./styles/abstracts/mixins";
+@import "./styles/abstracts/placeholders";
+
+//base
+@import "./styles/base/reset";
+@import "./styles/base/base";
+@import "./styles/base/fonts";
+
+//components
+@import "./styles/components/buttons";
+@import "styles/components/button-answer";
+@import "./styles/components/footer";
+@import "./styles/components/header";
+@import "./styles/components/navigation";
+
+//layout
+
+//pages
+@import "./styles/components/footer";
+@import "./script/view/pages/mainPage/mainPages";
+@import "./script/view/pages/textbook/Textbook.scss";
+@import "./script/view/pages/mainPage/aboutProject";
+@import "./script/view/pages/aboutTeam/aboutTeam";
+@import "./script/view/pages/statistics/statistics";
+
+
+@import "./styles/components/main";
+@import "./script/authorization/authorization";
+@import "./script/view/pages/games/gamesPage";
+@import "script/view/components/audioGame/audioGame";
+@import "script/view/components/sprintGame/sprintGame";
