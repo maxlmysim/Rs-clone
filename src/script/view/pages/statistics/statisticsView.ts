@@ -60,7 +60,7 @@ export class StatisticsView {
 
   private canvasCurDay(canvas:HTMLCanvasElement, data:StatisticsOptional):void {
     const curDay = Object.keys(data)[Object.keys(data).length - 1];
-    const games = Object.keys(data[curDay]).filter((el) => (el === 'gameSprint') || (el === 'gameAudio'));
+    const games = Object.keys(data[curDay]).filter((el) => (el === 'gameSprint') || (el === 'gameAudioCall'));
     const one = data[curDay][games[0]];
     const two = data[curDay][games[1]];
     let gameSets:Array<number> | null = null;
@@ -81,7 +81,7 @@ export class StatisticsView {
       data: {
         labels: games,
         datasets: [{
-          label: 'изученные слова',
+          label: 'новые слова',
           data: [gameSprint[0], gameAudio[0]],
           backgroundColor: [
             'rgba(80, 150, 132, 0.5)',
@@ -195,7 +195,7 @@ export class StatisticsView {
       data: {
         labels: dates,
         datasets: [{
-          label: 'Количество изученных слов по дням',
+          label: 'Количество новых слов по дням',
           backgroundColor: [
             'rgba(255, 99, 132, 0.7)',
           ],
@@ -222,7 +222,7 @@ export class StatisticsView {
       const d = el.split('.');
       return `${d[0]}.${+d[1] + 1}.2022`;
     });
-    const rightAnsver = days.map((el) => data[el].rightAnswers);
+    const rightAnsver = days.map((el) => data[el].countNewWords);
     const upperRightAnsver = rightAnsver.map((n, i, a) => a.reduce((acc, m, j) => acc + m * (j <= i), 0));
     //  eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mychart = new Chart(canvas, {
@@ -230,7 +230,7 @@ export class StatisticsView {
       data: {
         labels: dates,
         datasets: [{
-          label: 'Увеличение изученных слов по дням',
+          label: 'Увеличение новых слов по дням',
           backgroundColor: [
             'rgba(38, 5, 252, 1)',
           ],

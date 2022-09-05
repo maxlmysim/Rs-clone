@@ -220,7 +220,8 @@ export enum AboutTeamText {
   anatoliFoto = '<img src = "./assets/img/AnatoliHaralchuk.jpg" alt = "AnatoliFoto">',
   ilyaFoto = '<img src = "./assets/img/IlyaMahnach.jpg" alt = "IlyaFoto">',
   aboutTeamTitle = 'Над проектом работали:',
-  job = 'Разработчик',
+  jobDev = 'Разработчик',
+  jobTeamLead = 'Тим лид',
 }
 
 export enum StatisticsText {
