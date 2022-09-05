@@ -60,7 +60,7 @@ export class ControllerSprintGame {
       resetKeyDownListener();
       this.view.showResults();
       resetKeyDownListener();
-      this.sendStatistics.createStatisticDay();
+      this.sendStatistics.createStatistic();
       return;
     }
 

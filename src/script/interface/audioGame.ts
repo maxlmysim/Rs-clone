@@ -11,6 +11,8 @@ export interface ModelAudioGame {
   'isShowAnswer': boolean,
   'rightAnswers': Word[],
   'wrongAnswers': Word[],
+  serialCorrectAnswer: number,
+  maxSerialCorrectAnswer: number,
   'reset': ()=>void,
   'resetAll': ()=>void,
   'applySettingsNextPage': ()=>void,
