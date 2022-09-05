@@ -6,12 +6,18 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import { ArrowIosIconStyle, InsertDriveFileOutlinedIconStyle } from '../theme';
-import { PagesLength } from '../../../../../interface/textbook';
+import { IPageButtonsGroup } from '../../../../../interface/textbook';
 import { CSSClass } from '../../../../../interface/freeText';
+import { textbookLocation } from '../../Textbook';
 
-export default function PageButtonsGroup({ pagesLength }: PagesLength): React.ReactElement {
+export default function PageButtonsGroup(
+  {
+    pagesLength, updateWords, buttonText, setButtonText,
+  }
+  : IPageButtonsGroup,
+):
+  React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [buttonText, setButtonText] = React.useState<string>('Страница 1');
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
@@ -21,12 +27,28 @@ export default function PageButtonsGroup({ pagesLength }: PagesLength): React.Re
   const handleClose = (event: React.MouseEvent<HTMLElement>): void => {
     if (event.currentTarget.className.includes('page-')) {
       const pageNum = (Number(event.currentTarget.innerText.match(/\d+/g)) - 1);
-      // updateWords(groupNum, 0);
-      console.log(pageNum);
+      updateWords(textbookLocation.group, pageNum);
+      console.log(textbookLocation);
       setButtonText(event.currentTarget.innerText);
     }
     setAnchorEl(null);
   };
+
+  const changePage = (event: React.MouseEvent<HTMLElement>): void => {
+    const pageNum = textbookLocation.page;
+
+    if (event.currentTarget.className.includes('textbook-prev-page')
+        && pageNum > 0) {
+      updateWords(textbookLocation.group, pageNum - 1);
+      setButtonText(`Страница ${pageNum}`);
+    }
+    if (event.currentTarget.className.includes('textbook-next-page')
+        && pageNum < (pagesLength - 1)) {
+      updateWords(textbookLocation.group, pageNum + 1);
+      setButtonText(`Страница ${pageNum + 2}`);
+    }
+  };
+
   return (
     <ButtonGroup
       variant="contained"
@@ -34,7 +56,10 @@ export default function PageButtonsGroup({ pagesLength }: PagesLength): React.Re
       color="inherit"
       aria-label="outlined primary button group"
     >
-      <Button>
+      <Button
+        className="textbook-prev-page"
+        onClick={changePage}
+      >
         <ArrowBackIosNewIcon sx={ArrowIosIconStyle} />
       </Button>
       <Button
@@ -69,7 +94,10 @@ export default function PageButtonsGroup({ pagesLength }: PagesLength): React.Re
         }
 
       </Menu>
-      <Button>
+      <Button
+        className="textbook-next-page"
+        onClick={changePage}
+      >
         <ArrowForwardIosIcon sx={ArrowIosIconStyle} />
       </Button>
     </ButtonGroup>

@@ -6,10 +6,10 @@ import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlin
 import { CSSClass } from '../../../../../interface/freeText';
 import { ImportContactsOutlinedIconStyle } from '../theme';
 import {
-  MenuItemLength, TColors,
+  IMenuButton, TColors,
 } from '../../../../../interface/textbook';
 
-export default function MenuButton({ itemsLength, updateWords }: MenuItemLength): React.ReactElement {
+export default function MenuButton({ itemsLength, updateWords, setPageButtonText }: IMenuButton): React.ReactElement {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [buttonText, setButtonText] = React.useState<string>('Раздел 1');
   const open = Boolean(anchorEl);
@@ -23,6 +23,7 @@ export default function MenuButton({ itemsLength, updateWords }: MenuItemLength)
     if (event.currentTarget.className.includes('MuiMenuItem-root')) {
       const groupNum = (Number(event.currentTarget.innerText.match(/[0-9]/g)) - 1);
       updateWords(groupNum, 0);
+      setPageButtonText('Страница 1');
       setButtonText(event.currentTarget.innerText);
     }
     setAnchorEl(null);

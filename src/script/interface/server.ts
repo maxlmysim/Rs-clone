@@ -12,7 +12,8 @@ export interface Word {
   'transcription': string,
   'wordTranslate': string,
   'textMeaningTranslate': string,
-  'textExampleTranslate': string
+  'textExampleTranslate': string,
+  '_id'?: string,
 }
 
 export interface User {
@@ -46,7 +47,7 @@ export interface WordSettings {
   'optional': WordOptions;
 }
 
-interface WordOptions {
+export interface WordOptions {
   isWas: boolean;
   isDelete: boolean;
   isLearned: boolean;
