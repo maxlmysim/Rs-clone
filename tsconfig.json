@@ -7,11 +7,16 @@
       "dom",
       "dom.iterable"
     ],
-    "module": "commonjs",
+    "module": "CommonJS",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "custom_typings/"
+    ]
   }
 }

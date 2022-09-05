@@ -1,0 +1,26 @@
+.footer__rsschool{
+    display: flex;
+    align-items: center;
+    & a{
+        width: 7rem;
+    }
+    margin-left: 0.5rem;
+    & .link:hover{
+        transform: scale(1.1);
+        @extend%transition;
+    }
+}
+.footer__github{
+    display: flex;
+    column-gap: 2rem;
+    align-items: center;
+    color: grey;
+    & .link:hover{
+        color: rgb(0, 0, 0);
+        @extend%transition;
+    }
+}
+.footer__year{
+    margin: auto 0.5rem;
+    font-family: 'Dancing Script', cursive;
+}

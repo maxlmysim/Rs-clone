@@ -5,7 +5,7 @@
   },
   "extends": [
     "airbnb",
-    "airbnb-typescript/base",
+    "airbnb-typescript",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
@@ -33,12 +33,15 @@
       }
     ],
     "no-console": "off",
+    "linebreak-style": "off",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/no-duplicate-enum-values": "warn",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "react/jsx-filename-extension": [ "warn", {"extensions": [".tsx"]} ],
+    "react/no-danger": "off"
   }
 }

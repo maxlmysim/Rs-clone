@@ -1,6 +1,7 @@
+/* eslint-disable */
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -15,7 +16,7 @@ const babelOptions = (presets) => {
   };
 
   if (presets) {
-        opts.presets.push(presets);
+    opts.presets.push(presets);
   }
 
   return opts;
@@ -44,7 +45,7 @@ const plugins = () => {
 
   if (isDevMode) {
     opts.push(new ESLintPlugin({
-      extensions: ['js', 'ts', 'jsx'],
+      extensions: ['js', 'ts', 'tsx', 'jsx'],
     }));
   }
   return opts;
@@ -61,10 +62,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: ['.ts', '...'],
+    extensions: ['.ts', '.tsx', '...'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+    modules: [path.resolve(__dirname, './src'), 'node_modules']
   },
   optimization: {
     minimizer: [
@@ -88,8 +90,13 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico|mp3)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.mp3$/,
+        include: path.resolve(__dirname, 'node_modules'),
+        loader: 'file-loader'
       },
       {
         test: /\.xml$/,
@@ -112,10 +119,13 @@ module.exports = {
         },
       },
       {
-        test: /\.jsx$/,
+        test: /\.(ts|js)x$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+          },
         },
       },
     ],

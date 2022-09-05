@@ -1,0 +1,22 @@
+.games-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .games-page__game {
+    flex-grow: 0;
+    max-width: 50%;
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 200px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+}
+

@@ -1,0 +1,39 @@
+    .close-burger{
+      position: absolute;
+      top: 0.5rem;
+      left: 13rem;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      & img{
+        width: 3rem;
+      }
+      &:hover {
+        background-color:  rgb(221, 221, 221);
+      }
+    }
+    .nav-item{
+      display: flex;
+      position: relative;
+      align-items: center;
+      flex-wrap: nowrap;
+      height: 4rem;
+      padding: 0.5rem;
+      column-gap: 0.5rem;
+      overflow: hidden;
+      .item__icon{
+        width: 4rem;
+        padding: 0.5rem;
+      }
+      .item__name{
+        flex: 1 1 auto;
+        margin: auto 0;
+        margin-left: 1.5rem;
+      }
+      &:hover{
+        box-shadow:inset 0 0 1rem 0rem $bgcolor;
+      }
+    }

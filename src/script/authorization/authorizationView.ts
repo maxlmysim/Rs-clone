@@ -1,21 +1,24 @@
 import { createInput, createTag } from '../helper/helper';
-import { CSSClass } from '../config/freeText';
-
+import { CSSClass } from '../interface/freeText';
 import { AuthorizationController } from './authorizationController';
 
 export class AuthorizationView {
-  private mainContent: HTMLElement;
-
   private controller: AuthorizationController;
 
   public constructor() {
-    this.mainContent = document.querySelector('body') as HTMLElement;
     this.controller = new AuthorizationController();
   }
 
-  public init(wrapper = this.signInView()): void {
-    this.mainContent.innerHTML = '';
-    this.mainContent.append(wrapper);
+  public init(elem: HTMLElement = this.signInView()): HTMLElement {
+    const authWrapper = document.querySelector(`.${CSSClass.authorization}`);
+
+    if (authWrapper) {
+      authWrapper.innerHTML = '';
+      authWrapper.append(elem);
+      return elem;
+    }
+
+    return elem;
   }
 
   public signInView(): HTMLElement {
@@ -41,7 +44,7 @@ export class AuthorizationView {
       this.controller.singInUser(inputEmail, inputPassword);
     };
     const registerButton = createTag('button', CSSClass.authorizationButton, 'регистрация');
-    registerButton.onclick = (): void => this.init(this.registerView());
+    registerButton.onclick = (): HTMLElement => this.init(this.registerView());
 
     wrapper.append(title, inputEmail, inputPassword, signInButton, registerButton);
     return wrapper;
@@ -69,7 +72,7 @@ export class AuthorizationView {
       this.controller.createNewUser(inputName, inputEmail, inputPassword);
     };
     const signInButton = createTag('button', CSSClass.authorizationButton, 'у меня уже есть аккаунт');
-    signInButton.onclick = (): void => this.init(this.signInView());
+    signInButton.onclick = (): HTMLElement => this.init(this.signInView());
     wrapper.append(title, inputName, inputEmail, inputPassword, registerButton, signInButton);
     return wrapper;
   }
