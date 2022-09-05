@@ -128,7 +128,7 @@ export function getRandomItemFromArray(array: Word[], words: Set<Word>): Word {
 }
 
 export function resetKeyDownListener():void {
-  document.body.onkeydown = ():void => {};
+  document.body.onkeydown = () :void => {};
 }
 
 export function getRandomIndexFromArray(length:number, exclude: number):number {
